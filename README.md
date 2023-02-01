@@ -4,7 +4,7 @@ This project is a monorepo that combines the server developed with Node.js/Expre
 
 This application was initially developed with 4 other people as part of my academic program at O'clock. After completing this project, I wanted to improve and redo it from scratch to further develop my skills as a front-end and back-end developer.
 
-I would like to warmly thank the members of the initial team for their valuable contribution to this project. You can find the old version of the application here: [Link to old project].
+I would like to warmly thank the members of the initial team for their valuable contribution to the previous project. You can find the old version of the application here: [https://github.com/LoganWillaumez/Circles].
 
 This Github repository presents this refactored version of the application, which includes additional features and a different approach of the project.
 
