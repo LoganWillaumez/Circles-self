@@ -44,7 +44,10 @@ const authSchema = {
         .string()
         .pattern(/^[a-zA-Z0-9]{3,30}$/)
         .required(),
-      repeat_password: Joi.ref('password'),
+      repeat_password: Joi
+        .string()
+        .required()
+        .valid(Joi.ref('password')),
       birthdate: Joi
         .date()
         .format('DD-MM-YYYY')
