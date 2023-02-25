@@ -30,11 +30,13 @@ importers:
       typescript: ^4.9.3
       vite: ^4.0.0
       vitest: ^0.25.3
+      zod: ^3.20.6
     dependencies:
       '@fortawesome/free-solid-svg-icons': 6.2.1
       axios: 1.2.6
       sass: 1.57.1
       svelte-fa: 3.0.3
+      zod: 3.20.6
     devDependencies:
       '@playwright/test': 1.30.0
       '@sveltejs/adapter-auto': 1.0.2_@sveltejs+kit@1.3.6
@@ -6188,3 +6190,7 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
     dev: true
+
+  /zod/3.20.6:
+    resolution: {integrity: sha512-oyu0m54SGCtzh6EClBVqDDlAYRz4jrVtKwQ7ZnsEmMI9HnzuZFj8QFwAY1M5uniIYACdGvv0PBWPF2kO0aNofA==}
+    dev: false

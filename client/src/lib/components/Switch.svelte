@@ -44,7 +44,7 @@
   import Fa from 'svelte-fa';
   import { get } from 'svelte/store';
   import { faSun, faCircle, faMoon } from '@fortawesome/free-solid-svg-icons';
-  import { theme } from '../lib/stores/theme';
+  import { theme } from '$lib/stores/theme';
   const changeTheme = () => {
     theme.set(get(theme) === 'light' ? 'dark' : 'light');
   }

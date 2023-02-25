@@ -17,6 +17,10 @@
             background: transparent;
             border: 1px solid #4B5EE4;
         }
+        &.secondary{
+            background: var(--fill);
+            color: var(--text);
+        }
         &:hover{
             &::after{
                 content: "";
@@ -33,9 +37,19 @@
 
 <script lang="ts">
     export let text = 'Button';
-    export let type : 'fill' | 'outline' = 'fill';
+    export let visual : 'fill' | 'outline' = 'fill';
+    export let type: 'submit' | 'button' | 'reset' = 'button';
+    export let variant : 'principal' | 'secondary' = 'principal';
+    export let href = '';
+    export let formaction: string = '';
+    export let className: string = '';
+    export { className as class };
 </script>
 
-<button class="btn {type}">
-    {text}
-</button>
+{#if href}
+    <a class="btn {visual} {className}" class:secondary="{variant === 'secondary'}" data-sveltekit-reload href="/{href}">{text}</a>
+{:else}
+    <button formaction={formaction} type="{type}" class="btn {visual} {className}" class:secondary="{variant === 'secondary'}">
+        {text}
+    </button>
+{/if}

@@ -2,7 +2,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-button{
+button, a{
     all: unset;
 }
 
@@ -17,4 +17,9 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box !important;
+}
+
+h1{
+    font-weight: 700;
+    font-size: 1.5rem;
 }
