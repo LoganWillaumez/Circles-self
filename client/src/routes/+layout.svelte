@@ -1,5 +1,5 @@
 <script>
-	import Switch from '../components/Switch.svelte';
+	import Switch from '../lib/components/Switch.svelte';
     import { theme } from '$lib/stores/theme';
     import '$lib/styles/main.scss';
 </script>
@@ -9,7 +9,7 @@
         width: 100vw;
         height: 100vh;
         position: relative;
-        padding: 40px 20px 40px 20px;
+        padding: 80px 20px 40px 20px;
     }
 </style>
 
