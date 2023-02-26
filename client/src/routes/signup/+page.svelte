@@ -26,8 +26,22 @@
     import Card from '$lib/components/Card.svelte';
     import { enhance } from '$app/forms';
     import type {ActionData} from './$types';
+	import type { Options } from '../../models/input';
     export let form: ActionData;
-
+    const options: Options[] = [
+        {
+            label: "Male",
+            value: "male",
+        },
+        {
+            label: "Female",
+            value: "female",
+        },
+        {
+            label: "Other",
+            value: "other",
+        }
+    ];
 </script>
 
 <div class="signup">
@@ -65,11 +79,14 @@
                 errors={form?.errors?.gender ?? ''} 
                 name="gender" 
                 placeholder="Gender"  
+                type='select'
+                options={options}
                 value={form?.data?.gender ?? ''}
                 />
             </div>
             <div>
                 <Input 
+                value={form?.data?.password ?? ''}
                 errors={form?.errors?.password ?? ''} 
                 name="password" 
                 placeholder="Password" 
@@ -79,6 +96,7 @@
             <div>
                 <Input 
                 errors={form?.errors?.confirmPassword ?? ''} 
+                value={form?.data?.confirmPassword ?? ''}
                 name="confirmPassword" 
                 placeholder="Confirm Password" 
                 type='password'

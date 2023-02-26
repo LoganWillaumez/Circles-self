@@ -8,7 +8,7 @@
             &.error {
                 border: 1px solid red;
             }
-            input {
+            input, select {
                 background: var(--fill);
                width: 100%;
                height: auto;
@@ -40,13 +40,17 @@
 </style>
 
 <script lang="ts">
+	import type { Options } from "../../models/input";
+
+
     export let placeholder: string;
     export let name: string;
     export let required = false;
     export let type = 'text';
     export let width = '100%';
     export let className: string;
-    export let value = '';
+    export let value: '';
+    export let options: Options[] = [];
     export let errors = '';
     export { className as class };
 
@@ -57,10 +61,23 @@
 </script>
 
 
+{#if type !== 'select'}
 <div class="input-container {className}" class:error="{errors}" style="width: {width};">
     <input bind:value="{value}" id={'input-'+name} name={name} use:typeAction {required} placeholder=" ">
     <label for={'input-'+name}>{placeholder}</label>
 </div>
+{:else}
+<div class="input-container {className}" class:error="{errors}" style="width: {width};">
+    <select bind:value="{value}" name={name} id={'input-'+name}>
+        <option value="" disabled selected hidden>{placeholder}</option>
+        {#each options as option}
+        {#if typeof option === 'object' && 'value' in option && option.value}
+            <option value={option.value}>{option.label}</option>
+        {/if}
+        {/each} 
+    </select>
+</div>
+{/if}
 {#if errors}
     <div class=" flex flex-col gap-0">
         {#each errors as error}
