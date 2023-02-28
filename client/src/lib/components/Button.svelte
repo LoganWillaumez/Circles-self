@@ -15,7 +15,9 @@
         }
         &.outline{
             background: transparent;
+            outline-style: none;
             border: 1px solid #4B5EE4;
+            color: var(--text)
         }
         &.secondary{
             background: var(--fill);
@@ -43,13 +45,14 @@
     export let href = '';
     export let formaction: string = '';
     export let className: string = '';
+    export let onClick: () => void = () => {};
     export { className as class };
 </script>
 
 {#if href}
     <a class="btn {visual} {className}" class:secondary="{variant === 'secondary'}" data-sveltekit-reload href="/{href}">{text}</a>
 {:else}
-    <button formaction={formaction} type="{type}" class="btn {visual} {className}" class:secondary="{variant === 'secondary'}">
+    <button formaction={formaction} type="{type}" class="btn {visual} {className}" class:secondary="{variant === 'secondary'}" on:click={onClick}>
         {text}
     </button>
 {/if}
