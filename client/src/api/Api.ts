@@ -15,7 +15,7 @@ const axiosAPI = axios.create({
         data: request,
         headers
       });
-      return await Promise.resolve(res.data);
+      return await Promise.resolve({status: res.status, data: res.data});
     } catch (err: any) {
       return await Promise.reject(err);
     }

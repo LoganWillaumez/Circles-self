@@ -1,7 +1,12 @@
 <script>
+// @ts-nocheck
+
 	import Switch from '../lib/components/Switch.svelte';
     import { theme } from '$lib/stores/theme';
     import '$lib/styles/main.scss';
+	import Loader from '$lib/components/Loader/Loader.svelte';
+	import { browser } from '$app/environment';
+	import { loader } from '$lib/stores/loader';
 </script>
 
 <style global lang="scss">
@@ -19,6 +24,9 @@
 </svelte:head>
 
 <main class="main-container">
-    <Switch />
-    <slot/>
+    {#if browser}
+        <Loader/>
+        <Switch />
+        <slot/>
+    {/if}
 </main>

@@ -24,9 +24,12 @@
 	import Divider from '$lib/components/Divider.svelte';
     import Input from '$lib/components/Input.svelte';
     import Card from '$lib/components/Card.svelte';
-    import { enhance } from '$app/forms';
+    import { applyAction, enhance } from '$app/forms';
     import type {ActionData} from './$types';
 	import type { Options } from '../../models/input';
+	import {setLoader} from '$lib/stores/loader';
+	import type { SubmitFunction } from '@sveltejs/kit';
+	import { goto } from '$app/navigation';
     export let form: ActionData;
     const options: Options[] = [
         {
@@ -42,12 +45,28 @@
             value: "other",
         }
     ];
+
+    const signup: SubmitFunction = ({ form, data, action, cancel }) => {
+        setLoader(true)
+    return async ({ result, update }) => {
+        await applyAction(result);
+        const {status, data} = result.data;
+        console.log('🚀 ~ result:', result.data);
+        if(status !== 201){
+            form.reset();
+            setLoader(true, { message: data.message, type: 'error' })
+            return;
+        } else {
+            goto('/email-verification')
+        }
+    }
+  }
 </script>
 
 <div class="signup">
     <div class="scroll_wrapper">
         <h1 class="mb-5">Register</h1>
-        <form method="POST" use:enhance>
+        <form method="POST" use:enhance={signup}>
             <div>
                 <Input 
                 errors={form?.errors?.email ?? ''} 
@@ -123,6 +142,6 @@
             <Card icon="facebook"/>
             <Card icon="twitter"/>
         </div>
-        <Button class='mb-5' text="Sign in" href="signin"/>
+        <Button class='mb-5' text="Sign in" href='/signin'/>
     </div>
 </div>
