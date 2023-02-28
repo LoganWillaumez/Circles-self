@@ -27,7 +27,7 @@
     import { applyAction, enhance } from '$app/forms';
     import type {ActionData} from './$types';
 	import type { Options } from '../../models/input';
-	import {setLoader} from '$lib/stores/loader';
+	import {resetLoader, setLoader} from '$lib/stores/loader';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { goto } from '$app/navigation';
     export let form: ActionData;
@@ -47,17 +47,19 @@
     ];
 
     const signup: SubmitFunction = ({ form, data, action, cancel }) => {
-        setLoader(true)
     return async ({ result, update }) => {
         await applyAction(result);
-        const {status, data} = result.data;
-        console.log('🚀 ~ result:', result.data);
-        if(status !== 201){
-            form.reset();
-            setLoader(true, { message: data.message, type: 'error' })
-            return;
-        } else {
-            goto('/email-verification')
+        const status = result.data.status || result.status;
+        const {data} = result;
+        if(status !== 400){
+            if(status !== (201) ){
+                form.reset();
+                setLoader(true, { message: data.message, type: 'error' })
+                return;
+            } else {
+                resetLoader();
+                goto('/email-send')
+            }
         }
     }
   }

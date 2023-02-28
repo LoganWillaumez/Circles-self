@@ -14,7 +14,7 @@ export const authentification: Actions = {
         }
         try{
             const response = await API.post("auth/signup", formData);
-            return response;
+            return response; 
         } catch(err: any) {
             return fail(err.response.status, {message: err.response.data.message});
         }
