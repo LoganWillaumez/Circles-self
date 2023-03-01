@@ -30,6 +30,8 @@
 	import {resetLoader, setLoader} from '$lib/stores/loader';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { goto } from '$app/navigation';
+
+    
     export let form: ActionData;
     const options: Options[] = [
         {
@@ -50,7 +52,7 @@
     return async ({ result, update }) => {
         await applyAction(result);
         const status = result.data.status || result.status;
-        const {data} = result;
+        const { data } = result; 
         if(status !== 400){
             if(status !== (201) ){
                 form.reset();
