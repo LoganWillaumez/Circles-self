@@ -1,4 +1,4 @@
-# Circle-self
+# Circles-self
 
 This project is a monorepo that combines the server developed with Node.js/Express and the client developed with Sveltekit. The database is in PSQL and hosted on a virtual machine via Docker.
 
