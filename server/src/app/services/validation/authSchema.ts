@@ -44,12 +44,17 @@ const authSchema = {
         .string()
         .pattern(/^[a-zA-Z0-9]{3,30}$/)
         .required(),
-      repeat_password: Joi.ref('password'),
+      confirmPassword: Joi
+        .string()
+        .required()
+        .valid(Joi.ref('password')),
       birthdate: Joi
         .date()
-        .format('DD-MM-YYYY')
+        .format('YYYY-MM-DD')
         .required(),
-      img: Joi.string().allow(''),
+      img: Joi
+        .string()
+        .allow(''),
     });
   },
 };
