@@ -28,10 +28,17 @@
     import type {ActionData} from './$types';
 	import type { Options } from '../../models/input';
 	import {resetLoader, setLoader} from '$lib/stores/loader';
-	import type { SubmitFunction } from '@sveltejs/kit';
+	import type { ActionResult, SubmitFunction } from '@sveltejs/kit';
 	import { goto } from '$app/navigation';
 
     
+    type ActionExtend = ActionResult & {
+        data?: Partial<{
+            status: number,
+            message: string
+        }>
+    }
+
     export let form: ActionData;
     const options: Options[] = [
         {
@@ -49,14 +56,15 @@
     ];
 
     const signup: SubmitFunction = ({ form, data, action, cancel }) => {
-    return async ({ result, update }) => {
+    return async ({result} : {result: ActionExtend}) => {
+
         await applyAction(result);
-        const status = result.data.status || result.status;
+        const status = result.data?.status  || result.status;
         const { data } = result; 
         if(status !== 400){
             if(status !== (201) ){
                 form.reset();
-                setLoader(true, { message: data.message, type: 'error' })
+               data?.message &&  setLoader(true, { message: data.message, type: 'error' })
                 return;
             } else {
                 resetLoader();
