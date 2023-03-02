@@ -42,17 +42,16 @@
 
 <script>
   import Fa from 'svelte-fa';
-  import { get } from 'svelte/store';
   import { faSun, faCircle, faMoon } from '@fortawesome/free-solid-svg-icons';
-  import { theme } from '../lib/stores/theme';
+  import { setTheme, theme } from '$lib/stores/theme';
   const changeTheme = () => {
-    theme.set(get(theme) === 'light' ? 'dark' : 'light');
+    setTheme($theme === 'light' ? 'dark' : 'light');
   }
 </script>
 
 <button class="switch switch--{$theme}" on:click={changeTheme}>
   <div class="switch-state"> 
-    <Fa icon={get(theme) === 'light' ? faSun : faMoon} size="sm" />
+    <Fa icon={$theme === 'light' ? faSun : faMoon} size="sm" />
   </div>
   <div class="switch-moon"> 
     <Fa icon={faCircle} size="sm" />
