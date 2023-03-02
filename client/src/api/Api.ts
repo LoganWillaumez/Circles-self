@@ -1,25 +1,24 @@
 import axios from "axios";
-
 const axiosAPI = axios.create({
     baseURL : "http://localhost:3000/api/"
   });
 
-  const apiRequest = (method: string, url: string, request: any, auth= false) => {
+  const apiRequest = async (method: string, url: string, request: any, auth = false) => {
     const headers = {
         authorization: auth ? localStorage.getItem('jwt') : ""
     };
     //using the axios instance to perform the request that received from each http method
-    return axiosAPI({
+    try {
+      const res = await axiosAPI({
         method,
         url,
         data: request,
         headers
-      }).then(res => {
-        return Promise.resolve(res.data);
-      })
-      .catch(err => {
-        return Promise.reject(err);
       });
+      return await Promise.resolve({status: res.status, data: res.data});
+    } catch (err: any) {
+      return await Promise.reject(err);
+    }
 };
 
 // function to execute the http get request
@@ -38,7 +37,7 @@ const put = (url: string, request: any) => apiRequest("put", url, request);
 const patch = (url: string, request: any) =>  apiRequest("patch", url, request);
 
 // expose your method to other services or actions
-const API ={
+const API = {
     get,
     delete: deleteRequest,
     post,
