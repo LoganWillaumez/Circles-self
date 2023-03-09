@@ -18,8 +18,13 @@ const transporter = nodemailer.createTransport({
 });
 
 export async function sendMail(options: MailOptions) {
-  const mjml = fs.readFileSync(`./views/emails/${options.template}.mjml`, 'utf-8');
-  const { html } = mjml2html(mjml);
+  const mjml = fs.readFileSync(`${__dirname}/../../public/emails/${options.template}.mjml`, 'utf-8');
+  let mjmlWithVars = mjml;
+  const contextKeys = Object.keys(options.context);
+  contextKeys.forEach((key) => {
+    mjmlWithVars = mjmlWithVars.replace(new RegExp(`{{${key}}}`, 'g'), options.context[key]);
+  });
+  const { html } = mjml2html(mjmlWithVars);
 
   const mailOptions = {
     from: process.env.SMTP_FROM_EMAIL,
@@ -28,5 +33,9 @@ export async function sendMail(options: MailOptions) {
     html,
   };
 
-  await transporter.sendMail(mailOptions);
+  await transporter.sendMail(mailOptions, (error) => {
+    if (error) {
+      throw new Error(error.message);
+    }
+  });
 }

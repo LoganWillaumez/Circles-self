@@ -27,5 +27,21 @@ export const authentification: Actions = {
               return error(500);
             }
         }
+    },
+    activate: async (identifier: string) => {
+      try {
+        const isActivate = await API.post("auth/activate", {identifier});
+        return true;
+      } catch (err) {
+        if(isAxiosError(err)){
+          if(err.response){
+            return fail(err.response.status, {message: err.response.data.message});
+          } else {
+            return error(500);
+          }
+        } else {
+          return error(500);
+        }
+      }
     }
 }
