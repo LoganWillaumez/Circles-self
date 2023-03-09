@@ -1,3 +1,4 @@
+import { differenceInHours, differenceInSeconds } from 'date-fns';
 import client from '../config/db.config';
 import { registerData } from '../../ts/interfaces/customer.interfaces';
 
@@ -45,7 +46,7 @@ const customerDataMapper: any = {
     } = userData;
     const query = {
       text: `INSERT INTO "customer" ("firstname","lastname", "email", "password", "birthdate","img", "gender")
-              VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING "customer".id as customer_id, "customer".firstname, "customer".lastname,"customer".email, "customer".birthdate, "customer".img, "customer".gender`,
+              VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING "customer".id as customer_id, "customer".firstname, "customer".lastname,"customer".email, "customer".birthdate, "customer".img, "customer".gender, "customer".identifier`,
       values: [
         firstname,
         lastname,
@@ -84,7 +85,6 @@ const customerDataMapper: any = {
       } RETURNING *`,
       [...values, id],
     );
-
     if (updatedUser) {
       return updatedUser.rows[0];
     }
@@ -94,6 +94,37 @@ const customerDataMapper: any = {
   async deleteCustomer(id: number) {
     const query = { text: 'DELETE FROM "customer" WHERE "customer".id  = $1', values: [id] };
     return client.query(query);
+  },
+
+  async validUser(identifier: string) {
+    const result = await client.query(
+      'SELECT "customer".email_valid FROM "customer" WHERE "customer".identifier = $1',
+      [identifier],
+    );
+
+    if (!result.rows.length) {
+      return false;
+    }
+
+    const { email_valid: emailValid } = result.rows[0];
+    const currentDateTime = new Date();
+
+    if (differenceInSeconds(currentDateTime, emailValid) < 20) {
+      const updatedCustomer = await client.query(
+        'UPDATE "customer" SET activated_at = $1 WHERE identifier = $2 RETURNING "customer".activated_at',
+        [currentDateTime.toISOString(), identifier],
+      );
+      return updatedCustomer.rows[0].activated_at;
+    }
+    return false;
+  },
+  async reloadEmailValid(id: string) {
+    const currentDateTime = new Date();
+    const updatedCustomer = await client.query(
+      'UPDATE customer SET "customer".email_valid = $1 WHERE id = $2 RETURNING "customer".email_valid',
+      [currentDateTime, id],
+    );
+    return updatedCustomer.rows[0].emailValid;
   },
 };
 
