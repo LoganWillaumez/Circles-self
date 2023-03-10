@@ -5,6 +5,7 @@ import jsonwebtoken, { JwtPayload } from 'jsonwebtoken';
 import { registerData } from '../../ts/interfaces/customer.interfaces';
 import jwbtoken from '../middlewares/jwtMiddleware';
 import customerDataMapper from '../datamapper/customerDatamapper';
+import { sendMail } from '../../services/email';
 
 const authController: any = {
   async signIn(req: Request, res: Response) {
@@ -65,6 +66,14 @@ const authController: any = {
     const createUser = await customerDataMapper.createUser(userData);
 
     if (createUser) {
+      sendMail({
+        to: 'logan.willaumez@gmail.com',
+        subject: 'Circles registration',
+        template: 'signup',
+        context: {
+          linkEmail: `http://127.0.0.1:5173/signup/${createUser.identifier}`,
+        },
+      });
       res.status(201).json({ message: 'Successfuly created' });
     }
   },
@@ -89,6 +98,14 @@ const authController: any = {
     });
   },
 
+  async validUser(req: Request, res: Response) {
+    const validUser = await customerDataMapper.validUser(req.body.identifier);
+    if (validUser) {
+      res.status(204).json({ message: `Customer successfuly activated at ${validUser}` });
+    } else {
+      res.status(410).json({ message: 'emailOutdated' });
+    }
+  },
   logout(req: Request, res: Response) {
     const { cookies } = req;
     if (!cookies.jwt) {
