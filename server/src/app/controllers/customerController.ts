@@ -1,4 +1,6 @@
 import { Request, Response } from 'express';
+import { ErrorCode } from '../../ts/interfaces/errorCode';
+import AppError from '../../utils/AppError';
 import customerDatamapper from '../datamapper/customerDatamapper';
 
 const customerController = {
@@ -18,8 +20,7 @@ const customerController = {
     if (!checkCustomerAfterDelete) {
       res.status(200).json({ message: 'Customer successfully deleted.' });
     } else {
-      res.status(400);
-      throw new Error('User can\'t be deleted');
+      throw new AppError(ErrorCode.CUSTOMER, 'user.cantDelete', 400);
     }
   },
 
@@ -32,8 +33,7 @@ const customerController = {
       delete patchUser.id;
       res.status(200).json({ message: 'Customer successfully patch.', patchUser });
     } else {
-      res.status(400);
-      throw new Error('User can\'t be updated');
+      throw new AppError(ErrorCode.CUSTOMER, 'user.cantUpdate', 400);
     }
   },
 };

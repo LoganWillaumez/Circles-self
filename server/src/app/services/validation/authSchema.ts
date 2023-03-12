@@ -9,11 +9,21 @@ const authSchema = {
       email: Joi
         .string()
         .email({ tlds: { allow: false } })
-        .required(),
+        .required()
+        .messages({
+          'string.string': 'email.string',
+          'string.email': 'email.email',
+          'any.required': 'email.required',
+        }),
       password: Joi
         .string()
         .pattern(/^[a-zA-Z0-9]{3,30}$/)
-        .required(),
+        .required()
+        .messages({
+          'string.string': 'password.string',
+          'string.pattern.base': 'password.pattern',
+          'any.required': 'password.required',
+        }),
     });
   },
   signup() {
@@ -21,40 +31,74 @@ const authSchema = {
       firstname: Joi
         .string()
         .max(20)
-        .required(),
+        .required()
+        .messages({
+          'string.string': 'firstName.string',
+          'string.max': 'firstName.max',
+          'any.required': 'firstName.required',
+        }),
       lastname: Joi
         .string()
         .max(20)
-        .required(),
-      // .messages({
-      //   'string.base': '"lastname" should be a type of \'string\'',
-      //   'string.empty': '"lastname" cannot be an empty field',
-      //   'string.max': '"lastname" should have a maximum length of {#limit}',
-      //   'any.required': '"lastname" is a required field',
-      // }),
+        .required()
+        .messages({
+          'string.string': 'lastname.string',
+          'string.max': 'lastname.max',
+          'any.required': 'lastname.required',
+        }),
       email: Joi
         .string()
         .email({ tlds: { allow: false } })
-        .required(),
+        .required()
+        .messages({
+          'string.string': 'email.string',
+          'string.email': 'email.email',
+          'any.required': 'email.required',
+        }),
       gender: Joi
         .string()
         .valid('male', 'female', 'other')
-        .required(),
+        .required()
+        .messages({
+          'string.string': 'gender.gender',
+          'any.only': 'gender.valid',
+          'any.required': 'gender.required',
+        }),
       password: Joi
         .string()
         .pattern(/^[a-zA-Z0-9]{3,30}$/)
-        .required(),
+        .required()
+        .messages({
+          'string.string': 'password.string',
+          'string.pattern.base': 'password.pattern',
+          'any.required': 'password.required',
+        }),
       confirmPassword: Joi
         .string()
         .required()
-        .valid(Joi.ref('password')),
+        .valid(Joi.ref('password'))
+        .messages({
+          'string.string': 'confirmPassword.string',
+          'string.pattern.base': 'confirmPassword.pattern',
+          'any.required': 'confirmPassword.required',
+        }),
       birthdate: Joi
         .date()
         .format('YYYY-MM-DD')
-        .required(),
+        .required()
+        .messages({
+          'date.base': 'birthDate.date',
+          'date.format': 'birthDate.format',
+          'any.required': 'birthDate.required',
+        }),
       img: Joi
         .string()
-        .allow(''),
+        .pattern(/^data:image\/\w+;base64,/)
+        .allow('')
+        .messages({
+          'string.base': 'img.string',
+          'string.pattern.base': 'ing.base64',
+        }),
     });
   },
 };
