@@ -2,6 +2,9 @@ import { Request, Response } from 'express';
 import sanitizeHtml from 'sanitize-html';
 import eventDatamapper from '../datamapper/eventDatamapper';
 import { EventDatas } from '../../ts/interfaces/event.interface';
+import AppError from '../../utils/AppError';
+import { ErrorCode } from '../../ts/interfaces/errorCode';
+import { wrapMethodsInTryCatch } from '../../utils/tryCatch';
 
 const eventController = {
 
@@ -36,8 +39,7 @@ const eventController = {
     const event = await eventDatamapper.createEvent(eventData);
 
     if (!event) {
-      res.status(400);
-      throw new Error('Circle cannot be created');
+      throw new AppError(ErrorCode.EVENT, 'event.cantCreated', 400);
     }
     res.status(200).json({ message: 'successfully created !' });
   },
@@ -62,8 +64,7 @@ const eventController = {
     if (patchEvent) {
       res.status(200).json({ message: 'Event successfully patch.', patchEvent });
     } else {
-      res.status(400);
-      throw new Error('Event can\'t be updated');
+      throw new AppError(ErrorCode.EVENT, 'event.cantUpdated', 400);
     }
   },
 
@@ -77,10 +78,9 @@ const eventController = {
     if (!checkEventAfterDelete) {
       res.status(200).json({ message: 'Event successfully deleted.' });
     } else {
-      res.status(400);
-      throw new Error('Event can\'t be deleted');
+      throw new AppError(ErrorCode.EVENT, 'event.cantDeleted', 400);
     }
   },
 };
 
-export default eventController;
+export default wrapMethodsInTryCatch(eventController);

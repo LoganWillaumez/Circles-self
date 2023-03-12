@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { ErrorCode } from '../../ts/interfaces/errorCode';
 import AppError from '../../utils/AppError';
+import { wrapMethodsInTryCatch } from '../../utils/tryCatch';
 import customerDatamapper from '../datamapper/customerDatamapper';
 
 const customerController = {
@@ -38,4 +39,4 @@ const customerController = {
   },
 };
 
-export default customerController;
+export default wrapMethodsInTryCatch(customerController);
