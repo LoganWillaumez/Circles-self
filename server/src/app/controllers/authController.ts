@@ -6,6 +6,9 @@ import { registerData } from '../../ts/interfaces/customer.interfaces';
 import jwbtoken from '../middlewares/jwtMiddleware';
 import customerDataMapper from '../datamapper/customerDatamapper';
 import { sendMail } from '../../services/email';
+import { wrapMethodsInTryCatch } from '../../utils/tryCatch';
+import AppError from '../../utils/AppError';
+import { ErrorCode } from '../../ts/interfaces/errorCode';
 
 const authController: any = {
   async signIn(req: Request, res: Response) {
@@ -17,8 +20,7 @@ const authController: any = {
     const checkCustomer = await customerDataMapper.getCustomerByEmail(emailSanitize);
 
     if (!checkCustomer) {
-      res.status(404);
-      throw new Error('Account doesn\'t exist');
+      throw new AppError(ErrorCode.AUTHENTIFICATION, 'account.noExist', 404);
     } else {
       const pass = await bcrypt.compare(passwordSanitize, checkCustomer.password);
 
@@ -32,8 +34,7 @@ const authController: any = {
         });
         res.status(200).json({ accessToken: jwbtoken.generateAccessToken(checkCustomer.id) });
       } else {
-        res.status(401);
-        throw new Error('Invalid credentials');
+        throw new AppError(ErrorCode.AUTHENTIFICATION, 'bad.credentials', 401);
       }
     }
   },
@@ -59,8 +60,7 @@ const authController: any = {
     const checkCustomer = await customerDataMapper.getCustomerByEmail(sanitizeHtml(email));
 
     if (checkCustomer) {
-      res.status(403);
-      throw new Error('Email already exist in Database');
+      throw new AppError(ErrorCode.AUTHENTIFICATION, 'user.alreadyExist', 403);
     }
 
     const createUser = await customerDataMapper.createUser(userData);
@@ -81,16 +81,14 @@ const authController: any = {
   refresh(req: Request, res: Response) {
     const { cookies } = req;
     if (!cookies?.jwt) {
-      res.status(401);
-      throw new Error('Unauthorized');
+      throw new AppError(ErrorCode.AUTHENTIFICATION, 'unauthorized', 401);
     }
 
     const refreshToken = cookies?.jwt;
 
-    jsonwebtoken.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET!, (err: any, payload: any) => {
+    jsonwebtoken.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET!, (err: unknown, payload: unknown) => {
       if (err) {
-        res.status(401);
-        throw new Error('Unauthorized');
+        throw new AppError(ErrorCode.AUTHENTIFICATION, 'unauthorized', 401);
       }
       const { id } = payload as JwtPayload;
 
@@ -120,4 +118,4 @@ const authController: any = {
   },
 };
 
-export default authController;
+export default wrapMethodsInTryCatch(authController);
