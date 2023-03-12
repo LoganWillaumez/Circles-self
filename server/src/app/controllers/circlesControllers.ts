@@ -1,6 +1,9 @@
 import { Request, Response } from 'express';
 import sanitizeHtml from 'sanitize-html';
 import { CircleDatas } from '../../ts/interfaces/circle.interfaces';
+import { ErrorCode } from '../../ts/interfaces/errorCode';
+import AppError from '../../utils/AppError';
+import { wrapMethodsInTryCatch } from '../../utils/tryCatch';
 import circlesDatamapper from '../datamapper/circlesDatamapper';
 
 const circleController = {
@@ -12,8 +15,7 @@ const circleController = {
     const circle = await circlesDatamapper.getCircle(circleId);
 
     if (!user.circles.find((circle: any) => +circle.id === +circleId)) {
-      res.status(401);
-      throw new Error('You dont have access to this circle');
+      throw new AppError(ErrorCode.CIRCLE, 'circle.noAccess', 401);
     }
 
     res.status(200).json(circle);
@@ -35,8 +37,7 @@ const circleController = {
     const circle = await circlesDatamapper.createCircle(user.id, circleData);
 
     if (!circle) {
-      res.status(400);
-      throw new Error('Circle cannot be created');
+      throw new AppError(ErrorCode.CIRCLE, 'circle.cantCreated', 400);
     }
     res.status(200).json({ message: 'successfully created !' });
   },
@@ -59,8 +60,7 @@ const circleController = {
     if (patchCircle) {
       res.status(200).json({ message: 'Circle successfully patch.', patchCircle });
     } else {
-      res.status(400);
-      throw new Error('Circle can\'t be updated');
+      throw new AppError(ErrorCode.CIRCLE, 'circle.cantUpdated', 400);
     }
   },
 
@@ -74,10 +74,9 @@ const circleController = {
     if (!checkCircleAfterDelete) {
       res.status(200).json({ message: 'Circle successfully deleted.' });
     } else {
-      res.status(400);
-      throw new Error('Circle can\'t be deleted');
+      throw new AppError(ErrorCode.CIRCLE, 'circle.cantDeleted', 400);
     }
   },
 };
 
-export default circleController;
+export default wrapMethodsInTryCatch(circleController);
