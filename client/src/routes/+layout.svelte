@@ -10,12 +10,16 @@
 </script>
 
 <style global lang="scss">
-    .main-container{
-        width: 100vw;
-        height: 100vh;
-        position: relative;
-        padding: 80px 20px 40px 20px;
-    }
+       .main-container{
+            width: 100%;
+            height: 100%;
+            position: relative;
+            padding: 80px 20px 40px 20px;
+            display: flex;
+            justify-content: center;
+            max-width: 1500px;
+            flex-wrap: wrap;
+        }
 </style>
 
 <svelte:head>

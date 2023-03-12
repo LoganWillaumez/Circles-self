@@ -10,8 +10,12 @@
         transition: background 200ms ease-in;
         position: relative;
         cursor: pointer;
-        &.fill{
-            background: linear-gradient(180deg, #4B5EE4 0%, #6F97F0 100%);
+        max-width: 350px;
+        &.fill {
+            background: var(--gradient);
+            &:hover{
+                background: var(--gradient-hover)
+            }
         }
         &.outline{
             background: transparent;
@@ -22,17 +26,9 @@
         &.secondary{
             background: var(--fill);
             color: var(--text);
+             &:hover{
+            background: var(--fill-hover);
         }
-        &:hover{
-            &::after{
-                content: "";
-                background: rgba(0, 0, 0, 0.2);
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
-                height: 100%;
-            }
         }
     }
 </style>

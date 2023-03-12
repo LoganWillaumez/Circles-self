@@ -9,21 +9,30 @@
                 border: 1px solid red;
             }
             input, select {
-                background: var(--fill);
+            background: var(--fill);
                width: 100%;
                height: auto;
                 height: 50px;
                border-radius: 40px;
                padding-left: 10px;
+               padding-right: 10px;
                &:focus ~ label {
                     font-size: 0.8rem;
+                    font-weight: 700;
                     top: -20%;
                }
                &:not(:placeholder-shown) ~ label {
-                top: 0%;
-                background-color: white;
+                top: -20%;
                 font-size: 0.8rem;
+                text-transform: capitalize;
+                font-weight: 700;
                 }
+                &:hover{
+                    background-color: var(--fill-hover);
+                }
+            }
+            select{
+                cursor: pointer;
             }
             label {
                 position: absolute;            
