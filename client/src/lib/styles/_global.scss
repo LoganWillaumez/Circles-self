@@ -11,6 +11,10 @@ body {
     background-color: var(--primary-color);
     position:fixed;
     font-family: 'Inter', sans-serif;
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
 }
 
 *, *::before, *::after {
