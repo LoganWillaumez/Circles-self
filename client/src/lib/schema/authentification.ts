@@ -51,5 +51,17 @@ export const authenthificationSchema = {
           message: "The passwords did not match",
           path: ["confirmPassword"],
         });
-      }})
+      }}),
+    loginSchema: z.object({
+        email: z
+        .string()
+        .min(1, { message: 'Required' })
+        .max(64, { message: 'Must be less than 64 characters' })
+        .email({ message: 'Must be a valid email address' }),
+        password: z
+        .string()
+        .min(3, { message: 'Must be more than than 2 characters' })
+        .max(30, { message: 'Must be less than 30 characters' })
+        .trim(),
+    })
 }

@@ -1,4 +1,4 @@
-import { differenceInHours, differenceInSeconds } from 'date-fns';
+import { differenceInHours } from 'date-fns';
 import client from '../config/db.config';
 import { registerData } from '../../ts/interfaces/customer.interfaces';
 
@@ -96,7 +96,25 @@ const customerDataMapper: any = {
     return client.query(query);
   },
 
+  async checkActivatedAtByEmail(email: string) {
+    const query = await client.query('SELECT "customer".activated_at FROM "customer" WHERE "customer".email = $1', [email]);
+    if (query.rows[0].activated_at) {
+      return query.rows[0].activated_at;
+    }
+    return false;
+  },
+  async checkActivatedAtByIdentifier(id: number) {
+    const query = await client.query('SELECT "customer".activated_at FROM "customer" WHERE "customer".identifier = $1', [id]);
+    if (query) {
+      return query.rows[0].activated_at;
+    }
+    return false;
+  },
   async validUser(identifier: string) {
+    const activatedAt = await customerDataMapper.checkActivatedAtByIdentifier(identifier);
+    if (activatedAt) {
+      return false;
+    }
     const result = await client.query(
       'SELECT "customer".email_valid FROM "customer" WHERE "customer".identifier = $1',
       [identifier],
@@ -109,7 +127,7 @@ const customerDataMapper: any = {
     const { email_valid: emailValid } = result.rows[0];
     const currentDateTime = new Date();
 
-    if (differenceInSeconds(currentDateTime, emailValid) < 20) {
+    if (differenceInHours(currentDateTime, emailValid) < 24) {
       const updatedCustomer = await client.query(
         'UPDATE "customer" SET activated_at = $1 WHERE identifier = $2 RETURNING "customer".activated_at',
         [currentDateTime.toISOString(), identifier],

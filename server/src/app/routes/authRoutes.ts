@@ -11,6 +11,7 @@ authRoutes
   .post('/signin', validationMiddleware(authSchema.signin()), authController.signIn)
   .post('/signup', validationMiddleware(authSchema.signup()), authController.signUp)
   .post('/activate', authController.validUser)
+  .post('/sendmail', authController.sendMail)
   .post('/logout', jwbtoken.getAuthorization, authController.logout);
 
 export default authRoutes;

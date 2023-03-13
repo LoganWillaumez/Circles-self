@@ -6,6 +6,7 @@
 	import Button from '../Button.svelte';
     
     const handleClose = () => {
+      console.log('clise')
       const fn = $loader.popUp.onClose;
       if (fn && typeof fn === 'function') {
         fn();
@@ -15,6 +16,14 @@
     
     const handleConfirm = () => {
       const fn = $loader.popUp.onConfirm;
+      if (fn && typeof fn === 'function') {
+        fn();
+      }
+      resetLoader();
+    };
+
+    const handleMiddle = () => {
+      const fn = $loader.popUp.onMiddle;
       if (fn && typeof fn === 'function') {
         fn();
       }
@@ -113,10 +122,15 @@
       </header>
       <div class="popup_content">
         <span class="popup-message">{$loader.popUp.message}</span>
+        {#if $loader.popUp.middleButton}
+        <div class='max-w-[90%]'>
+          <Button onClick={handleMiddle} text={$loader.popUp.middleButton}></Button>
+        </div>
+        {/if}
         <div class="button__container">
           <Button visual="outline" onClick={handleClose} text="Close"></Button>
           {#if $loader.popUp.button}
-            <Button on:click={handleConfirm}>{$loader.popUp.button}</Button>
+            <Button onClick={handleConfirm} text={$loader.popUp.button}></Button>
           {/if}
         </div>
       </div>

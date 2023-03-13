@@ -6,6 +6,7 @@ import 'express-async-errors';
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import path from 'path';
+import cors from 'cors';
 import authRoutes from './app/routes/authRoutes';
 import customerRoutes from './app/routes/customerRoutes';
 import errorHandler from './app/middlewares/errorMiddleware';
@@ -20,7 +21,7 @@ app.use(express.static(staticPath));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-
+app.use(cors());
 app.use('/api/auth', authRoutes);
 app.use('/api/customer', customerRoutes);
 app.use('/api/circle', circleRoutes);

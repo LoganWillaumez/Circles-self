@@ -22,6 +22,10 @@ const authController: any = {
     if (!checkCustomer) {
       throw new AppError(ErrorCode.AUTHENTIFICATION, 'account.noExist', 404);
     } else {
+      const isActivate = await customerDataMapper.checkActivatedAtByEmail(emailSanitize);
+      if (!isActivate) {
+        throw new AppError(ErrorCode.AUTHENTIFICATION, 'account.notActivated', 403);
+      }
       const pass = await bcrypt.compare(passwordSanitize, checkCustomer.password);
 
       if (pass) {
@@ -71,13 +75,35 @@ const authController: any = {
         subject: 'Circles registration',
         template: 'signup',
         context: {
-          linkEmail: `http://127.0.0.1:5173/signup/${createUser.identifier}`,
+          linkEmail: `http://127.0.0.1:5173/signup/email/${createUser.identifier}`,
         },
       });
       res.status(201).json({ message: 'Successfuly created' });
     }
   },
 
+  async sendMail(req: Request, res: Response) {
+    const emailSanitize = sanitizeHtml(req.body.email);
+    const isActivate = await customerDataMapper.checkActivatedAtByEmail(emailSanitize);
+    if (isActivate) {
+      throw new AppError(ErrorCode.AUTHENTIFICATION, 'account.alreadyActivated', 403);
+    }
+    const checkCustomer = await customerDataMapper.getCustomerByEmail(emailSanitize);
+
+    if (!checkCustomer) {
+      throw new AppError(ErrorCode.AUTHENTIFICATION, 'account.noExist', 404);
+    }
+
+    sendMail({
+      to: emailSanitize,
+      subject: 'Circles registration',
+      template: 'signup',
+      context: {
+        linkEmail: `http://127.0.0.1:5173/signup/email/${checkCustomer.identifier}`,
+      },
+    });
+    res.status(201).json({ message: 'Email send' });
+  },
   refresh(req: Request, res: Response) {
     const { cookies } = req;
     if (!cookies?.jwt) {
@@ -98,10 +124,11 @@ const authController: any = {
 
   async validUser(req: Request, res: Response) {
     const validUser = await customerDataMapper.validUser(req.body.identifier);
+    console.log('🚀 ~ validUser:', validUser);
     if (validUser) {
       res.status(204).json({ message: `Customer successfuly activated at ${validUser}` });
     } else {
-      res.status(410).json({ message: 'emailOutdated' });
+      throw new AppError(ErrorCode.AUTHENTIFICATION, 'emailOutdated', 410);
     }
   },
   logout(req: Request, res: Response) {
