@@ -1,7 +1,8 @@
 <script>
 // @ts-nocheck
 
-	import Switch from '../lib/components/Switch.svelte';
+	import Switch from '$lib/components/Switch.svelte';
+    import LangSwitch from '$lib/components/LangSwitch.svelte';
     import { theme } from '$lib/stores/theme';
     import '$lib/styles/main.scss';
 	import Loader from '$lib/components/Loader/Loader.svelte';
@@ -31,6 +32,7 @@
     {#if browser}
         <Loader/>
         <Switch />
+        <LangSwitch />
         <slot/>
     {/if}
 </main>
