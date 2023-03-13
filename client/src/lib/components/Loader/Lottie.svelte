@@ -1,23 +1,25 @@
 <script lang="ts">
     import { onMount } from 'svelte';
     import lottie from 'lottie-web';
-    
+
+    export let lottieAnim: 'loader' | 'confetis' = 'loader';
     onMount(() => {
-    const container = document.querySelector('.loader');
+    const container = document.querySelector('.lottie-container');
     if (container !== null) {
       lottie.loadAnimation({
         container: container,
         renderer: 'svg',
         loop: true,
         autoplay: true,
-        path: '/lottie/loader.json',
+        path: `/lottie/${lottieAnim}.json`,
       });
     }
   });
 </script>
   
 <style lang="scss">
-  .loader {
+  .lottie-container {
+    pointer-events: none; 
       position: fixed;
       position: absolute;
       top: 50%;
@@ -29,4 +31,4 @@
     }
 </style>
 
-<div class="loader" />
+<div class="lottie-container" />

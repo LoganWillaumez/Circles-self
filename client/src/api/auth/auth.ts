@@ -28,12 +28,38 @@ export const authentification: Actions = {
             }
         }
     },
+    signin: async ({request}) => {
+        const {formData, errors} = await validateData( await request.formData(), authenthificationSchema.loginSchema);
+        if (errors) {
+          return fail(400, {
+            data: formData,
+            errors: errors.fieldErrors
+          });
+        }
+        try{
+          const response = await API.post("auth/signin", formData);
+          console.log('🚀 ~ response:', response);
+          return response;
+      } catch(err) {
+          if(isAxiosError(err)){
+            if(err.response){
+              return fail(err.response.status, {message: err.response.data.message});
+            } else {
+              return error(500);
+            }
+          } else {
+            return error(500);
+          }
+      }
+      },
     activate: async (identifier: string) => {
       try {
         const isActivate = await API.post("auth/activate", {identifier});
-        return true;
+        console.log('🚀 ~ isActivate:', isActivate);
+        return isActivate;
       } catch (err) {
         if(isAxiosError(err)){
+          console.log('🚀 ~ err:', err);
           if(err.response){
             return fail(err.response.status, {message: err.response.data.message});
           } else {

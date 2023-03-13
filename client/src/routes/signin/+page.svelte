@@ -19,6 +19,7 @@
 	import {resetLoader, setLoader} from '$lib/stores/loader';
 	import type { ActionResult, SubmitFunction } from '@sveltejs/kit';
 	import { goto } from '$app/navigation';
+	import API from '../../api/Api';
 
     
     type ActionExtend = ActionResult & {
@@ -44,20 +45,25 @@
         }
     ];
 
-    const signup: SubmitFunction = ({ form, data, action, cancel }) => {
+    const signup: SubmitFunction = ({ form, data: dataForm, action, cancel }) => {
     return async ({result} : {result: ActionExtend}) => {
 
         await applyAction(result);
         const status = result.data?.status  || result.status;
         const { data } = result; 
         if(status !== 400){
+            if(status === 403){
+                data?.message && setLoader(true, { message: data.message, type: 'error', middleButton: 'Resend an email', onMiddle: async () =>  await API.post("auth/sendmail", {email: dataForm.get('email')})})
+                form.reset();
+                return;
+            }
             if(status !== (201) ){
                 form.reset();
                data?.message &&  setLoader(true, { message: data.message, type: 'error' })
                 return;
             } else {
                 resetLoader();
-                goto('signup/email')
+                goto('/email-send')
             }
         }
     }
@@ -67,7 +73,7 @@
 <div class="container">
     <div class="scroll_wrapper">
         <div>
-            <h1 class="mb-5">Register</h1>
+            <h1 class="mb-5">Signin</h1>
             <form method="POST" use:enhance={signup}>
                 <div>
                     <Input 
@@ -75,30 +81,6 @@
                     name="email" 
                     placeholder="Email" 
                     value={form?.data?.email ?? ''}
-                    />
-                </div>
-                <div class="flex gap-3">
-                        <Input 
-                        errors={form?.errors?.firstname ?? ''} 
-                        name="firstname" 
-                        placeholder="Firstname" 
-                        value={form?.data?.firstname ?? ''}
-                        />
-                        <Input  
-                        errors={form?.errors?.lastname ?? ''} 
-                        name="lastname" 
-                        placeholder="Lastname" 
-                        value={form?.data?.lastname ?? ''}
-                        />
-                </div>
-                <div>
-                    <Input 
-                    errors={form?.errors?.gender ?? ''} 
-                    name="gender" 
-                    placeholder="Gender"  
-                    type='select'
-                    options={options}
-                    value={form?.data?.gender ?? ''}
                     />
                 </div>
                 <div>
@@ -110,25 +92,7 @@
                     type='password'
                     />
                 </div>
-                <div>
-                    <Input 
-                    errors={form?.errors?.confirmPassword ?? ''} 
-                    value={form?.data?.confirmPassword ?? ''}
-                    name="confirmPassword" 
-                    placeholder="Confirm Password" 
-                    type='password'
-                    />
-                </div>
-                <div>
-                    <Input 
-                    type='date' 
-                    name="birthdate" 
-                    placeholder="birthdate"  
-                    errors={form?.errors?.birthdate ?? ''} 
-                    value={form?.data?.birthdate ?? ''}
-                    />
-                </div>
-                <Button type="submit" class='mb-5 mx-auto' variant="secondary" text="Sign up"/>
+                <Button type="submit" class='mb-5 mx-auto' variant="secondary" text="Sign in"/>
             </form>
             <div class="error">
     
@@ -140,7 +104,7 @@
                 <Card icon="facebook"/>
                 <Card icon="twitter"/>
             </div>
-            <Button class='mb-5 mx-auto' text="Sign in" href='signin'/>
+            <Button class='mb-5 mx-auto' text="Sign up" href='signup'/>
         </div>
        
     </div>
