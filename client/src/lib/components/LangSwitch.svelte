@@ -6,11 +6,14 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background-color: var(--fill-reverse);
-      color: var(--text-reverse);
+      // background-color: var(--fill-reverse);
+      color: var(--text);
       position: absolute;
       top: 20px;
       left: 20px;
+      cursor: pointer;
+      font-weight: 700;
+      text-transform: uppercase;
       .switch-state{
         position: absolute;
         transition: all 300ms ease-in-out;
@@ -42,7 +45,9 @@
   
   <script>
     import { invalidateAll } from '$app/navigation';
+	import { page } from '$app/stores';
+  console.log('🚀 ~ page:', page);
   import { LL } from '$lib/i18n/i18n-svelte';
   </script>
   
-  <a class="switch" on:click={invalidateAll} href="/?lang={$LL.SWITCH_LANGUAGE()}"> {$LL.SWITCH_LANGUAGE()}</a>
+  <a class="switch" on:click={invalidateAll} href="?lang={$LL.SWITCH_LANGUAGE()}"> {$LL.SWITCH_LANGUAGE()}</a>
