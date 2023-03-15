@@ -15,12 +15,12 @@
     import Card from '$lib/components/Card.svelte';
     import { applyAction, enhance } from '$app/forms';
     import type {ActionData} from './$types';
-	import type { Options } from '../../models/input';
 	import {resetLoader, setLoader} from '$lib/stores/loader';
 	import type { ActionResult, SubmitFunction } from '@sveltejs/kit';
 	import { goto } from '$app/navigation';
-	import API from '../../api/Api';
-
+	import type { Options } from '../../../models/input';
+	import API from '../../../api/Api';
+    import { LL } from '$lib/i18n/i18n-svelte';
     
     type ActionExtend = ActionResult & {
         data?: Partial<{
@@ -88,23 +88,23 @@
                     value={form?.data?.password ?? ''}
                     errors={form?.errors?.password ?? ''} 
                     name="password" 
-                    placeholder="Password" 
+                    placeholder="{$LL.PASSWORD()}" 
                     type='password'
                     />
                 </div>
-                <Button type="submit" class='mb-5 mx-auto' variant="secondary" text="Sign in"/>
+                <Button type="submit" class='mb-5 mx-auto' variant="secondary" text="{$LL.SIGNIN()}"/>
             </form>
             <div class="error">
     
             </div>
-            <p class="mb-2">Forgot password</p>
-            <Divider text='or' class="mb-2"/>
+            <p class="mb-2">{$LL.FORGOT_PASSWORD()}</p>
+            <Divider text='{$LL.OR()}' class="mb-2"/>
             <div class="flex gap-10 justify-center mb-10">
                 <Card icon="google"/>
                 <Card icon="facebook"/>
                 <Card icon="twitter"/>
             </div>
-            <Button class='mb-5 mx-auto' text="Sign up" href='signup'/>
+            <Button class='mb-5 mx-auto' text="{$LL.SIGNUP()}" href='signup'/>
         </div>
        
     </div>

@@ -1,6 +1,6 @@
-import { goto } from "$app/navigation";
 import { redirect } from "@sveltejs/kit";
-import { authentification } from "../../../../api/auth/auth"
+import { authentification } from "../../../../../api/auth/auth";
+
 
 
 export const load = async({ params }) => {
