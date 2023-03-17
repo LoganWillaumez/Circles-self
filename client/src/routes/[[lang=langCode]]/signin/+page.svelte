@@ -20,7 +20,10 @@
 	import { goto } from '$app/navigation';
 	import type { Options } from '../../../models/input';
 	import API from '../../../api/Api';
-    import { LL } from '$lib/i18n/i18n-svelte';
+    import LLL, { LL } from '$lib/i18n/i18n-svelte';
+	import type { Translation, TranslationFunctions } from '$lib/i18n/i18n-types';
+	import { string } from 'zod';
+	import type { LocalizedString } from 'typesafe-i18n';
     
     type ActionExtend = ActionResult & {
         data?: Partial<{
@@ -45,21 +48,23 @@
         }
     ];
 
+    
     const signup: SubmitFunction = ({ form, data: dataForm, action, cancel }) => {
-    return async ({result} : {result: ActionExtend}) => {
-
-        await applyAction(result);
-        const status = result.data?.status  || result.status;
-        const { data } = result; 
+        return async ({result} : {result: ActionExtend}) => {
+            
+            await applyAction(result);
+            const status = result.data?.status  || result.status;
+            const { data } = result;
+            console.log('🚀 ~ data:', data);
         if(status !== 400){
             if(status === 403){
-                data?.message && setLoader(true, { message: data.message, type: 'error', middleButton: 'Resend an email', onMiddle: async () =>  await API.post("auth/sendmail", {email: dataForm.get('email')})})
+                data?.message && setLoader(true, { message: $LL.serverError[data?.message as keyof TranslationFunctions["serverError"]]() || $LL.serverError.notKnow(), type: 'error', middleButton: 'Resend an email', onMiddle: async () =>  await API.post("auth/sendmail", {email: dataForm.get('email')})})
                 form.reset();
                 return;
             }
             if(status !== (201) ){
                 form.reset();
-               data?.message &&  setLoader(true, { message: data.message, type: 'error' })
+               data?.message &&  setLoader(true, { message: $LL.serverError[data?.message as keyof TranslationFunctions["serverError"]]() || $LL.serverError.notKnow(), type: 'error' })
                 return;
             } else {
                 resetLoader();
@@ -88,23 +93,23 @@
                     value={form?.data?.password ?? ''}
                     errors={form?.errors?.password ?? ''} 
                     name="password" 
-                    placeholder="{$LL.PASSWORD()}" 
+                    placeholder="{$LL.form.password()}" 
                     type='password'
                     />
                 </div>
-                <Button type="submit" class='mb-5 mx-auto' variant="secondary" text="{$LL.SIGNIN()}"/>
+                <Button type="submit" class='mb-5 mx-auto' variant="secondary" text="{$LL.button.signIn()}"/>
             </form>
             <div class="error">
     
             </div>
-            <p class="mb-2">{$LL.FORGOT_PASSWORD()}</p>
-            <Divider text='{$LL.OR()}' class="mb-2"/>
+            <p class="mb-2">{$LL.form.forgotPassword()}</p>
+            <Divider text='{$LL.global.or()}' class="mb-2"/>
             <div class="flex gap-10 justify-center mb-10">
                 <Card icon="google"/>
                 <Card icon="facebook"/>
                 <Card icon="twitter"/>
             </div>
-            <Button class='mb-5 mx-auto' text="{$LL.SIGNUP()}" href='signup'/>
+            <Button class='mb-5 mx-auto' text="{$LL.button.signUp()}" href='signup'/>
         </div>
        
     </div>

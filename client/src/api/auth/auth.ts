@@ -38,7 +38,6 @@ export const authentification: Actions = {
         }
         try{
           const response = await API.post("auth/signin", formData);
-          console.log('🚀 ~ response:', response);
           return response;
       } catch(err) {
           if(isAxiosError(err)){
@@ -55,11 +54,9 @@ export const authentification: Actions = {
     activate: async (identifier: string) => {
       try {
         const isActivate = await API.post("auth/activate", {identifier});
-        console.log('🚀 ~ isActivate:', isActivate);
         return isActivate;
       } catch (err) {
         if(isAxiosError(err)){
-          console.log('🚀 ~ err:', err);
           if(err.response){
             return fail(err.response.status, {message: err.response.data.message});
           } else {

@@ -15,9 +15,9 @@
     <div class="scroll_wrapper">
         <div class="flex flex-col gap-5">
             <img class="w-[70vw] max-w-[400px] mx-auto" src="/mail-{$theme}.svg" alt="">
-            <h2 class="font-bold text-2xl text-center">{$LL.EMAIL_SEND()}</h2>
-            <p class="text-left grow">{$LL.EMAIL_LINK()}</p>
-            <Button class='mx-auto' text="{$LL.CLOSE()}" href="signin"></Button>
+            <h2 class="font-bold text-2xl text-center">{$LL.desc.emailSend()}</h2>
+            <p class="text-left grow">{$LL.desc.emailLink()}</p>
+            <Button class='mx-auto' text="{$LL.global.close()}" href="signin"></Button>
         </div>
     </div>
 </div>

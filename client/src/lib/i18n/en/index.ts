@@ -1,36 +1,43 @@
 import type { BaseTranslation } from '../i18n-types';
 
 const en: BaseTranslation = {
-	// Home -----------------------
-	SIGNUP: 'Sign up',
-	SIGNIN: 'Sign in',
-	//------------------------------
-	// Signup ----------------------
-	FIRSTNAME: 'Firstname',
-	LASTNAME: 'Lastname',
-	GENDER: 'Genre',
-	PASSWORD: 'Password',
-	CONFIRM_PASSWORD: 'Confirm password',
-	BIRTHDATE: 'Birthdate',
-	FORGOT_PASSWORD: 'Forgot password',
-	OR: 'Or',
-	// Server-error ----------------
-	USER_ALREADY_EXIST: 'The user already exist',
-	//------------------------------
-	// Email -----------------------
-	EMAIL_SEND: 'Email send',
-	EMAIL_LINK: 'Click on the link into the email you receive to begin your journey !',
-	EMAIL_LINK_NO_VALID: 'The link is no longer valid',
-	EMAIL_ASK_RESEND: 'Please reconnect you to your account and re-send an activation email.',
-	//------------------------------
-	// Validation ------------------
-	ACCOUNT_VALIDATE: 'Your account has been validated !',
-	ACCOUNT_ASK_SIGNIN: 'You can now sign in to your account to enjoy Circles.',
-	// ------------------------------
-	// Global ----------------------
-	 SWITCH_LANGUAGE: 'fr',
-	 CLOSE: 'Fermer',
-	//------------------------------
+	button: {
+		signUp: 'Sign up',
+		signIn: 'Sign in',
+	  },
+	  form: {
+		firstName: 'Firstname',
+		lastName: 'Lastname',
+		gender: 'Genre',
+		password: 'Password',
+		confirmPassword: 'Confirm password',
+		birthdate: 'Birthdate',
+		forgotPassword: 'Forgot password',
+	},
+	serverError: {
+		userAlreadyExist: 'The user already exist',
+		userAlreadyActivated: 'The user is already activated',
+		userNoExist: 'The user does not exist',
+		userNoActivated: 'The user is not activated',
+		notKnow: 'Unknown error',
+		errorGlobal: 'An error has occurred',
+		badCredentials: 'The email or password is incorrect',
+		unauthorized: 'You are not authorized to access this page',
+		emailOutdated: 'The email is outdated',
+	},
+	desc: {
+		emailSend: 'Email send',
+		emailLink: 'Click on the link into the email you receive to begin your journey !',
+		emailLinkNoValid: 'The link is no longer valid',
+		emailAskResend: 'Please reconnect you to your account and re-send an activation email.',
+		accountValidate: 'Your account has been validated !',
+		accountAskSignin: 'You can now sign in to your account to enjoy Circles.',
+	},
+	global: {
+		switchLanguage: 'fr',
+		close: 'Fermer',
+		or: 'Or',
+	  },
 }
 
 export default en

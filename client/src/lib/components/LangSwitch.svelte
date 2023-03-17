@@ -46,8 +46,7 @@
   <script>
     import { invalidateAll } from '$app/navigation';
 	import { page } from '$app/stores';
-  console.log('🚀 ~ page:', page);
   import { LL } from '$lib/i18n/i18n-svelte';
   </script>
   
-  <a class="switch" on:click={invalidateAll} href="?lang={$LL.SWITCH_LANGUAGE()}"> {$LL.SWITCH_LANGUAGE()}</a>
+  <a class="switch" on:click={invalidateAll} href="?lang={$LL.global.switchLanguage()}"> {$LL.global.switchLanguage()}</a>
