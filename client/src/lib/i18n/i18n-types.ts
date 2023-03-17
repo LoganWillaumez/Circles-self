@@ -14,161 +14,245 @@ export type Translation = RootTranslation
 export type Translations = RootTranslation
 
 type RootTranslation = {
-	/**
-	 * S​i​g​n​ ​u​p
-	 */
-	SIGNUP: string
-	/**
-	 * S​i​g​n​ ​i​n
-	 */
-	SIGNIN: string
-	/**
-	 * F​i​r​s​t​n​a​m​e
-	 */
-	FIRSTNAME: string
-	/**
-	 * L​a​s​t​n​a​m​e
-	 */
-	LASTNAME: string
-	/**
-	 * G​e​n​r​e
-	 */
-	GENDER: string
-	/**
-	 * P​a​s​s​w​o​r​d
-	 */
-	PASSWORD: string
-	/**
-	 * C​o​n​f​i​r​m​ ​p​a​s​s​w​o​r​d
-	 */
-	CONFIRM_PASSWORD: string
-	/**
-	 * B​i​r​t​h​d​a​t​e
-	 */
-	BIRTHDATE: string
-	/**
-	 * F​o​r​g​o​t​ ​p​a​s​s​w​o​r​d
-	 */
-	FORGOT_PASSWORD: string
-	/**
-	 * O​r
-	 */
-	OR: string
-	/**
-	 * T​h​e​ ​u​s​e​r​ ​a​l​r​e​a​d​y​ ​e​x​i​s​t
-	 */
-	USER_ALREADY_EXIST: string
-	/**
-	 * E​m​a​i​l​ ​s​e​n​d
-	 */
-	EMAIL_SEND: string
-	/**
-	 * C​l​i​c​k​ ​o​n​ ​t​h​e​ ​l​i​n​k​ ​i​n​t​o​ ​t​h​e​ ​e​m​a​i​l​ ​y​o​u​ ​r​e​c​e​i​v​e​ ​t​o​ ​b​e​g​i​n​ ​y​o​u​r​ ​j​o​u​r​n​e​y​ ​!
-	 */
-	EMAIL_LINK: string
-	/**
-	 * T​h​e​ ​l​i​n​k​ ​i​s​ ​n​o​ ​l​o​n​g​e​r​ ​v​a​l​i​d
-	 */
-	EMAIL_LINK_NO_VALID: string
-	/**
-	 * P​l​e​a​s​e​ ​r​e​c​o​n​n​e​c​t​ ​y​o​u​ ​t​o​ ​y​o​u​r​ ​a​c​c​o​u​n​t​ ​a​n​d​ ​r​e​-​s​e​n​d​ ​a​n​ ​a​c​t​i​v​a​t​i​o​n​ ​e​m​a​i​l​.
-	 */
-	EMAIL_ASK_RESEND: string
-	/**
-	 * Y​o​u​r​ ​a​c​c​o​u​n​t​ ​h​a​s​ ​b​e​e​n​ ​v​a​l​i​d​a​t​e​d​ ​!
-	 */
-	ACCOUNT_VALIDATE: string
-	/**
-	 * Y​o​u​ ​c​a​n​ ​n​o​w​ ​s​i​g​n​ ​i​n​ ​t​o​ ​y​o​u​r​ ​a​c​c​o​u​n​t​ ​t​o​ ​e​n​j​o​y​ ​C​i​r​c​l​e​s​.
-	 */
-	ACCOUNT_ASK_SIGNIN: string
-	/**
-	 * f​r
-	 */
-	SWITCH_LANGUAGE: string
-	/**
-	 * F​e​r​m​e​r
-	 */
-	CLOSE: string
+	button: {
+		/**
+		 * S​i​g​n​ ​u​p
+		 */
+		signUp: string
+		/**
+		 * S​i​g​n​ ​i​n
+		 */
+		signIn: string
+	}
+	form: {
+		/**
+		 * F​i​r​s​t​n​a​m​e
+		 */
+		firstName: string
+		/**
+		 * L​a​s​t​n​a​m​e
+		 */
+		lastName: string
+		/**
+		 * G​e​n​r​e
+		 */
+		gender: string
+		/**
+		 * P​a​s​s​w​o​r​d
+		 */
+		password: string
+		/**
+		 * C​o​n​f​i​r​m​ ​p​a​s​s​w​o​r​d
+		 */
+		confirmPassword: string
+		/**
+		 * B​i​r​t​h​d​a​t​e
+		 */
+		birthdate: string
+		/**
+		 * F​o​r​g​o​t​ ​p​a​s​s​w​o​r​d
+		 */
+		forgotPassword: string
+	}
+	serverError: {
+		/**
+		 * T​h​e​ ​u​s​e​r​ ​a​l​r​e​a​d​y​ ​e​x​i​s​t
+		 */
+		userAlreadyExist: string
+		/**
+		 * T​h​e​ ​u​s​e​r​ ​i​s​ ​a​l​r​e​a​d​y​ ​a​c​t​i​v​a​t​e​d
+		 */
+		userAlreadyActivated: string
+		/**
+		 * T​h​e​ ​u​s​e​r​ ​d​o​e​s​ ​n​o​t​ ​e​x​i​s​t
+		 */
+		userNoExist: string
+		/**
+		 * T​h​e​ ​u​s​e​r​ ​i​s​ ​n​o​t​ ​a​c​t​i​v​a​t​e​d
+		 */
+		userNoActivated: string
+		/**
+		 * U​n​k​n​o​w​n​ ​e​r​r​o​r
+		 */
+		notKnow: string
+		/**
+		 * A​n​ ​e​r​r​o​r​ ​h​a​s​ ​o​c​c​u​r​r​e​d
+		 */
+		errorGlobal: string
+		/**
+		 * T​h​e​ ​e​m​a​i​l​ ​o​r​ ​p​a​s​s​w​o​r​d​ ​i​s​ ​i​n​c​o​r​r​e​c​t
+		 */
+		badCredentials: string
+		/**
+		 * Y​o​u​ ​a​r​e​ ​n​o​t​ ​a​u​t​h​o​r​i​z​e​d​ ​t​o​ ​a​c​c​e​s​s​ ​t​h​i​s​ ​p​a​g​e
+		 */
+		unauthorized: string
+		/**
+		 * T​h​e​ ​e​m​a​i​l​ ​i​s​ ​o​u​t​d​a​t​e​d
+		 */
+		emailOutdated: string
+	}
+	desc: {
+		/**
+		 * E​m​a​i​l​ ​s​e​n​d
+		 */
+		emailSend: string
+		/**
+		 * C​l​i​c​k​ ​o​n​ ​t​h​e​ ​l​i​n​k​ ​i​n​t​o​ ​t​h​e​ ​e​m​a​i​l​ ​y​o​u​ ​r​e​c​e​i​v​e​ ​t​o​ ​b​e​g​i​n​ ​y​o​u​r​ ​j​o​u​r​n​e​y​ ​!
+		 */
+		emailLink: string
+		/**
+		 * T​h​e​ ​l​i​n​k​ ​i​s​ ​n​o​ ​l​o​n​g​e​r​ ​v​a​l​i​d
+		 */
+		emailLinkNoValid: string
+		/**
+		 * P​l​e​a​s​e​ ​r​e​c​o​n​n​e​c​t​ ​y​o​u​ ​t​o​ ​y​o​u​r​ ​a​c​c​o​u​n​t​ ​a​n​d​ ​r​e​-​s​e​n​d​ ​a​n​ ​a​c​t​i​v​a​t​i​o​n​ ​e​m​a​i​l​.
+		 */
+		emailAskResend: string
+		/**
+		 * Y​o​u​r​ ​a​c​c​o​u​n​t​ ​h​a​s​ ​b​e​e​n​ ​v​a​l​i​d​a​t​e​d​ ​!
+		 */
+		accountValidate: string
+		/**
+		 * Y​o​u​ ​c​a​n​ ​n​o​w​ ​s​i​g​n​ ​i​n​ ​t​o​ ​y​o​u​r​ ​a​c​c​o​u​n​t​ ​t​o​ ​e​n​j​o​y​ ​C​i​r​c​l​e​s​.
+		 */
+		accountAskSignin: string
+	}
+	global: {
+		/**
+		 * f​r
+		 */
+		switchLanguage: string
+		/**
+		 * F​e​r​m​e​r
+		 */
+		close: string
+		/**
+		 * O​r
+		 */
+		or: string
+	}
 }
 
 export type TranslationFunctions = {
-	/**
-	 * Sign up
-	 */
-	SIGNUP: () => LocalizedString
-	/**
-	 * Sign in
-	 */
-	SIGNIN: () => LocalizedString
-	/**
-	 * Firstname
-	 */
-	FIRSTNAME: () => LocalizedString
-	/**
-	 * Lastname
-	 */
-	LASTNAME: () => LocalizedString
-	/**
-	 * Genre
-	 */
-	GENDER: () => LocalizedString
-	/**
-	 * Password
-	 */
-	PASSWORD: () => LocalizedString
-	/**
-	 * Confirm password
-	 */
-	CONFIRM_PASSWORD: () => LocalizedString
-	/**
-	 * Birthdate
-	 */
-	BIRTHDATE: () => LocalizedString
-	/**
-	 * Forgot password
-	 */
-	FORGOT_PASSWORD: () => LocalizedString
-	/**
-	 * Or
-	 */
-	OR: () => LocalizedString
-	/**
-	 * The user already exist
-	 */
-	USER_ALREADY_EXIST: () => LocalizedString
-	/**
-	 * Email send
-	 */
-	EMAIL_SEND: () => LocalizedString
-	/**
-	 * Click on the link into the email you receive to begin your journey !
-	 */
-	EMAIL_LINK: () => LocalizedString
-	/**
-	 * The link is no longer valid
-	 */
-	EMAIL_LINK_NO_VALID: () => LocalizedString
-	/**
-	 * Please reconnect you to your account and re-send an activation email.
-	 */
-	EMAIL_ASK_RESEND: () => LocalizedString
-	/**
-	 * Your account has been validated !
-	 */
-	ACCOUNT_VALIDATE: () => LocalizedString
-	/**
-	 * You can now sign in to your account to enjoy Circles.
-	 */
-	ACCOUNT_ASK_SIGNIN: () => LocalizedString
-	/**
-	 * fr
-	 */
-	SWITCH_LANGUAGE: () => LocalizedString
-	/**
-	 * Fermer
-	 */
-	CLOSE: () => LocalizedString
+	button: {
+		/**
+		 * Sign up
+		 */
+		signUp: () => LocalizedString
+		/**
+		 * Sign in
+		 */
+		signIn: () => LocalizedString
+	}
+	form: {
+		/**
+		 * Firstname
+		 */
+		firstName: () => LocalizedString
+		/**
+		 * Lastname
+		 */
+		lastName: () => LocalizedString
+		/**
+		 * Genre
+		 */
+		gender: () => LocalizedString
+		/**
+		 * Password
+		 */
+		password: () => LocalizedString
+		/**
+		 * Confirm password
+		 */
+		confirmPassword: () => LocalizedString
+		/**
+		 * Birthdate
+		 */
+		birthdate: () => LocalizedString
+		/**
+		 * Forgot password
+		 */
+		forgotPassword: () => LocalizedString
+	}
+	serverError: {
+		/**
+		 * The user already exist
+		 */
+		userAlreadyExist: () => LocalizedString
+		/**
+		 * The user is already activated
+		 */
+		userAlreadyActivated: () => LocalizedString
+		/**
+		 * The user does not exist
+		 */
+		userNoExist: () => LocalizedString
+		/**
+		 * The user is not activated
+		 */
+		userNoActivated: () => LocalizedString
+		/**
+		 * Unknown error
+		 */
+		notKnow: () => LocalizedString
+		/**
+		 * An error has occurred
+		 */
+		errorGlobal: () => LocalizedString
+		/**
+		 * The email or password is incorrect
+		 */
+		badCredentials: () => LocalizedString
+		/**
+		 * You are not authorized to access this page
+		 */
+		unauthorized: () => LocalizedString
+		/**
+		 * The email is outdated
+		 */
+		emailOutdated: () => LocalizedString
+	}
+	desc: {
+		/**
+		 * Email send
+		 */
+		emailSend: () => LocalizedString
+		/**
+		 * Click on the link into the email you receive to begin your journey !
+		 */
+		emailLink: () => LocalizedString
+		/**
+		 * The link is no longer valid
+		 */
+		emailLinkNoValid: () => LocalizedString
+		/**
+		 * Please reconnect you to your account and re-send an activation email.
+		 */
+		emailAskResend: () => LocalizedString
+		/**
+		 * Your account has been validated !
+		 */
+		accountValidate: () => LocalizedString
+		/**
+		 * You can now sign in to your account to enjoy Circles.
+		 */
+		accountAskSignin: () => LocalizedString
+	}
+	global: {
+		/**
+		 * fr
+		 */
+		switchLanguage: () => LocalizedString
+		/**
+		 * Fermer
+		 */
+		close: () => LocalizedString
+		/**
+		 * Or
+		 */
+		or: () => LocalizedString
+	}
 }
 
 export type Formatters = {}

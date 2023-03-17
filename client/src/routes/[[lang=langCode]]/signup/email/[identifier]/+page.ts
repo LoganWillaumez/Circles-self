@@ -9,6 +9,8 @@ export const load = async({ params }) => {
        const data = await authentification.activate(identifier);
 
        if(+data.status === 204){
-        throw redirect(301, '/signup/valid')
-       }    
+           throw redirect(301, '/signup/valid')
+        }    
+        const message = data.data.message;
+    return {message};
 }

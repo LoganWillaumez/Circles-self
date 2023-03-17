@@ -20,11 +20,11 @@ const authController: any = {
     const checkCustomer = await customerDataMapper.getCustomerByEmail(emailSanitize);
 
     if (!checkCustomer) {
-      throw new AppError(ErrorCode.AUTHENTIFICATION, 'USER_NO_EXIST', 404);
+      throw new AppError(ErrorCode.AUTHENTIFICATION, 'userNoExist', 404);
     } else {
       const isActivate = await customerDataMapper.checkActivatedAtByEmail(emailSanitize);
       if (!isActivate) {
-        throw new AppError(ErrorCode.AUTHENTIFICATION, 'USER_NO_ACTIVATE', 403);
+        throw new AppError(ErrorCode.AUTHENTIFICATION, 'userNoActivated', 403);
       }
       const pass = await bcrypt.compare(passwordSanitize, checkCustomer.password);
 
@@ -38,7 +38,7 @@ const authController: any = {
         });
         res.status(200).json({ accessToken: jwbtoken.generateAccessToken(checkCustomer.id) });
       } else {
-        throw new AppError(ErrorCode.AUTHENTIFICATION, 'BAD_CREDENTIALS', 401);
+        throw new AppError(ErrorCode.AUTHENTIFICATION, 'badCredentials', 401);
       }
     }
   },
@@ -64,7 +64,7 @@ const authController: any = {
     const checkCustomer = await customerDataMapper.getCustomerByEmail(sanitizeHtml(email));
 
     if (checkCustomer) {
-      throw new AppError(ErrorCode.AUTHENTIFICATION, 'USER_ALREADY_EXIST', 403);
+      throw new AppError(ErrorCode.AUTHENTIFICATION, 'userAlreadyExist', 403);
     }
 
     const createUser = await customerDataMapper.createUser(userData);
@@ -86,12 +86,12 @@ const authController: any = {
     const emailSanitize = sanitizeHtml(req.body.email);
     const isActivate = await customerDataMapper.checkActivatedAtByEmail(emailSanitize);
     if (isActivate) {
-      throw new AppError(ErrorCode.AUTHENTIFICATION, 'USER_ALREADY_ACTIVATED', 403);
+      throw new AppError(ErrorCode.AUTHENTIFICATION, 'userAlreadyActivated', 403);
     }
     const checkCustomer = await customerDataMapper.getCustomerByEmail(emailSanitize);
 
     if (!checkCustomer) {
-      throw new AppError(ErrorCode.AUTHENTIFICATION, 'USER_NO_EXIST', 404);
+      throw new AppError(ErrorCode.AUTHENTIFICATION, 'userNoExist', 404);
     }
 
     sendMail({
@@ -104,10 +104,11 @@ const authController: any = {
     });
     res.status(201).json({ message: 'Email send' });
   },
+
   refresh(req: Request, res: Response) {
     const { cookies } = req;
     if (!cookies?.jwt) {
-      throw new AppError(ErrorCode.AUTHENTIFICATION, 'UNAUTHORIZED', 401);
+      throw new AppError(ErrorCode.AUTHENTIFICATION, 'unauthorized', 401);
     }
 
     const refreshToken = cookies?.jwt;
@@ -124,11 +125,11 @@ const authController: any = {
 
   async validUser(req: Request, res: Response) {
     const validUser = await customerDataMapper.validUser(req.body.identifier);
-    console.log('🚀 ~ validUser:', validUser);
+
     if (validUser) {
       res.status(204).json({ message: `Customer successfuly activated at ${validUser}` });
     } else {
-      throw new AppError(ErrorCode.AUTHENTIFICATION, 'EMAIL_OUTDATED', 410);
+      throw new AppError(ErrorCode.AUTHENTIFICATION, 'emailOutdated', 410);
     }
   },
   logout(req: Request, res: Response) {

@@ -8,8 +8,8 @@
         <div>
             <img class="w-full grow max-w-[400px] sm:flex-grow-0 inline" alt="Logo of Circle" src="/Circle_logo.svg" />
             <div class="flex flex-col w-full gap-[15px] items-center">
-                <Button text="{$LL.SIGNUP()}" href="signup"/>
-                <Button text="{$LL.SIGNIN()}" href="signin"/>
+                <Button text="{$LL.button.signUp()}" href="signup"/>
+                <Button text="{$LL.button.signIn()}" href="signin"/>
             </div>
         </div>
     </div>

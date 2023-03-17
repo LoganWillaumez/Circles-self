@@ -81,13 +81,13 @@
                         <Input 
                         errors={form?.errors?.firstname ?? ''} 
                         name="firstname" 
-                        placeholder="{$LL.FIRSTNAME()}" 
+                        placeholder="{$LL.form.firstName()}" 
                         value={form?.data?.firstname ?? ''}
                         />
                         <Input  
                         errors={form?.errors?.lastname ?? ''} 
                         name="lastname" 
-                        placeholder="{$LL.LASTNAME()}" 
+                        placeholder="{$LL.form.lastName()}" 
                         value={form?.data?.lastname ?? ''}
                         />
                 </div>
@@ -95,7 +95,7 @@
                     <Input 
                     errors={form?.errors?.gender ?? ''} 
                     name="gender" 
-                    placeholder="{$LL.GENDER()}"  
+                    placeholder="{$LL.form.gender()}"  
                     type='select'
                     options={options}
                     value={form?.data?.gender ?? ''}
@@ -106,7 +106,7 @@
                     value={form?.data?.password ?? ''}
                     errors={form?.errors?.password ?? ''} 
                     name="password" 
-                    placeholder="{$LL.PASSWORD()}"
+                    placeholder="{$LL.form.password()}"
                     type='password'
                     />
                 </div>
@@ -115,7 +115,7 @@
                     errors={form?.errors?.confirmPassword ?? ''} 
                     value={form?.data?.confirmPassword ?? ''}
                     name="confirmPassword" 
-                    placeholder="{$LL.CONFIRM_PASSWORD()}"
+                    placeholder="{$LL.form.confirmPassword()}"
                     type='password'
                     />
                 </div>
@@ -123,24 +123,24 @@
                     <Input 
                     type='date' 
                     name="birthdate" 
-                    placeholder="{$LL.BIRTHDATE()}"  
+                    placeholder="{$LL.form.birthdate()}"  
                     errors={form?.errors?.birthdate ?? ''} 
                     value={form?.data?.birthdate ?? ''}
                     />
                 </div>
-                <Button type="submit" class='mb-5 mx-auto' variant="secondary" text="{$LL.SIGNUP()}"/>
+                <Button type="submit" class='mb-5 mx-auto' variant="secondary" text="{$LL.button.signUp()}"/>
             </form>
             <div class="error">
     
             </div>
-            <p class="mb-2">{$LL.FORGOT_PASSWORD()}</p>
-            <Divider text='{$LL.OR()}' class="mb-2"/>
+            <p class="mb-2">{$LL.form.forgotPassword()}</p>
+            <Divider text='{$LL.global.or()}' class="mb-2"/>
             <div class="flex gap-10 justify-center mb-10">
                 <Card icon="google"/>
                 <Card icon="facebook"/>
                 <Card icon="twitter"/>
             </div>
-            <Button class='mb-5 mx-auto' text="{$LL.SIGNIN()}" href='signin'/>
+            <Button class='mb-5 mx-auto' text="{$LL.button.signIn()}" href='signin'/>
         </div>
        
     </div>
