@@ -1,9 +1,10 @@
 import jsonwebtoken, { Algorithm } from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import { NextFunction, Request, Response } from 'express';
-import customerDataMapper from '../datamapper/customerDatamapper';
 import { userData } from '../../ts/interfaces/customer.interfaces';
+import customerDataMapperInstance from '../datamapper/customerDatamapper';
 
+const customerDataMapper = customerDataMapperInstance.main;
 dotenv.config();
 
 interface JwtPayload {

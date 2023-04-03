@@ -1,6 +1,3 @@
-// import {} from 'dotenv/config';
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-// require('dotenv').config();
 import 'dotenv/config';
 import 'express-async-errors';
 import express from 'express';
@@ -12,10 +9,12 @@ import customerRoutes from './app/routes/customerRoutes';
 import errorHandler from './app/middlewares/errorMiddleware';
 import circleRoutes from './app/routes/circlesRoutes';
 import eventRoutes from './app/routes/eventRoutes';
+import { connectToDatabase } from './app/config/db.config';
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.SERVER_PORT || 3000;
 const staticPath = path.join(__dirname, 'public');
 
+connectToDatabase();
 const app = express();
 app.use(express.static(staticPath));
 app.use(express.json());
@@ -28,6 +27,23 @@ app.use('/api/circle', circleRoutes);
 app.use('/api/circle', eventRoutes);
 app.use(errorHandler);
 
-app.listen(PORT, () => {
-  console.log(`connected to ${PORT}`);
-});
+const startServer = (port: number) => {
+  const server = app.listen(port, () => {
+    console.log(`connected to ${port}`);
+  });
+
+  server.on('error', (error: any) => {
+    if (error.code === 'EADDRINUSE') {
+      console.error(`Port ${port} is already in use.`);
+      process.exit(1);
+    } else {
+      throw error;
+    }
+  });
+};
+
+if (require.main === module) {
+  startServer(+PORT);
+}
+
+export default app;

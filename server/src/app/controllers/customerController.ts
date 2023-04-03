@@ -2,7 +2,9 @@ import { Request, Response } from 'express';
 import { ErrorCode } from '../../ts/interfaces/errorCode';
 import AppError from '../../utils/AppError';
 import { wrapMethodsInTryCatch } from '../../utils/tryCatch';
-import customerDatamapper from '../datamapper/customerDatamapper';
+import customerDataMapperInstance from '../datamapper/customerDatamapper';
+
+const customerDataMapper = customerDataMapperInstance.main;
 
 const customerController = {
   async getCustomer(req: Request, res: Response) {
@@ -14,9 +16,9 @@ const customerController = {
   async deleteCustomer(req: Request, res: Response) {
     const { user } = req;
 
-    await customerDatamapper.deleteCustomer(user.id);
+    await customerDataMapper.deleteCustomer(user.id);
 
-    const checkCustomerAfterDelete = await customerDatamapper.getCustomerById(user.id);
+    const checkCustomerAfterDelete = await customerDataMapper.getCustomerById(user.id);
 
     if (!checkCustomerAfterDelete) {
       res.status(200).json({ message: 'Customer successfully deleted.' });
@@ -28,7 +30,7 @@ const customerController = {
   async updateCustomer(req: Request, res: Response) {
     const data = req.body;
     const { user } = req;
-    const patchUser = await customerDatamapper.patchUser(user.id, data);
+    const patchUser = await customerDataMapper.patchUser(user.id, data);
     if (patchUser) {
       delete patchUser.password;
       delete patchUser.id;

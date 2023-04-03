@@ -1,6 +1,8 @@
 BEGIN;
 
-DROP TABLE IF EXISTS "customer", "circle", "event", "message", "circle_customer";
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA public;
+
+COMMENT ON EXTENSION "uuid-ossp" IS 'generate universally unique identifiers (UUIDs)';
 
 CREATE OR REPLACE FUNCTION update_updated_at_column()
 RETURNS TRIGGER AS $$
@@ -22,7 +24,9 @@ CREATE TABLE "customer" (
                         "firstcircle" BOOLEAN NOT NULL DEFAULT FALSE,
                         "img" TEXT NOT NULL,
                         "created_at" TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
-                        "updated_at" TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+                        "updated_at" TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+                        "identifier" character varying(36) DEFAULT uuid_generate_v4() NOT NULL,
+                        "emailValid" TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 );
 
 
@@ -92,7 +96,3 @@ CREATE TABLE "circle_customer" (
 
 COMMIT;
 
--- INSERT INTO circle(name,description, img)
--- VALUES ('prout','descri','img');
--- INSERT INTO circle_customer(id_customer,id_circle)
--- VALUES (4,currval(pg_get_serial_sequence('circle','id')));
