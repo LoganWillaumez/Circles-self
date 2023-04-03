@@ -1,38 +1,37 @@
 import { differenceInHours } from 'date-fns';
-import client from '../config/db.config';
-import { registerData } from '../../ts/interfaces/customer.interfaces';
+import dbConnection from '../config/db.config';
+import { Pool } from 'pg';
+import { testDbConnection } from '../tests/utils/testDatabase';
+import { CustomerDatas, CustomerInputDatas } from '../../ts/interfaces/customer.interfaces';
 
-const customerDataMapper: any = {
-  async getCustomerById(id: number) {
+const customerDataMapper = (client: Pool) => {
+  return {
+    async getCustomerById(id: number): Promise<CustomerDatas | false> {
+      const query = {
+        text:
+          `SELECT c.id as customer_id, c.firstname, c.lastname, c.gender, c.email, TO_CHAR(c.birthdate, 'YYYY-MM-DD') as birthdate, c.firstconnect, c.firstcircle, c.img, c.created_at,c.activated_at, c.identifier,c.email_valid, c.updated_at, json_agg(cc) as circles
+           FROM "customer" c
+           LEFT OUTER JOIN "circle_customer" cu ON c.id = cu.id_customer
+           LEFT OUTER JOIN circle cc ON cc.id = cu.id_circle
+           WHERE c.id=$1
+           GROUP BY c.id`,
+        values: [id],
+      };
+      const customer = await client.query(query);
+    
+      return customer?.rows[0] ?? false;
+    }
+    
+    ,
+  
+  async getCustomerByEmail(email: string): Promise<CustomerDatas | false> {
     const query = {
       text:
-          'SELECT json_build_object('
-          + '\'id\',c.id, '
-          + '\'firstname\', c.firstname, '
-          + '\'lastname\', c.lastname, '
-          + '\'gender\', c.gender, '
-          + '\'email\', c.email, '
-          + '\'birthdate\', c.birthdate, '
-          + '\'firstconnect\', c.firstconnect, '
-          + '\'firstcircle\', c.firstcircle, '
-          + '\'img\', c.img, '
-          + '\'created_at\', c.created_at, '
-          + '\'updated_at\', c.updated_at, '
-          + '\'circles\', jsonb_agg(cc)) '
-          + 'FROM "customer" c '
-          + 'LEFT JOIN "circle_customer" cu ON c.id = cu.id_customer '
-          + 'LEFT JOIN circle cc ON cc.id = cu.id_circle WHERE c.id=$1 GROUP BY c.id;',
-      values: [id],
+        `SELECT id as customer_id, firstname, lastname, gender, email, TO_CHAR(birthdate, 'YYYY-MM-DD') as birthdate, firstconnect, firstcircle, img, created_at, identifier, updated_at
+         FROM "customer"
+         WHERE "customer".email = $1`,
+      values: [email],
     };
-    const customer = await client.query(query);
-    if (customer) {
-      return customer.rows[0].json_build_object;
-    }
-    return false;
-  },
-
-  async getCustomerByEmail(email: string) {
-    const query = { text: 'SELECT * FROM "customer" WHERE "customer".email = $1', values: [email] };
     const customer = await client.query(query);
     if (customer) {
       return customer.rows[0];
@@ -40,13 +39,13 @@ const customerDataMapper: any = {
     return false;
   },
 
-  async createUser(userData: registerData) {
+  async createUser(userData: CustomerInputDatas): Promise<CustomerDatas | false> {
     const {
       firstname, lastname, email, password, birthdate, img, gender,
     } = userData;
     const query = {
       text: `INSERT INTO "customer" ("firstname","lastname", "email", "password", "birthdate","img", "gender")
-              VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING "customer".id as customer_id, "customer".firstname, "customer".lastname,"customer".email, "customer".birthdate, "customer".img, "customer".gender, "customer".identifier`,
+              VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING "customer".id as customer_id, "customer".firstname, "customer".lastname,"customer".email, TO_CHAR("customer".birthdate, 'YYYY-MM-DD') as birthdate, "customer".img, "customer".gender, "customer".identifier`,
       values: [
         firstname,
         lastname,
@@ -65,85 +64,113 @@ const customerDataMapper: any = {
     return false;
   },
 
-  async patchUser(id: number, data: any) {
+  async patchUser(id: number, data: any): Promise<CustomerDatas | false> {
+    if (Object.keys(data).length === 0) {
+      return await this.getCustomerById(id);
+    }
+  
     const fields = Object.keys(data).map((prop, index) => {
-      if (prop === 'birthdate') {
-        return `"${prop}" = $${index + 1}`;
-      } if (prop === 'firstconnect') {
-        return `"${prop}" = $${index + 1}`;
-      } if (prop === 'firstcircle') {
+      const skipNullUpdateFields = ['birthdate', 'firstconnect', 'firstcircle'];
+  
+      if (skipNullUpdateFields.includes(prop)) {
         return `"${prop}" = $${index + 1}`;
       }
+  
+      if (prop === 'email_valid') {
+        return `"${prop}" = $${index + 1}::timestamp`;
+      }
+  
       return `"${prop}" = COALESCE(NULLIF($${index + 1}, ''), "${prop}")`;
     });
-
+  
     const values = Object.values(data);
-
+    
     const updatedUser = await client.query(
-      `UPDATE "customer" SET ${fields} WHERE id = $${
-        fields.length + 1
-      } RETURNING *`,
+      `UPDATE "customer" SET ${fields.join(', ')} WHERE id = $${fields.length + 1} RETURNING *, "customer".id as customer_id, TO_CHAR("customer".birthdate, 'YYYY-MM-DD') as birthdate`,
       [...values, id],
     );
-    if (updatedUser) {
+  
+
+    if (updatedUser && updatedUser.rows.length > 0) {
       return updatedUser.rows[0];
     }
     return false;
   },
+  
 
   async deleteCustomer(id: number) {
     const query = { text: 'DELETE FROM "customer" WHERE "customer".id  = $1', values: [id] };
     return client.query(query);
   },
 
-  async checkActivatedAtByEmail(email: string) {
-    const query = await client.query('SELECT "customer".activated_at FROM "customer" WHERE "customer".email = $1', [email]);
-    if (query.rows[0].activated_at) {
+  async checkActivatedAtByEmail(email: string): Promise<Date | false> {
+    const query = await client.query('SELECT activated_at FROM customer WHERE email = $1', [email]);
+    if (query.rows[0] && query.rows[0].activated_at) {
       return query.rows[0].activated_at;
     }
     return false;
   },
-  async checkActivatedAtByIdentifier(id: number) {
-    const query = await client.query('SELECT "customer".activated_at FROM "customer" WHERE "customer".identifier = $1', [id]);
-    if (query) {
+  
+  async checkActivatedAtByIdentifier(identifier: string): Promise<Date | false> {
+    const query = await client.query('SELECT "customer".activated_at FROM "customer" WHERE "customer".identifier = $1', [identifier]);
+
+    if (query.rows[0]) {
       return query.rows[0].activated_at;
     }
     return false;
   },
-  async validUser(identifier: string) {
-    const activatedAt = await customerDataMapper.checkActivatedAtByIdentifier(identifier);
+  async validUser(identifier: string): Promise<Date | false> {
+    const activatedAt = await customerDataMapper(client).checkActivatedAtByIdentifier(identifier);
     if (activatedAt) {
       return false;
     }
+  
     const result = await client.query(
       'SELECT "customer".email_valid FROM "customer" WHERE "customer".identifier = $1',
       [identifier],
     );
+  
 
     if (!result.rows.length) {
       return false;
     }
+  
+    const { email_valid } = result.rows[0];
 
-    const { email_valid: emailValid } = result.rows[0];
     const currentDateTime = new Date();
+  
+    const hoursDifference = differenceInHours(currentDateTime, new Date(email_valid));
 
-    if (differenceInHours(currentDateTime, emailValid) < 24) {
-      const updatedCustomer = await client.query(
-        'UPDATE "customer" SET activated_at = $1 WHERE identifier = $2 RETURNING "customer".activated_at',
-        [currentDateTime.toISOString(), identifier],
-      );
-      return updatedCustomer.rows[0].activated_at;
+  
+    if (hoursDifference >= 24) {
+      return false;
     }
+  
+    const activation = await client.query(
+      'UPDATE "customer" SET activated_at = $1 WHERE identifier = $2 RETURNING "customer".activated_at',
+      [currentDateTime, identifier],
+    );
+
+
+  if(activation.rows[0].activated_at){
+    return activation.rows[0].activated_at; 
+  }
     return false;
-  },
-  async reloadEmailValid(id: string) {
+  },  
+  async reloadEmailValid(id: number): Promise<Date | false> {
     const currentDateTime = new Date();
     const updatedCustomer = await client.query(
-      'UPDATE customer SET "customer".email_valid = $1 WHERE id = $2 RETURNING "customer".email_valid',
+      'UPDATE customer SET email_valid = $1 WHERE id = $2 RETURNING customer.email_valid',
       [currentDateTime, id],
     );
-    return updatedCustomer.rows[0].emailValid;
+    return updatedCustomer.rows[0].email_valid;
   },
 };
+};
 
-export default customerDataMapper;
+const customerDataMapperInstance = {
+  main: customerDataMapper(dbConnection),
+  test: customerDataMapper(testDbConnection)
+};
+
+export default customerDataMapperInstance;

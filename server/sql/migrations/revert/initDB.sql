@@ -1,0 +1,11 @@
+-- Revert circles:initDB from pg
+
+BEGIN;
+
+DROP TABLE IF EXISTS "circle_customer" CASCADE;
+DROP TABLE IF EXISTS "message" CASCADE;
+DROP TABLE IF EXISTS "event" CASCADE;
+DROP TABLE IF EXISTS "circle" CASCADE;
+DROP TABLE IF EXISTS "customer" CASCADE;
+
+COMMIT;
