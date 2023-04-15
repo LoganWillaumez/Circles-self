@@ -1,4 +1,4 @@
-import {CustomerDatas} from '../../../../package/circles-types/interfaces/interfaces/customer.interfaces';
+import {CustomerDatas} from '../../../../package/circles/interfaces/interfaces/customer.interfaces';
 
 declare namespace jestGlobal {
   let testUser: any;

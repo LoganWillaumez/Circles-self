@@ -2,7 +2,7 @@ import {Request, Response, NextFunction} from 'express';
 import circlesDatamapper from '../datamapper/circlesDatamapper';
 import circlesDataMapperInstance from '../datamapper/circlesDatamapper';
 import AppError from '../../utils/AppError';
-import { ErrorCode } from '@circles-self/types';
+import { ErrorCode } from '@circles-self/circles/interfaces';
 
 const circlesDataMapper = circlesDataMapperInstance.main;
 

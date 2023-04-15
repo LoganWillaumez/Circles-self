@@ -26,6 +26,13 @@ const fr: Translation = {
     emailOutdated: "L'email est périmé"
   },
   desc: {
+    welcomeExplainTitle: 'Bienvenue sur Circles !',
+    welcomeExplain1: 'Bonjour et bienvenue sur Circles. Découvrez des cercles incroyables, connectez-vous avec des gens du monde entier et partagez vos passions.',
+    welcomeExplain2: 'Rejoignez des personnes partageant les mêmes idées, participez à des discussions enrichissantes et échangez des idées dans des Circles adaptés à vos centres d\'intérêt.',
+    welcomeProfileTitle: 'Photo de profil',
+    welcomeProfileExplain: 'Ensuite, vous pouvez choisir de prendre une photo de vous-même, télécharger une photo ou passer cette étape et obtenir un avatar commun. Cela permettra aux autres utilisateurs de mieux vous connaître.',
+    takePicture: 'Prendre une photo',
+    uploadPicture: 'Télécharger une photo',
     emailSend: 'Email envoyé',
     emailLink:
       "Cliquez sur le lien dans l'email que vous avez reçu pour commencer votre voyage !",
@@ -34,12 +41,17 @@ const fr: Translation = {
       "Veuillez vous reconnecter à votre compte et renvoyer un email d'activation.",
     accountValidate: 'Votre compte a bien été validé !',
     accountAskSignin:
-      'Vous pouvez maintenant vous connectez a votre compte afin de profiter de Circles.'
+      'Vous pouvez maintenant vous connectez a votre compte afin de profiter de Circles.',
+      welcomeDoneDesc: 'Votre compte a bien été finalisé. Commencez votre expérience Circles en appuyant sur le bouton ci-dessous.',
   },
   global: {
     switchLanguage: 'en',
     close: 'Fermer',
-    or: 'Ou'
+    or: 'Ou',
+    next: 'Suivant',
+    skip: 'Passer',
+    start: 'Commencer',
+    perfect: 'Parfait !',
   }
 };
 

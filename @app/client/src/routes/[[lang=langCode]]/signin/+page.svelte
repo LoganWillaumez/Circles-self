@@ -10,13 +10,12 @@
   import {goto} from '$app/navigation';
   import type {Options} from '../../../models/input';
   import API from '../../../api/Api';
-  import LLL, {LL} from '$lib/i18n/i18n-svelte';
+  import {LL} from '$lib/i18n/i18n-svelte';
   import type {Translation, TranslationFunctions} from '$lib/i18n/i18n-types';
-  import {string} from 'zod';
-  import type {LocalizedString} from 'typesafe-i18n';
 
   type ActionExtend = ActionResult & {
     data?: Partial<{
+      initiallogin: boolean;
       status: number;
       message: string;
     }>;
@@ -38,12 +37,12 @@
     }
   ];
 
-  const signup: SubmitFunction = ({form, data: dataForm, action, cancel}) => {
+  const signin: SubmitFunction = ({form, data: dataForm, action, cancel}) => {
     return async ({result}: {result: ActionExtend}) => {
+      console.log('🚀 ~ result:', result);
       await applyAction(result);
       const status = result.data?.status || result.status;
       const {data} = result;
-      console.log('🚀 ~ data:', data);
       if (status !== 400) {
         if (status === 403) {
           data?.message &&
@@ -60,7 +59,7 @@
           form.reset();
           return;
         }
-        if (status !== 201) {
+        if (status !== 200) {
           form.reset();
           data?.message &&
             setLoader(true, {
@@ -73,18 +72,23 @@
           return;
         } else {
           resetLoader();
-          goto('/email-send');
+          if(data?.initiallogin){
+            goto('/dashboard');
+          } else {
+            goto('/welcome/explain');
+          }
         }
       }
     };
   };
+
 </script>
 
 <div class="container">
   <div class="scroll_wrapper">
     <div>
       <h1 class="mb-5">Signin</h1>
-      <form method="POST" use:enhance={signup}>
+      <form method="POST" use:enhance={signin}>
         <div>
           <Input
             errors={form?.errors?.email ?? ''}

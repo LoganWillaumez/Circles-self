@@ -2,8 +2,10 @@ import jsonwebtoken, {Algorithm} from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import {NextFunction, Request, Response} from 'express';
 import customerDataMapperInstance from '../datamapper/customerDatamapper';
-import { CustomerDatas, ErrorCode } from '@circles-self/types';
 import AppError from '../../utils/AppError';
+import { CustomerDatas, ErrorCode } from '@circles-self/circles/interfaces';
+import { TokenType } from '@circles-self/circles/enums';
+import config from '../../config';
 
 const customerDataMapper = customerDataMapperInstance.main;
 dotenv.config();
@@ -15,37 +17,24 @@ interface JwtPayload {
 }
 
 const jwbtoken = {
-  /**
-   * Generate an access token based on the userID
-   * @param id {number}
-   */
-  generateAccessToken(id: number) {
-    const jwtOptions = {
-      algorithm: 'HS256' as Algorithm,
-      expiresIn: '10m'
-    };
-    return jsonwebtoken.sign(
-      {id},
-      process.env.ACCESS_TOKEN_SECRET as string,
-      jwtOptions
-    );
-  },
+/**
+ * Generate a token based on the userID and token type
+ * @param id {number}
+ * @param tokenType {'access' | 'refresh'}
+ */
+generateToken(id: number, tokenType: TokenType.ACCESSTOKEN | TokenType.REFRESHTOKEN) {
+  const jwtOptions = {
+    algorithm: 'HS256' as Algorithm,
+    expiresIn: tokenType === TokenType.ACCESSTOKEN ? config.token.accessTokenLife : config.token.refresnTokenLife,
+  };
+  const secretKey = tokenType === TokenType.ACCESSTOKEN ? process.env.ACCESS_TOKEN_SECRET : process.env.REFRESH_TOKEN_SECRET;
 
-  /**
-   * Generate a refresh token based on the userID
-   * @param id {number}
-   */
-  generateRefreshToken(id: number) {
-    const jwtOptions = {
-      algorithm: 'HS256' as Algorithm,
-      expiresIn: '30d'
-    };
-    return jsonwebtoken.sign(
-      {id},
-      process.env.REFRESH_TOKEN_SECRET as string,
-      jwtOptions
-    );
-  },
+  return jsonwebtoken.sign(
+    { id },
+    secretKey as string,
+    jwtOptions
+  );
+},
 
   /**
    * Verify the access token based on the request received

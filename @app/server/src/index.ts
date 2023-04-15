@@ -14,13 +14,18 @@ import {connectToDatabase} from './app/config/db.config';
 const PORT = process.env.SERVER_PORT || 3000;
 const staticPath = path.join(__dirname, 'public');
 
+const corsOptions = {
+  origin: 'http://127.0.0.1:5173/', // Change this to the URL of your client-side app
+  credentials: true
+};
+
 connectToDatabase();
 const app = express();
 app.use(express.static(staticPath));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use('/api/auth', authRoutes);
 app.use('/api/customer', customerRoutes);
 app.use('/api/circle', circleRoutes);

@@ -2,13 +2,13 @@ import {differenceInHours} from 'date-fns';
 import dbConnection from '../config/db.config';
 import {Pool} from 'pg';
 import {testDbConnection} from '../tests/utils/testDatabase';
-import { CustomerDatas, CustomerInputDatas } from '@circles-self/types';
+import { CustomerDatas, CustomerInputDatas } from '@circles-self/circles/interfaces';
 
 const customerDataMapper = (client: Pool) => {
   return {
     async getCustomerById(id: number): Promise<CustomerDatas | false> {
       const query = {
-        text: `SELECT c.id as customer_id, c.firstname, c.lastname, c.gender, c.email, TO_CHAR(c.birthdate, 'YYYY-MM-DD') as birthdate, c.firstconnect, c.firstcircle, c.img, c.created_at,c.activated_at, c.identifier,c.email_valid, c.updated_at, json_agg(cc) as circles
+        text: `SELECT c.id as customer_id, c.firstname, c.lastname, c.gender, c.email, TO_CHAR(c.birthdate, 'YYYY-MM-DD') as birthdate, c.initiallogin, c.initialcircle, c.img, c.created_at, c.activated_at, c.identifier,c.email_valid, c.updated_at, json_agg(cc) as circles
            FROM "customer" c
            LEFT OUTER JOIN "circle_customer" cu ON c.id = cu.id_customer
            LEFT OUTER JOIN circle cc ON cc.id = cu.id_circle
@@ -23,7 +23,7 @@ const customerDataMapper = (client: Pool) => {
 
     async getCustomerByEmail(email: string): Promise<CustomerDatas | false> {
       const query = {
-        text: `SELECT id as customer_id, firstname, lastname, gender, email, TO_CHAR(birthdate, 'YYYY-MM-DD') as birthdate, firstconnect, firstcircle, img, created_at, identifier, updated_at
+        text: `SELECT id as customer_id, firstname, lastname, password, gender, email, TO_CHAR(birthdate, 'YYYY-MM-DD') as birthdate, activated_at, initiallogin, initialcircle, img, created_at, identifier, updated_at
          FROM "customer"
          WHERE "customer".email = $1`,
         values: [email]
@@ -68,7 +68,7 @@ const customerDataMapper = (client: Pool) => {
       const fields = Object.keys(data).map((prop, index) => {
         const skipNullUpdateFields = [
           'birthdate',
-          'firstconnect',
+          'initialLogin',
           'firstcircle'
         ];
 

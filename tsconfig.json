@@ -13,7 +13,7 @@
   "references": [
     {
       "path": {
-        "@circles-self/types": ["./@circles-self/types/*"]
+        "circles": ["./package/circles/*"]
       }
     }
   ]

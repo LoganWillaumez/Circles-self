@@ -3,7 +3,7 @@ import sanitizeHtml from 'sanitize-html';
 import eventDatamapper from '../datamapper/eventDatamapper';
 import AppError from '../../utils/AppError';
 import {wrapMethodsInTryCatch} from '../../utils/tryCatch';
-import { ErrorCode, EventDatas, EventInputDatas } from '@circles-self/types';
+import { ErrorCode, EventDatas, EventInputDatas } from '@circles-self/circles/interfaces';
 
 const eventController = {
   async getEvent(req: Request, res: Response) {
