@@ -1,4 +1,4 @@
-import { EventDatas, EventInputDatas } from '@circles-self/types';
+import { EventDatas, EventInputDatas } from '@circles-self/circles/interfaces';
 import client from '../config/db.config';
 
 const eventDatamapper = {

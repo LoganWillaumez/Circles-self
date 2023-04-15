@@ -2,14 +2,16 @@
   import {onMount} from 'svelte';
   import lottie from 'lottie-web';
 
-  export let lottieAnim: 'loader' | 'confetis' = 'loader';
+  export let lottieAnim: 'loader' | 'confetis' | 'validation' = 'loader';
+  export let loop = true;
+
   onMount(() => {
     const container = document.querySelector('.lottie-container');
     if (container !== null) {
       lottie.loadAnimation({
         container: container,
         renderer: 'svg',
-        loop: true,
+        loop: loop,
         autoplay: true,
         path: `/lottie/${lottieAnim}.json`
       });

@@ -2,7 +2,7 @@ import {Request, Response} from 'express';
 import AppError from '../../utils/AppError';
 import {wrapMethodsInTryCatch} from '../../utils/tryCatch';
 import customerDataMapperInstance from '../datamapper/customerDatamapper';
-import { ErrorCode } from '@circles-self/types';
+import { ErrorCode } from '@circles-self/circles/enums';
 
 const customerDataMapper = customerDataMapperInstance.main;
 

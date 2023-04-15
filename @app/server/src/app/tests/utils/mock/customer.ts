@@ -1,5 +1,5 @@
+import { CustomerInputDatas } from '@circles-self/circles/interfaces';
 import {faker} from '@faker-js/faker';
-import {CustomerInputDatas} from '../../../../../../../package/circles-types/interfaces/interfaces/customer.interfaces';
 
 export const generateCustomer = (): CustomerInputDatas => {
   return {

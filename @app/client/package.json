@@ -35,6 +35,7 @@
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "axios": "^1.3.5",
+    "@circles-self/circles":"workspace:^1.0.0",
     "lottie-web": "^5.10.2",
     "npm-run-all": "^4.1.5",
     "sass": "^1.60.0",

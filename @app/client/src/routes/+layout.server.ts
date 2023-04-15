@@ -6,7 +6,6 @@ const langParam = 'lang';
 
 export const load = (async event => {
   const coockie = event.cookies.get(langParam);
-  console.log('🚀 ~ coockie:', coockie);
   // Using a GET var "lang" to change locale\
   // const baseUrl = event.url.origin + event.url.pathname;
   const newLocale = event.url.searchParams.get(langParam);

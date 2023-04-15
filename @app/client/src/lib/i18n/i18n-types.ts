@@ -94,6 +94,34 @@ type RootTranslation = {
 	}
 	desc: {
 		/**
+		 * W​e​l​c​o​m​e​ ​t​o​ ​C​i​r​c​l​e​s​ ​!
+		 */
+		welcomeExplainTitle: string
+		/**
+		 * H​e​l​l​o​ ​a​n​d​ ​w​e​l​c​o​m​e​ ​t​o​ ​C​i​r​c​l​e​s​.​ ​D​i​s​c​o​v​e​r​ ​a​m​a​z​i​n​g​ ​C​i​r​c​l​e​s​,​ ​c​o​n​n​e​c​t​ ​w​i​t​h​ ​p​e​o​p​l​e​ ​w​o​r​l​d​w​i​d​e​,​ ​a​n​d​ ​s​h​a​r​e​ ​y​o​u​r​ ​p​a​s​s​i​o​n​s​.
+		 */
+		welcomeExplain1: string
+		/**
+		 * J​o​i​n​ ​l​i​k​e​-​m​i​n​d​e​d​ ​i​n​d​i​v​i​d​u​a​l​s​,​ ​e​n​g​a​g​e​ ​i​n​ ​m​e​a​n​i​n​g​f​u​l​ ​d​i​s​c​u​s​s​i​o​n​s​,​ ​a​n​d​ ​e​x​c​h​a​n​g​e​ ​i​d​e​a​s​ ​i​n​ ​C​i​r​c​l​e​s​ ​t​a​i​l​o​r​e​d​ ​t​o​ ​y​o​u​r​ ​i​n​t​e​r​e​s​t​s​.
+		 */
+		welcomeExplain2: string
+		/**
+		 * P​r​o​f​i​l​e​ ​p​i​c​t​u​r​e
+		 */
+		welcomeProfileTitle: string
+		/**
+		 * T​h​e​n​ ​y​o​u​ ​c​a​n​ ​c​h​o​o​s​e​ ​t​o​ ​t​a​k​e​ ​a​ ​p​h​o​t​o​ ​o​f​ ​y​o​u​r​s​e​l​f​,​ ​u​p​l​o​a​d​ ​a​ ​p​h​o​t​o​,​ ​o​r​ ​s​k​i​p​ ​t​h​i​s​ ​s​t​e​p​ ​a​n​d​ ​g​e​t​ ​a​ ​c​o​m​m​o​n​ ​a​v​a​t​a​r​.​ ​T​h​i​s​ ​w​i​l​l​ ​a​l​l​o​w​ ​o​t​h​e​r​ ​u​s​e​r​s​ ​t​o​ ​g​e​t​ ​t​o​ ​k​n​o​w​ ​y​o​u​ ​b​e​t​t​e​r​.
+		 */
+		welcomeProfileExplain: string
+		/**
+		 * T​a​k​e​ ​a​ ​p​i​c​t​u​r​e
+		 */
+		takePicture: string
+		/**
+		 * U​p​l​o​a​d​ ​a​ ​p​i​c​t​u​r​e
+		 */
+		uploadPicture: string
+		/**
 		 * E​m​a​i​l​ ​s​e​n​d
 		 */
 		emailSend: string
@@ -117,6 +145,10 @@ type RootTranslation = {
 		 * Y​o​u​ ​c​a​n​ ​n​o​w​ ​s​i​g​n​ ​i​n​ ​t​o​ ​y​o​u​r​ ​a​c​c​o​u​n​t​ ​t​o​ ​e​n​j​o​y​ ​C​i​r​c​l​e​s​.
 		 */
 		accountAskSignin: string
+		/**
+		 * Y​o​u​r​ ​a​c​c​o​u​n​t​ ​h​a​s​ ​b​e​e​n​ ​s​u​c​c​e​s​s​f​u​l​l​y​ ​f​i​n​a​l​i​z​e​d​.​ ​S​t​a​r​t​ ​y​o​u​r​ ​C​i​r​c​l​e​s​ ​e​x​p​e​r​i​e​n​c​e​ ​b​y​ ​p​r​e​s​s​i​n​g​ ​t​h​e​ ​b​u​t​t​o​n​ ​b​e​l​o​w​.
+		 */
+		welcomeDoneDesc: string
 	}
 	global: {
 		/**
@@ -131,6 +163,22 @@ type RootTranslation = {
 		 * O​r
 		 */
 		or: string
+		/**
+		 * N​e​x​t
+		 */
+		next: string
+		/**
+		 * S​k​i​p
+		 */
+		skip: string
+		/**
+		 * S​t​a​r​t
+		 */
+		start: string
+		/**
+		 * P​e​r​f​e​c​t​ ​!
+		 */
+		perfect: string
 	}
 }
 
@@ -215,6 +263,34 @@ export type TranslationFunctions = {
 	}
 	desc: {
 		/**
+		 * Welcome to Circles !
+		 */
+		welcomeExplainTitle: () => LocalizedString
+		/**
+		 * Hello and welcome to Circles. Discover amazing Circles, connect with people worldwide, and share your passions.
+		 */
+		welcomeExplain1: () => LocalizedString
+		/**
+		 * Join like-minded individuals, engage in meaningful discussions, and exchange ideas in Circles tailored to your interests.
+		 */
+		welcomeExplain2: () => LocalizedString
+		/**
+		 * Profile picture
+		 */
+		welcomeProfileTitle: () => LocalizedString
+		/**
+		 * Then you can choose to take a photo of yourself, upload a photo, or skip this step and get a common avatar. This will allow other users to get to know you better.
+		 */
+		welcomeProfileExplain: () => LocalizedString
+		/**
+		 * Take a picture
+		 */
+		takePicture: () => LocalizedString
+		/**
+		 * Upload a picture
+		 */
+		uploadPicture: () => LocalizedString
+		/**
 		 * Email send
 		 */
 		emailSend: () => LocalizedString
@@ -238,6 +314,10 @@ export type TranslationFunctions = {
 		 * You can now sign in to your account to enjoy Circles.
 		 */
 		accountAskSignin: () => LocalizedString
+		/**
+		 * Your account has been successfully finalized. Start your Circles experience by pressing the button below.
+		 */
+		welcomeDoneDesc: () => LocalizedString
 	}
 	global: {
 		/**
@@ -252,6 +332,22 @@ export type TranslationFunctions = {
 		 * Or
 		 */
 		or: () => LocalizedString
+		/**
+		 * Next
+		 */
+		next: () => LocalizedString
+		/**
+		 * Skip
+		 */
+		skip: () => LocalizedString
+		/**
+		 * Start
+		 */
+		start: () => LocalizedString
+		/**
+		 * Perfect !
+		 */
+		perfect: () => LocalizedString
 	}
 }
 

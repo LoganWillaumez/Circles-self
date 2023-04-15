@@ -6,54 +6,43 @@ import customerDataMapperInstance from '../datamapper/customerDatamapper';
 import {sendMail} from '../../services/email';
 import {wrapMethodsInTryCatch} from '../../utils/tryCatch';
 import AppError from '../../utils/AppError';
-import {ErrorCode} from '@circles-self/types';
-import {CustomerInputDatas} from '@circles-self/types';
 import {sanitizeInputs} from '../../utils/text';
+import { ErrorCode, TokenType } from '@circles-self/circles/enums';
+import { CustomerInputDatas } from '@circles-self/circles/interfaces';
 
 const customerDataMapper = customerDataMapperInstance.main;
 
 const authController: any = {
   async signIn(req: Request, res: Response) {
-    const {email, password} = sanitizeInputs(req.body);
+  const { email, password } = sanitizeInputs(req.body);
 
-    const checkCustomer = await customerDataMapper.getCustomerByEmail(email);
+  const customer = await customerDataMapper.getCustomerByEmail(email);
 
-    if (!checkCustomer) {
-      throw new AppError(ErrorCode.AUTHENTIFICATION, 'userNoExist', 404);
-    } else {
-      const isActivate = await customerDataMapper.checkActivatedAtByEmail(
-        email
-      );
-      if (!isActivate) {
-        throw new AppError(ErrorCode.AUTHENTIFICATION, 'userNoActivated', 403);
-      }
-      if (!checkCustomer.password) {
-        throw new AppError(ErrorCode.AUTHENTIFICATION, 'userNoPassword', 403);
-      }
-      const pass = await bcrypt.compare(password, checkCustomer.password);
+  if (!customer) {
+    throw new AppError(ErrorCode.AUTHENTIFICATION, 'userNoExist', 404);
+  }
 
-      if (pass) {
-        delete checkCustomer.password;
-        res.cookie(
-          'jwt',
-          jwbtoken.generateRefreshToken(checkCustomer.customer_id),
-          {
-            httpOnly: true,
-            sameSite: 'none',
-            secure: true,
-            maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
-          }
-        );
-        res
-          .status(200)
-          .json({
-            accessToken: jwbtoken.generateAccessToken(checkCustomer.customer_id)
-          });
-      } else {
-        throw new AppError(ErrorCode.AUTHENTIFICATION, 'badCredentials', 401);
-      }
-    }
-  },
+  if (!customer.activated_at) {
+    throw new AppError(ErrorCode.AUTHENTIFICATION, 'userNoActivated', 403);
+  }
+
+  if (!customer.password) {
+    throw new AppError(ErrorCode.AUTHENTIFICATION, 'userNoPassword', 403);
+  }
+
+  const passwordMatches = await bcrypt.compare(password, customer.password);
+
+  if (!passwordMatches) {
+    throw new AppError(ErrorCode.AUTHENTIFICATION, 'badCredentials', 401);
+  }
+
+  delete customer.password;
+
+  res.status(200).json({
+    initiallogin: customer.initiallogin,
+    refreshToken: jwbtoken.generateToken(customer.customer_id, TokenType.REFRESHTOKEN)
+  });
+},
 
   async signUp(req: Request, res: Response) {
     const sanitizedInputs = sanitizeInputs(req.body);
@@ -135,9 +124,11 @@ const authController: any = {
         if (err) {
           throw new AppError(ErrorCode.AUTHENTIFICATION, 'nonAutorisé', 401);
         }
-        const {id} = payload as JwtPayload;
+        const {customer_id} = payload as JwtPayload;
 
-        res.status(200).json({accessToken: jwbtoken.generateAccessToken(id)});
+        res.status(200).json({
+          refreshToken: jwbtoken.generateToken(customer_id, TokenType.ACCESSTOKEN)
+        });
       }
     );
   },
