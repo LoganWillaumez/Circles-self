@@ -1,5 +1,5 @@
 export enum ErrorCode {
-  AUTHENTIFICATION = 1,
+  AUTHENTICATION = 1,
   CIRCLE = 2,
   EVENT = 3,
   CUSTOMER = 4,

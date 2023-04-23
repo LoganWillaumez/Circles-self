@@ -1,5 +1,4 @@
-import {CirclesDatas} from '../../../../../../package/circles-types/interfaces/interfaces/circle.interfaces';
-import {CustomerDatas} from '../../../../../../package/circles-types/interfaces/interfaces/customer.interfaces';
+import { CirclesDatas, CustomerDatas } from '@circles-self/circles/interfaces';
 import circlesDataMapperInstance from '../../datamapper/circlesDatamapper';
 import customerDataMapperInstance from '../../datamapper/customerDatamapper';
 import {generateCircles} from '../utils/mock/circles';

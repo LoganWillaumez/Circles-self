@@ -3,6 +3,8 @@ import {authenthificationSchema} from '$lib/schema/authentification';
 import API from '../Api';
 import {validateData} from '$lib/schema/validation';
 import {isAxiosError} from 'axios';
+import { setAuthToken } from '@circles-self/circles/utils';
+import { TokenType } from '@circles-self/circles/enums';
 
 export const authentification: Actions = {
   signup: async ({request}) => {
@@ -33,7 +35,7 @@ export const authentification: Actions = {
       }
     }
   },
-  signin: async ({request}) => {
+  signin: async ({cookies, request}) => {
     const {formData, errors} = await validateData(
       await request.formData(),
       authenthificationSchema.loginSchema
@@ -46,21 +48,30 @@ export const authentification: Actions = {
     }
     try {
       const response = await API.post('auth/signin', formData);
-      return response;
-    } catch (err) {
+      if(response.data.refreshToken){
+        setAuthToken(TokenType.REFRESHTOKEN, cookies, response.data.refreshToken);
+        const responseWithoutToken = {...response.data};
+        delete responseWithoutToken.refreshToken;
+        return {
+          ...response,
+          ...responseWithoutToken
+        };;
+      }
+    } catch (err) { 
       if (isAxiosError(err)) {
         if (err.response) {
           return fail(err.response.status, {
             message: err.response.data.message
           });
         } else {
-          return error(500);
+          return fail(500);
         }
       } else {
-        return error(500);
+        return fail(500);
       }
     }
   },
+  
   activate: async (identifier: string) => {
     try {
       const isActivate = await API.post('auth/activate', {identifier});

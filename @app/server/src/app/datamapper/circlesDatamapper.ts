@@ -1,8 +1,7 @@
 import {Pool} from 'pg';
 import dbConnection from '../config/db.config';
 import {testDbConnection} from '../tests/utils/testDatabase';
-import { CirclesDatas, CirclesInputDatas } from '@circles-self/types';
-
+import { CirclesDatas, CirclesInputDatas } from '@circles-self/circles/interfaces';
 
 const circlesDataMapper = (client: Pool) => {
   return {

@@ -1,7 +1,7 @@
 import {Pool} from 'pg';
 import config from '../../config';
 import AppError from '../../utils/AppError';
-import { ErrorCode } from '@circles-self/types';
+import { ErrorCode } from '@circles-self/circles/interfaces';
 
 const dbConnection = new Pool({
   host: config.db.host,

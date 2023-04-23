@@ -1,13 +1,12 @@
 import {Request, Response} from 'express';
 import sanitizeHtml from 'sanitize-html';
-import {CirclesInputDatas} from '@circles-self/types';
-import {ErrorCode} from '@circles-self/types';
-import AppError from '../../utils/AppError';
 import {wrapMethodsInTryCatch} from '../../utils/tryCatch';
 import circlesDataMapperInstance from '../datamapper/circlesDatamapper';
+import AppError from '../../utils/AppError';
+import { ErrorCode } from '@circles-self/circles/enums';
+import {CirclesInputDatas} from '@circles-self/circles/interfaces';
 
 const circlesDatamapper = circlesDataMapperInstance.main;
-
 const circleController = {
   async getCircle(req: Request, res: Response) {
     const {user} = req;

@@ -6,54 +6,44 @@ import customerDataMapperInstance from '../datamapper/customerDatamapper';
 import {sendMail} from '../../services/email';
 import {wrapMethodsInTryCatch} from '../../utils/tryCatch';
 import AppError from '../../utils/AppError';
-import {ErrorCode} from '@circles-self/types';
-import {CustomerInputDatas} from '@circles-self/types';
 import {sanitizeInputs} from '../../utils/text';
+import { ErrorCode, TokenType } from '@circles-self/circles/enums';
+import { CustomerInputDatas } from '@circles-self/circles/interfaces';
+import {verifyToken} from '@circles-self/circles/utils/jwt';
 
 const customerDataMapper = customerDataMapperInstance.main;
 
 const authController: any = {
   async signIn(req: Request, res: Response) {
-    const {email, password} = sanitizeInputs(req.body);
+  const { email, password } = sanitizeInputs(req.body);
 
-    const checkCustomer = await customerDataMapper.getCustomerByEmail(email);
+  const customer = await customerDataMapper.getCustomerByEmail(email);
 
-    if (!checkCustomer) {
-      throw new AppError(ErrorCode.AUTHENTIFICATION, 'userNoExist', 404);
-    } else {
-      const isActivate = await customerDataMapper.checkActivatedAtByEmail(
-        email
-      );
-      if (!isActivate) {
-        throw new AppError(ErrorCode.AUTHENTIFICATION, 'userNoActivated', 403);
-      }
-      if (!checkCustomer.password) {
-        throw new AppError(ErrorCode.AUTHENTIFICATION, 'userNoPassword', 403);
-      }
-      const pass = await bcrypt.compare(password, checkCustomer.password);
+  if (!customer) {
+    throw new AppError(ErrorCode.AUTHENTICATION, 'userNoExist', 404);
+  }
 
-      if (pass) {
-        delete checkCustomer.password;
-        res.cookie(
-          'jwt',
-          jwbtoken.generateRefreshToken(checkCustomer.customer_id),
-          {
-            httpOnly: true,
-            sameSite: 'none',
-            secure: true,
-            maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
-          }
-        );
-        res
-          .status(200)
-          .json({
-            accessToken: jwbtoken.generateAccessToken(checkCustomer.customer_id)
-          });
-      } else {
-        throw new AppError(ErrorCode.AUTHENTIFICATION, 'badCredentials', 401);
-      }
-    }
-  },
+  if (!customer.activated_at) {
+    throw new AppError(ErrorCode.AUTHENTICATION, 'userNoActivated', 403);
+  }
+
+  if (!customer.password) {
+    throw new AppError(ErrorCode.AUTHENTICATION, 'userNoPassword', 403);
+  }
+
+  const passwordMatches = await bcrypt.compare(password, customer.password);
+
+  if (!passwordMatches) {
+    throw new AppError(ErrorCode.AUTHENTICATION, 'badCredentials', 401);
+  }
+
+  delete customer.password;
+
+  res.status(200).json({
+    initiallogin: customer.initiallogin,
+    refreshToken:'Bearer ' + jwbtoken.generateToken(customer.customer_id, TokenType.REFRESHTOKEN)
+  });
+},
 
   async signUp(req: Request, res: Response) {
     const sanitizedInputs = sanitizeInputs(req.body);
@@ -71,7 +61,7 @@ const authController: any = {
     );
 
     if (checkCustomer) {
-      throw new AppError(ErrorCode.AUTHENTIFICATION, 'userAlreadyExist', 403);
+      throw new AppError(ErrorCode.AUTHENTICATION, 'userAlreadyExist', 403);
     }
 
     const createUser = await customerDataMapper.createUser(userData);
@@ -96,7 +86,7 @@ const authController: any = {
     );
     if (isActivate) {
       throw new AppError(
-        ErrorCode.AUTHENTIFICATION,
+        ErrorCode.AUTHENTICATION,
         'userAlreadyActivated',
         403
       );
@@ -106,7 +96,7 @@ const authController: any = {
     );
 
     if (!checkCustomer) {
-      throw new AppError(ErrorCode.AUTHENTIFICATION, 'userNoExist', 404);
+      throw new AppError(ErrorCode.AUTHENTICATION, 'userNoExist', 404);
     }
 
     sendMail({
@@ -120,26 +110,25 @@ const authController: any = {
     res.status(201).json({message: 'Email envoyé'});
   },
 
-  refresh(req: Request, res: Response) {
+  async refresh(req: Request, res: Response) {
     const {cookies} = req;
-    if (!cookies?.jwt) {
-      throw new AppError(ErrorCode.AUTHENTIFICATION, 'nonAutorisé', 401);
+
+    const refreshToken = cookies.refreshToken;
+
+    if (!refreshToken) {
+      throw new AppError(ErrorCode.AUTHENTICATION, 'nonAutorisé', 401);
     }
 
-    const refreshToken = cookies?.jwt;
+    try{
+      const verifyRefreshToken = await verifyToken(refreshToken, process.env.REFRESH_TOKEN_SECRET as string);
+      const {customer_id} = verifyRefreshToken as JwtPayload;
 
-    jsonwebtoken.verify(
-      refreshToken,
-      process.env.REFRESH_TOKEN_SECRET!,
-      (err: unknown, payload: unknown) => {
-        if (err) {
-          throw new AppError(ErrorCode.AUTHENTIFICATION, 'nonAutorisé', 401);
-        }
-        const {id} = payload as JwtPayload;
-
-        res.status(200).json({accessToken: jwbtoken.generateAccessToken(id)});
-      }
-    );
+        res.status(200).json({
+          accessToken:'Bearer ' + jwbtoken.generateToken(customer_id, TokenType.ACCESSTOKEN)
+        });
+    } catch(err: any){
+      throw new AppError(err.errorCode, err.message, 401);
+    }
   },
 
   async validUser(req: Request, res: Response) {
@@ -150,7 +139,7 @@ const authController: any = {
         .status(204)
         .json({message: `Utilisateur activé avec succès à ${validUser}`});
     } else {
-      throw new AppError(ErrorCode.AUTHENTIFICATION, 'emailPérimé', 410);
+      throw new AppError(ErrorCode.AUTHENTICATION, 'emailPérimé', 410);
     }
   },
   logout(req: Request, res: Response) {

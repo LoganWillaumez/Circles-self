@@ -1,7 +1,6 @@
-import {Pool} from 'pg';
 import client, {connectToDatabase} from './db.config';
-import {ErrorCode} from '../../../../../package/circles-types/interfaces/interfaces/errorCode';
 import AppError from '../../utils/AppError';
+import { ErrorCode } from '@circles-self/types';
 
 jest.mock('pg', () => {
   return {

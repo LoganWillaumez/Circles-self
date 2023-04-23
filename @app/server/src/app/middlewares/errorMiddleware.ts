@@ -1,7 +1,7 @@
 import {Request, Response, NextFunction} from 'express';
 import Joi from 'joi';
 import AppError from '../../utils/AppError';
-import { ErrorCode } from '@circles-self/types';
+import { ErrorCode } from '@circles-self/circles/interfaces';
 
 const errorHandler = (
   error: Error,
