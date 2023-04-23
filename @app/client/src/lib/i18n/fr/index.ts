@@ -3,7 +3,9 @@ import type {Translation} from '../i18n-types';
 const fr: Translation = {
   button: {
     signUp: "S'inscrire",
-    signIn: 'Se connecter'
+    signIn: 'Se connecter',
+    upload: 'Télécharger',
+    uploadPicture: 'Télécharger une photo',
   },
   form: {
     firstName: 'Prénom',
@@ -12,7 +14,10 @@ const fr: Translation = {
     password: 'Mot de passe',
     confirmPassword: 'Confirmer le mot de passe',
     birthdate: 'Date de naissance',
-    forgotPassword: 'Mot de passe oublié'
+    forgotPassword: 'Mot de passe oublié',
+    search: 'Rechercher',
+    description: 'Description',
+    name: 'Nom',
   },
   serverError: {
     userAlreadyExist: "L'utilisateur existe déjà",
@@ -43,6 +48,8 @@ const fr: Translation = {
     accountAskSignin:
       'Vous pouvez maintenant vous connectez a votre compte afin de profiter de Circles.',
       welcomeDoneDesc: 'Votre compte a bien été finalisé. Commencez votre expérience Circles en appuyant sur le bouton ci-dessous.',
+    noCircle: 'Il semble que vous n\'ayez aucun cercle.',
+    noCircleDesc: 'Vous pouvez soit créer un nouveau cercle, soit attendre d\'être invité dans un cercle existant.',
   },
   global: {
     switchLanguage: 'en',
@@ -52,6 +59,7 @@ const fr: Translation = {
     skip: 'Passer',
     start: 'Commencer',
     perfect: 'Parfait !',
+    create: 'Créer',
   }
 };
 

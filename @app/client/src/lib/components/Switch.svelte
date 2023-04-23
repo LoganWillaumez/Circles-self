@@ -18,6 +18,7 @@
 
 <style lang="scss">
   .switch {
+    cursor: pointer;
     border-radius: 83px;
     width: 50px;
     height: 25px;

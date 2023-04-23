@@ -49,7 +49,7 @@ const redirectToHome = (event: any) => {
  * @param {any} cookies - Cookies object
  * @returns {Promise<object>} - User data
  */
-const fetchUserData = async (cookies: any) => {
+const fetchUserData = async (cookies: any, event: any) => {
   try {
     const userData = await API.get('customer', undefined, cookies);
     return userData.data;
@@ -89,7 +89,7 @@ export const handle = async ({ event, resolve }) => {
 
       // Fetch user data if it doesn't exist locally or the user hasn't completed the initial login process
       if (!event.locals.user || !event.locals.user.initiallogin) {
-        event.locals.user = await fetchUserData(event.cookies);
+        event.locals.user = await fetchUserData(event.cookies, event);
       }
 
       // Redirect the user based on the initiallogin value and the requested route
@@ -126,7 +126,7 @@ export const handle = async ({ event, resolve }) => {
 
       // Fetch user data if it doesn't exist locally
       if (!event.locals.user) {
-        event.locals.user = await fetchUserData(event.cookies);
+        event.locals.user = await fetchUserData(event.cookies, event);
       }
 
       // Continue with the event resolution for guarded routes since both tokens are valid and not expired, and local user data is available

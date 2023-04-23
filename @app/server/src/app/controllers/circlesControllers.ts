@@ -32,12 +32,13 @@ const circleController = {
       img: sanitizeHtml(img)
     };
 
-    const circle = await circlesDatamapper.createCircle(user.id, circleData);
+    const circle = await circlesDatamapper.createCircle(user.customer_id, circleData);
 
     if (!circle) {
       throw new AppError(ErrorCode.CIRCLE, 'circle.cantCreated', 400);
     }
-    res.status(200).json({message: 'successfully created !'});
+
+    res.status(201).json({message: 'circles.created'});
   },
 
   async updateCircle(req: Request, res: Response) {
