@@ -5,7 +5,6 @@ import {redirect} from '@sveltejs/kit';
 const langParam = 'lang';
 
 export const load = (async event => {
-  const coockie = event.cookies.get(langParam);
   // Using a GET var "lang" to change locale\
   // const baseUrl = event.url.origin + event.url.pathname;
   const newLocale = event.url.searchParams.get(langParam);
@@ -13,7 +12,7 @@ export const load = (async event => {
     event.cookies.set(langParam, newLocale, {path: '/'});
     event.url.searchParams.delete(langParam);
     // Redirect to remove the GET var
-
+    
     throw redirect(303, event.url.toString());
   }
 

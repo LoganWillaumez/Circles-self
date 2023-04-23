@@ -1,5 +1,7 @@
-import 'dotenv/config';
+// import 'dotenv/config';
+import * as dotenv from "dotenv";
 import 'express-async-errors';
+dotenv.config({ path: __dirname+'/../../../.env' });
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import path from 'path';
@@ -15,8 +17,9 @@ const PORT = process.env.SERVER_PORT || 3000;
 const staticPath = path.join(__dirname, 'public');
 
 const corsOptions = {
-  origin: 'http://127.0.0.1:5173/', // Change this to the URL of your client-side app
-  credentials: true
+  origin: 'http://127.0.0.1:5173', // Change this to the URL of your client-side app
+  credentials: true,
+  exposedHeaders: ["set-cookie"],
 };
 
 connectToDatabase();

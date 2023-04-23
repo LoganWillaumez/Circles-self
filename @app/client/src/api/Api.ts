@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 const axiosAPI = axios.create({
   baseURL: 'http://localhost:3000/api/',
   withCredentials: true,
@@ -9,11 +10,31 @@ const apiRequest = async (
   method: string,
   url: string,
   request: any,
-  auth = false
+  cookies?: any
 ) => {
-  const headers = {
-    authorization: auth ? localStorage.getItem('jwt') : ''
-  };
+  const accessToken = cookies?.get('accessToken') || '';
+  const refreshToken = cookies?.get('refreshToken') || '';
+
+  const headers: any = {};
+  
+  if (accessToken && refreshToken) {
+    headers.authorization = `${accessToken}`;
+  } else if (refreshToken) {
+    headers.authorization = `${refreshToken}`;
+  }
+  
+    if (accessToken || refreshToken) {
+      headers.cookie = '';
+      
+      if (accessToken) {
+        headers.cookie += `accessToken=${accessToken}; `;
+      }
+      
+      if (refreshToken) {
+        headers.cookie += `refreshToken=${refreshToken};`;
+      }
+    }
+
   //using the axios instance to perform the request that received from each http method
   try {
     const res = await axiosAPI({
@@ -28,21 +49,23 @@ const apiRequest = async (
   }
 };
 
+
+
 // function to execute the http get request
-const get = (url: string, request: any) => apiRequest('get', url, request);
+const get = (url: string, request?: any, cookies?: any) => apiRequest('get', url, request, cookies);
 
 // function to execute the http delete request
-const deleteRequest = (url: string, request: any) =>
-  apiRequest('delete', url, request);
+const deleteRequest = (url: string, request?: any,  cookies?: any) =>
+  apiRequest('delete', url, request, cookies);
 
 // function to execute the http post request
-const post = (url: string, request: any) => apiRequest('post', url, request);
+const post = (url: string, request: any,  cookies?: any) => apiRequest('post', url, request, cookies);
 
 // function to execute the http put request
-const put = (url: string, request: any) => apiRequest('put', url, request);
+const put = (url: string, request: any,  cookies?: any) => apiRequest('put', url, request, cookies);
 
 // function to execute the http path request
-const patch = (url: string, request: any) => apiRequest('patch', url, request);
+const patch = (url: string, request: any,  cookies?: any) => apiRequest('patch', url, request, cookies);
 
 // expose your method to other services or actions
 const API = {
@@ -52,4 +75,5 @@ const API = {
   put,
   patch
 };
+
 export default API;

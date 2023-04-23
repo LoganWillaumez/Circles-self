@@ -22,6 +22,9 @@ const customerSchema = {
         'string.string': 'firstName.string',
         'string.max': 'firstName.max'
       }),
+      initiallogin: Joi.boolean().messages({
+        'boolean.base': 'initialLogin.boolean'
+      }),
       lastname: Joi.string().max(20).messages({
         'string.string': 'lastname.string',
         'string.max': 'lastname.max'
@@ -32,6 +35,7 @@ const customerSchema = {
           'string.string': 'email.string',
           'string.email': 'email.email'
         }),
+
       gender: Joi.string().valid('male', 'female', 'other').messages({
         'gender.string': 'gender.string',
         'any.only': 'gender.valid'

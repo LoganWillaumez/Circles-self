@@ -4,14 +4,14 @@
   import Input from '$lib/components/Input.svelte';
   import Card from '$lib/components/Card.svelte';
   import {applyAction, enhance} from '$app/forms';
-  import type {ActionData} from './$types';
+  import type {ActionData, PageData} from './$types';
   import {resetLoader, setLoader} from '$lib/stores/loader';
   import type {ActionResult, SubmitFunction} from '@sveltejs/kit';
   import {goto} from '$app/navigation';
-  import type {Options} from '../../../models/input';
-  import API from '../../../api/Api';
   import {LL} from '$lib/i18n/i18n-svelte';
   import type {Translation, TranslationFunctions} from '$lib/i18n/i18n-types';
+  import type { Options } from '../../../models/input';
+  import API from '../../../api/Api';
 
   type ActionExtend = ActionResult & {
     data?: Partial<{
@@ -39,10 +39,10 @@
 
   const signin: SubmitFunction = ({form, data: dataForm, action, cancel}) => {
     return async ({result}: {result: ActionExtend}) => {
-      console.log('🚀 ~ result:', result);
       await applyAction(result);
       const status = result.data?.status || result.status;
       const {data} = result;
+      console.log('🚀 ~ data:', data);
       if (status !== 400) {
         if (status === 403) {
           data?.message &&
@@ -75,7 +75,8 @@
           if(data?.initiallogin){
             goto('/dashboard');
           } else {
-            goto('/welcome/explain');
+            goto('/welcome/explain'); //:TODO: Redo for welcome
+            // goto('/welcome/explain');
           }
         }
       }
