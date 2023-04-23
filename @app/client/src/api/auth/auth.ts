@@ -64,10 +64,10 @@ export const authentification: Actions = {
             message: err.response.data.message
           });
         } else {
-          return error(500);
+          return fail(500);
         }
       } else {
-        return error(500);
+        return fail(500);
       }
     }
   },

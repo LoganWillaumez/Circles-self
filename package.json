@@ -10,11 +10,20 @@
     "server": "pnpm --filter server run start:dev",
     "test": "pnpm -r run test"
   },
-  "keywords": ["monorepo", "svelte", "sveltekit", "node", "typescript"],
+  "keywords": [
+    "monorepo",
+    "svelte",
+    "sveltekit",
+    "node",
+    "typescript"
+  ],
   "author": "Willaumez Logan",
   "license": "MIT",
   "dependencies": {
+    "@types/jsonwebtoken": "^8.5.9",
     "date-fns": "^2.29.3",
+    "find-up": "^6.3.0",
+    "jsonwebtoken": "^8.5.1",
     "server": "^1.0.38"
   },
   "devDependencies": {

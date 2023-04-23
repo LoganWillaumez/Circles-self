@@ -64,39 +64,29 @@ const customerDataMapper = (client: Pool) => {
       if (Object.keys(data).length === 0) {
         return await this.getCustomerById(id);
       }
-
+    
       const fields = Object.keys(data).map((prop, index) => {
-        const skipNullUpdateFields = [
-          'birthdate',
-          'initialLogin',
-          'firstcircle'
-        ];
-
-        if (skipNullUpdateFields.includes(prop)) {
-          return `"${prop}" = $${index + 1}`;
-        }
-
         if (prop === 'email_valid') {
           return `"${prop}" = $${index + 1}::timestamp`;
         }
-
-        return `"${prop}" = COALESCE(NULLIF($${index + 1}, ''), "${prop}")`;
+        return `"${prop}" = $${index + 1}`;
       });
-
+    
       const values = Object.values(data);
-
+    
       const updatedUser = await client.query(
         `UPDATE "customer" SET ${fields.join(', ')} WHERE id = $${
           fields.length + 1
         } RETURNING *, "customer".id as customer_id, TO_CHAR("customer".birthdate, 'YYYY-MM-DD') as birthdate`,
         [...values, id]
       );
-
+    
       if (updatedUser && updatedUser.rows.length > 0) {
         return updatedUser.rows[0];
       }
       return false;
     },
+    
 
     async deleteCustomer(id: number) {
       const query = {

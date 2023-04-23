@@ -11,7 +11,7 @@ const customerDataMapper = customerDataMapperInstance.main;
 dotenv.config();
 
 interface JwtPayload {
-  id: number;
+  customer_id: number;
   iat: number;
   exp: number;
 }
@@ -22,7 +22,8 @@ const jwbtoken = {
  * @param id {number}
  * @param tokenType {'access' | 'refresh'}
  */
-generateToken(id: number, tokenType: TokenType.ACCESSTOKEN | TokenType.REFRESHTOKEN) {
+generateToken(customer_id: number, tokenType: TokenType) {
+  
   const jwtOptions = {
     algorithm: 'HS256' as Algorithm,
     expiresIn: tokenType === TokenType.ACCESSTOKEN ? config.token.accessTokenLife : config.token.refresnTokenLife,
@@ -30,7 +31,7 @@ generateToken(id: number, tokenType: TokenType.ACCESSTOKEN | TokenType.REFRESHTO
   const secretKey = tokenType === TokenType.ACCESSTOKEN ? process.env.ACCESS_TOKEN_SECRET : process.env.REFRESH_TOKEN_SECRET;
 
   return jsonwebtoken.sign(
-    { id },
+    { customer_id },
     secretKey as string,
     jwtOptions
   );
@@ -45,10 +46,10 @@ generateToken(id: number, tokenType: TokenType.ACCESSTOKEN | TokenType.REFRESHTO
   // eslint-disable-next-line consistent-return
   async getAuthorization(req: Request, res: Response, next: NextFunction) {
     const authHeader =
-      req.headers.authorization || (req.headers.Authorization as string);
+    req.headers.authorization || (req.headers.Authorization as string);
     const token = authHeader?.startsWith('Bearer ')
-      ? authHeader.split(' ')[1]
-      : '';
+    ? authHeader.split(' ')[1]
+    : '';
     if (!token) {
       throw new AppError(ErrorCode.JWT, 'unauthorized', 401);
     }
@@ -59,24 +60,13 @@ generateToken(id: number, tokenType: TokenType.ACCESSTOKEN | TokenType.REFRESHTO
     if (!payload) {
       throw new AppError(ErrorCode.JWT, 'user.forbidden', 403);
     }
-    const user = await customerDataMapper.getCustomerById(payload.id);
+    const user = await customerDataMapper.getCustomerById(payload.customer_id);
 
     if (!user) {
       throw new AppError(ErrorCode.JWT, 'user.noExist', 403);
     }
     req.user = user as CustomerDatas;
     next();
-
-    // await jsonwebtoken.verify(token, process.env.ACCESS_TOKEN_SECRET!, async (err, payload) => {
-    //   if (err) {
-    //     res.status(403);
-    //     throw new Error('Forbidden');
-    //   }
-    //   const { id } = payload as JwtPayload;
-    //   const user = await customerDataMapper.getCustomerById(id);
-    //   req.userId = id;
-    //   next();
-    // });
   }
 };
 
