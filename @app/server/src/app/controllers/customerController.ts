@@ -2,7 +2,7 @@ import {Request, Response} from 'express';
 import AppError from '../../utils/AppError';
 import {wrapMethodsInTryCatch} from '../../utils/tryCatch';
 import customerDataMapperInstance from '../datamapper/customerDatamapper';
-import { ErrorCode } from '@circles-self/types';
+import { ErrorCode } from '@circles-self/circles/enums';
 
 const customerDataMapper = customerDataMapperInstance.main;
 
@@ -32,7 +32,7 @@ const customerController = {
   async updateCustomer(req: Request, res: Response) {
     const data = req.body;
     const {user} = req;
-    const patchUser = await customerDataMapper.patchUser(user.id, data);
+    const patchUser = await customerDataMapper.patchUser(user.customer_id, data);
     if (patchUser) {
       const { password, customer_id, ...updatedUser } = patchUser;
       res.status(200).json({message: 'Customer successfully updated.', updatedUser});

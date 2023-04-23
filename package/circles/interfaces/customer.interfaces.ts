@@ -2,8 +2,8 @@ export interface CustomerAdditionnalDatas {
   customer_id: number;
   created_at: Date;
   updated_at: Date;
-  firstconnect: boolean;
-  firstcircle: boolean;
+  initiallogin: boolean;
+  initialcircle: boolean;
   identifier: string;
   activated_at: Date;
   email_valid: Date;

@@ -6,4 +6,8 @@ export interface Config {
     password: string;
     database: string;
   };
+  token: {
+    accessTokenLife: number;
+    refresnTokenLife: number;
+  }
 }

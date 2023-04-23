@@ -1,13 +1,9 @@
 import {validate} from 'uuid';
 import customerDataMapperInstance from '../../datamapper/customerDatamapper';
-import {addHours, subHours} from 'date-fns';
+import {subHours} from 'date-fns';
 import {generateCustomer} from '../utils/mock/customer';
-import {testDbConnection} from '../utils/testDatabase';
-import {
-  CustomerDatas,
-  CustomerInputDatas
-} from '../../../../../../package/circles-types/interfaces/interfaces/customer.interfaces';
 import {getPersistedDatas} from '../utils/persistentDatas';
+import { CustomerInputDatas } from '@circles-self/circles/interfaces';
 
 const customerDataMapper = customerDataMapperInstance.test;
 
