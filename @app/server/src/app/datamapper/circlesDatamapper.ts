@@ -50,10 +50,8 @@ const circlesDataMapper = (client: Pool) => {
         values: [id]
       };
       const circle = await client.query(query1);
-      console.log('🚀 ~ circle:', circle.rows[0]);
       if (circle) {
         const circleCustomer = await client.query(query2);
-        console.log('🚀 ~ circleCustomer:', circleCustomer.rows[0]);
         const updatedCircle = {...circle.rows[0], ...circleCustomer.rows[0]};
         return updatedCircle;
       }

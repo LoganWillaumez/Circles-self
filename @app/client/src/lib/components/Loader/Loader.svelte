@@ -3,6 +3,7 @@
   import Lottie from './Lottie.svelte';
   import Fa from 'svelte-fa';
   import {
+    faCircleCheck,
     faWarning,
     faInfoCircle,
     faCircleExclamation
@@ -10,7 +11,6 @@
   import Button from '../Button.svelte';
 
   const handleClose = () => {
-    console.log('clise');
     const fn = $loader.popUp.onClose;
     if (fn && typeof fn === 'function') {
       fn();
@@ -49,6 +49,8 @@
             ? faCircleExclamation
             : $loader.popUp.type === 'warning'
             ? faWarning
+            : $loader.popUp.type === 'success'
+            ? faCircleCheck
             : faInfoCircle}
           size="3x"
         />
@@ -122,6 +124,11 @@
     &--warning {
       .popup_header {
         background-color: #ffa500;
+      }
+    }
+    &--success {
+      .popup_header {
+        background-color: #00ff1e;
       }
     }
     &_content {

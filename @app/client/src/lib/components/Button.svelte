@@ -41,7 +41,6 @@
     transition: background 200ms ease-in;
     position: relative;
     cursor: pointer;
-    max-width: 350px;
     &.fill {
       background: var(--gradient);
       &:hover {

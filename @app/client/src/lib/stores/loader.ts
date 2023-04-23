@@ -19,7 +19,7 @@ export const setLoader = (
   showLoader: boolean,
   popUp?: {
     message: string;
-    type: string;
+    type: 'success' | 'error' | 'warning' | 'info';
     button?: string;
     middleButton?: string;
     onClose?: () => undefined;
