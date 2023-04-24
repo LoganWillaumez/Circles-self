@@ -9,6 +9,8 @@
     faCircleExclamation
   } from '@fortawesome/free-solid-svg-icons';
   import Button from '../Button.svelte';
+  import { LoaderType } from '../../../models/loader';
+    import {LL} from '$lib/i18n/i18n-svelte';
 
   const handleClose = () => {
     const fn = $loader.popUp.onClose;
@@ -45,11 +47,11 @@
     <div class="popup popup--{$loader.popUp.type}">
       <header class="popup_header">
         <Fa
-          icon={$loader.popUp.type === 'error'
+          icon={$loader.popUp.type === LoaderType.ERROR
             ? faCircleExclamation
-            : $loader.popUp.type === 'warning'
+            : $loader.popUp.type === LoaderType.WARNING
             ? faWarning
-            : $loader.popUp.type === 'success'
+            : $loader.popUp.type === LoaderType.SUCCESS
             ? faCircleCheck
             : faInfoCircle}
           size="3x"
@@ -63,7 +65,7 @@
           </div>
         {/if}
         <div class="button__container">
-          <Button visual="outline" onClick={handleClose} text="Close" />
+          <Button visual="outline" onClick={handleClose} text={$LL.global.close()} />
           {#if $loader.popUp.button}
             <Button onClick={handleConfirm} text={$loader.popUp.button} />
           {/if}

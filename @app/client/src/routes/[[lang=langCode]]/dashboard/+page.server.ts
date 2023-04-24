@@ -40,11 +40,5 @@ export const actions = {
           return error(500);
         }
       }
-    // try{
-    //   const user = await API.post('circle', {initiallogin: true}, event.cookies);
-    //   return user;
-    // } catch (e) {
-    //   return { status: 500, body: 'Internal Server caca' };
-    // }
 }
 };

@@ -12,6 +12,8 @@
   import { setLoader, resetLoader } from "$lib/stores/loader.js";
   import type { ActionResult, SubmitFunction } from "@sveltejs/kit";
   import type { ActionData } from "./$types.js";
+  import CirclesCard from "$lib/components/CirclesCard.svelte";
+  import type { CustomerDatas } from "@circles-self/circles/interfaces/customer.interfaces.js";
 
   type ActionExtend = ActionResult & {
     data?: Partial<{
@@ -25,14 +27,13 @@
  
     let popUpCreateCircle = false;
 
-    const {user} = data;
+    const {user}: {user: CustomerDatas}= data;
 
     const createCircle: SubmitFunction = ({form, data, action, cancel}) => {
     return async ({result}: {result: ActionExtend}) => {
       await applyAction(result);
       const status = result.data?.status || result.status;
       const {data} = result;
-      console.log('🚀 ~ data:', data);
       if (status !== 400) {
         if (status !== 201) {
           popUpCreateCircle = false;
@@ -93,8 +94,11 @@
                  <Button class='max-w-[200px]' text={$LL.global.create()} onClick={() => popUpCreateCircle = !popUpCreateCircle}/>
             </div>
             <div class="flex flex-col gap-5">
-              {#each user.circles as circle}
-                <p>{circle.name}</p>
+              {#each user.circles as circle, index}
+                <CirclesCard circle={circle}/>
+                {#if index === user.circles.length - 1}
+                  <div class="h-[3px]"></div>
+                {/if}
               {/each}
             </div>
         </div>
