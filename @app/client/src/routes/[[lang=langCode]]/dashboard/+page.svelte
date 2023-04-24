@@ -4,16 +4,18 @@
 
 <script lang="ts">
   import { applyAction, enhance } from "$app/forms";
-  import { goto } from "$app/navigation";
   import Button from "$lib/components/Button.svelte";
     import Input from "$lib/components/Input.svelte";
   import Popup from "$lib/components/Popup.svelte";
   import {LL} from '$lib/i18n/i18n-svelte';
-  import { setLoader, resetLoader } from "$lib/stores/loader.js";
+  import { setLoader } from "$lib/stores/loader.js";
   import type { ActionResult, SubmitFunction } from "@sveltejs/kit";
   import type { ActionData } from "./$types.js";
   import CirclesCard from "$lib/components/CirclesCard.svelte";
   import type { CustomerDatas } from "@circles-self/circles/interfaces/customer.interfaces.js";
+  import Divider from "$lib/components/Divider.svelte";
+  import type { CirclesDatas } from "@circles-self/circles/interfaces/circle.interfaces.js";
+  import { onMount } from "svelte";
 
   type ActionExtend = ActionResult & {
     data?: Partial<{
@@ -26,9 +28,20 @@
     export let form: ActionData;
  
     let popUpCreateCircle = false;
+    let favouritesCircles: CirclesDatas[] = [];
+    let notFavouritesCircles: CirclesDatas[] = [];
 
     const {user}: {user: CustomerDatas}= data;
 
+    onMount(() => {
+      const storedFavorites = localStorage.getItem('circlesFavorites');
+      if (storedFavorites) {
+        const circlesFavorites = JSON.parse(storedFavorites);
+        favouritesCircles = user.circles.filter((circle: CirclesDatas) => circlesFavorites.find((favorite: CirclesDatas) => favorite.circle_id === circle.circle_id));
+        notFavouritesCircles = user.circles.filter((circle: CirclesDatas) => !favouritesCircles.includes(circle));
+      }
+    })
+    
     const createCircle: SubmitFunction = ({form, data, action, cancel}) => {
     return async ({result}: {result: ActionExtend}) => {
       await applyAction(result);
@@ -61,8 +74,8 @@
             <div class='w-full'>
                 <Input class='w-full' placeholder={$LL.form.search()} name='searchCircle' required={false} value='' />
             </div>
-            <div class="flex flex-col items-center gap-5">
-                {#if user.circles[0] === null}
+            <div class="flex flex-col  gap-5">
+              {#if user.circles[0] === null}
                 <div class="flex flex-col gap-5 mt-10">
                     <h4 class="font-bold text-lg">
                         {$LL.desc.noCircle()}
@@ -71,6 +84,15 @@
                         {$LL.desc.noCircleDesc()}
                     </p>
                 </div>
+                {/if}
+                {#if user.circles[0] !== null}
+                  <div class="flex flex-col gap-5">
+                    <p class="font-bold">{$LL.desc.favCircle()}</p>
+                    {#each favouritesCircles as circle}
+                      <CirclesCard circle={circle}/>
+                    {/each}
+                  </div> 
+                  <Divider/>
                 {/if}
                 {#if popUpCreateCircle}
                 <Popup onClickOutside={() => popUpCreateCircle = false}>
@@ -91,16 +113,17 @@
                     </div>
                 </Popup>
                 {/if}
-                 <Button class='max-w-[200px]' text={$LL.global.create()} onClick={() => popUpCreateCircle = !popUpCreateCircle}/>
             </div>
             <div class="flex flex-col gap-5">
-              {#each user.circles as circle, index}
+              {#each notFavouritesCircles as circle, index}
                 <CirclesCard circle={circle}/>
                 {#if index === user.circles.length - 1}
                   <div class="h-[3px]"></div>
                 {/if}
               {/each}
+              
             </div>
+            <Button class='m-auto max-w-[200px]' text={$LL.global.create()} onClick={() => popUpCreateCircle = !popUpCreateCircle}/>
         </div>
     </div>
 </div>

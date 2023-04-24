@@ -7,6 +7,7 @@
   import '$lib/styles/main.scss';
   import Loader from '$lib/components/Loader/Loader.svelte';
   import {browser} from '$app/environment';
+  
 </script>
 
 <svelte:head>

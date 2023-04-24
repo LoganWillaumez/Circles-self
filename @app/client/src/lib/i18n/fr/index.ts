@@ -50,6 +50,7 @@ const fr: Translation = {
       welcomeDoneDesc: 'Votre compte a bien été finalisé. Commencez votre expérience Circles en appuyant sur le bouton ci-dessous.',
     noCircle: 'Il semble que vous n\'ayez aucun cercle.',
     noCircleDesc: 'Vous pouvez soit créer un nouveau cercle, soit attendre d\'être invité dans un cercle existant.',
+    favCircle: 'Cercles favoris',
   },
   global: {
     switchLanguage: 'en',
