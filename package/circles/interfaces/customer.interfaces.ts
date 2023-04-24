@@ -7,7 +7,7 @@ export interface CustomerAdditionnalDatas {
   initiallogin: boolean;
   initialcircle: boolean;
   identifier: string;
-  circles: CirclesDatas[]
+  circles: CirclesDatas[];
   activated_at: Date;
   email_valid: Date;
 }

@@ -49,6 +49,7 @@ const en: BaseTranslation = {
     welcomeDoneDesc: 'Your account has been successfully finalized. Start your Circles experience by pressing the button below.',
     noCircle: 'It seems that you don\'t have any Circles.',
     noCircleDesc: 'You can either create a new Circle or wait to be invited into one.',
+    favCircle: 'Favorite Circles',
   },
   global: {
     switchLanguage: 'fr',

@@ -8,7 +8,7 @@ const circlesDataMapper = (client: Pool) => {
     async getCircle(id: number): Promise<CirclesDatas | false> {
       const query = {
         text: `SELECT json_build_object(
-        'circle_id', cc.id,
+        cc.id as circle_id',
         'name', cc.name,
         'customer_admin', cc.customer_admin,
         'description', cc.description,

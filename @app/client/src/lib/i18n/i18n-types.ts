@@ -177,6 +177,10 @@ type RootTranslation = {
 		 * Y​o​u​ ​c​a​n​ ​e​i​t​h​e​r​ ​c​r​e​a​t​e​ ​a​ ​n​e​w​ ​C​i​r​c​l​e​ ​o​r​ ​w​a​i​t​ ​t​o​ ​b​e​ ​i​n​v​i​t​e​d​ ​i​n​t​o​ ​o​n​e​.
 		 */
 		noCircleDesc: string
+		/**
+		 * F​a​v​o​r​i​t​e​ ​C​i​r​c​l​e​s
+		 */
+		favCircle: string
 	}
 	global: {
 		/**
@@ -378,6 +382,10 @@ export type TranslationFunctions = {
 		 * You can either create a new Circle or wait to be invited into one.
 		 */
 		noCircleDesc: () => LocalizedString
+		/**
+		 * Favorite Circles
+		 */
+		favCircle: () => LocalizedString
 	}
 	global: {
 		/**
