@@ -3,19 +3,18 @@
 </style>
 
 <script lang="ts">
-  import { applyAction, enhance } from "$app/forms";
+  import { onMount } from "svelte";
   import Button from "$lib/components/Button.svelte";
-    import Input from "$lib/components/Input.svelte";
+  import Input from "$lib/components/Input.svelte";
   import Popup from "$lib/components/Popup.svelte";
-  import {LL} from '$lib/i18n/i18n-svelte';
+  import CirclesCard from "$lib/components/CirclesCard.svelte";
+  import Divider from "$lib/components/Divider.svelte";
+  import { LL } from '$lib/i18n/i18n-svelte';
   import { setLoader } from "$lib/stores/loader.js";
   import type { ActionResult, SubmitFunction } from "@sveltejs/kit";
   import type { ActionData } from "./$types.js";
-  import CirclesCard from "$lib/components/CirclesCard.svelte";
   import type { CustomerDatas } from "@circles-self/circles/interfaces/customer.interfaces.js";
-  import Divider from "$lib/components/Divider.svelte";
   import type { CirclesDatas } from "@circles-self/circles/interfaces/circle.interfaces.js";
-  import { onMount } from "svelte";
 
   type ActionExtend = ActionResult & {
     data?: Partial<{
@@ -33,37 +32,30 @@
 
     const {user}: {user: CustomerDatas}= data;
 
-    onMount(() => {
+    const checkFavourites = () =>{
       const storedFavorites = localStorage.getItem('circlesFavorites');
       if (storedFavorites) {
         const circlesFavorites = JSON.parse(storedFavorites);
         favouritesCircles = user.circles.filter((circle: CirclesDatas) => circlesFavorites.find((favorite: CirclesDatas) => favorite.circle_id === circle.circle_id));
         notFavouritesCircles = user.circles.filter((circle: CirclesDatas) => !favouritesCircles.includes(circle));
       }
+    }
+    onMount(() => {
+      checkFavourites();
     })
     
     const createCircle: SubmitFunction = ({form, data, action, cancel}) => {
-    return async ({result}: {result: ActionExtend}) => {
-      await applyAction(result);
-      const status = result.data?.status || result.status;
-      const {data} = result;
-      if (status !== 400) {
-        if (status !== 201) {
-          popUpCreateCircle = false;
-          form.reset();
-          data?.message &&
-            setLoader(true, {message: data.message, type: 'error'});
-          return;
-        } else {
-        form.reset();
-        if(data?.data?.message){
-          popUpCreateCircle = false;
-          setLoader(true, {message: data.data.message, type: 'success'});
-        }
-        }
-      }
-    };
-    };
+  return async ({result}: {result: ActionExtend}) => {
+    await applyAction(result);
+    const status = result.data?.status || result.status;
+    const {data} = result;
+    if (status === 400) return;
+
+    form.reset();
+    popUpCreateCircle = false;
+    data?.message && setLoader(true, {message: data.message, type: status === 201 ? 'success' : 'error'});
+  };
+};
 
 </script>
 
@@ -89,7 +81,7 @@
                   <div class="flex flex-col gap-5">
                     <p class="font-bold">{$LL.desc.favCircle()}</p>
                     {#each favouritesCircles as circle}
-                      <CirclesCard circle={circle}/>
+                      <CirclesCard circle={circle} on:updateFavorites={checkFavourites}/>
                     {/each}
                   </div> 
                   <Divider/>
@@ -116,7 +108,7 @@
             </div>
             <div class="flex flex-col gap-5">
               {#each notFavouritesCircles as circle, index}
-                <CirclesCard circle={circle}/>
+                <CirclesCard circle={circle} on:updateFavorites={checkFavourites}/>
                 {#if index === user.circles.length - 1}
                   <div class="h-[3px]"></div>
                 {/if}
