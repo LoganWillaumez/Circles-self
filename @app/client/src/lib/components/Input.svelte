@@ -7,7 +7,7 @@
   export let type = 'text';
   export let width = '100%';
   export let className: string;
-  export let value: '';
+  export let value = '';
   export let options: Options[] = [];
   export let errors = '';
   export {className as class};

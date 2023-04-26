@@ -8,14 +8,17 @@ const customerDataMapper = (client: Pool) => {
   return {
     async getCustomerById(id: number): Promise<CustomerDatas | false> {
       const query = {
-        text: `SELECT c.id as customer_id, c.firstname, c.lastname, c.gender, c.email, TO_CHAR(c.birthdate, 'YYYY-MM-DD') as birthdate, c.initiallogin, c.initialcircle, c.img, c.created_at, c.activated_at, c.identifier,c.email_valid, c.updated_at, json_agg(cc) as circles
-           FROM "customer" c
-           LEFT OUTER JOIN "circle_customer" cu ON c.id = cu.id_customer
-           LEFT OUTER JOIN circle cc ON cc.id = cu.id_circle
-           WHERE c.id=$1
-           GROUP BY c.id`,
+        text: `
+          SELECT c.id as customer_id, c.firstname, c.lastname, c.gender, c.email, TO_CHAR(c.birthdate, 'YYYY-MM-DD') as birthdate, c.initiallogin, c.initialcircle, c.img, c.created_at, c.activated_at, c.identifier, c.email_valid, c.updated_at, COALESCE(json_agg(json_build_object('circle_id', cc.id, 'name', cc.name, 'description', cc.description)) FILTER (WHERE cc.id IS NOT NULL), '[]') as circles
+          FROM "customer" c
+          LEFT OUTER JOIN "circle_customer" cu ON c.id = cu.id_customer
+          LEFT OUTER JOIN circle cc ON cc.id = cu.id_circle
+          WHERE c.id=$1
+          GROUP BY c.id
+        `,
         values: [id]
-      };
+    };
+    
       const customer = await client.query(query);
 
       return customer?.rows[0] ?? false;

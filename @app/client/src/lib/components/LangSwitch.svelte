@@ -20,7 +20,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    // background-color: var(--fill-reverse);
     color: var(--text);
     position: absolute;
     top: 20px;
@@ -28,31 +27,5 @@
     cursor: pointer;
     font-weight: 700;
     text-transform: uppercase;
-    .switch-state {
-      position: absolute;
-      transition: all 300ms ease-in-out;
-      right: 5px;
-    }
-    .switch-moon {
-      position: absolute;
-      transition: all 300ms ease-in-out;
-      left: 5px;
-    }
-    &--dark {
-      .switch-state {
-        transform: translateX(0px);
-      }
-      .switch-moon {
-        transform: translateX(0px);
-      }
-    }
-    &--light {
-      .switch-state {
-        transform: translateX(-25px);
-      }
-      .switch-moon {
-        transform: translateX(25px);
-      }
-    }
   }
 </style>
