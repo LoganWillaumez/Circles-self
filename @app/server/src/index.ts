@@ -31,8 +31,8 @@ app.use(cookieParser());
 app.use(cors(corsOptions));
 app.use('/api/auth', authRoutes);
 app.use('/api/customer', customerRoutes);
-app.use('/api/circle', circleRoutes);
-app.use('/api/circle', eventRoutes);
+app.use('/api/circles', circleRoutes);
+app.use('/api/circles', eventRoutes);
 app.use(errorHandler);
 
 const startServer = (port: number) => {

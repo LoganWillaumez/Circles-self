@@ -1,3 +1,5 @@
+import { CirclesDatas } from "./circle.interfaces";
+
 export interface CustomerAdditionnalDatas {
   customer_id: number;
   created_at: Date;
@@ -5,6 +7,7 @@ export interface CustomerAdditionnalDatas {
   initiallogin: boolean;
   initialcircle: boolean;
   identifier: string;
+  circles: CirclesDatas[];
   activated_at: Date;
   email_valid: Date;
 }

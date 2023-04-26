@@ -8,7 +8,7 @@ const circlesDataMapper = (client: Pool) => {
     async getCircle(id: number): Promise<CirclesDatas | false> {
       const query = {
         text: `SELECT json_build_object(
-        'circle_id', cc.id,
+        cc.id as circle_id',
         'name', cc.name,
         'customer_admin', cc.customer_admin,
         'description', cc.description,
@@ -50,10 +50,8 @@ const circlesDataMapper = (client: Pool) => {
         values: [id]
       };
       const circle = await client.query(query1);
-      console.log('🚀 ~ circle:', circle.rows[0]);
       if (circle) {
         const circleCustomer = await client.query(query2);
-        console.log('🚀 ~ circleCustomer:', circleCustomer.rows[0]);
         const updatedCircle = {...circle.rows[0], ...circleCustomer.rows[0]};
         return updatedCircle;
       }

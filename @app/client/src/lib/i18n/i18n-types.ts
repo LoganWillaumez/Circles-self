@@ -23,6 +23,14 @@ type RootTranslation = {
 		 * S​i​g​n​ ​i​n
 		 */
 		signIn: string
+		/**
+		 * U​p​l​o​a​d
+		 */
+		upload: string
+		/**
+		 * U​p​l​o​a​d​ ​a​ ​p​i​c​t​u​r​e
+		 */
+		uploadPicture: string
 	}
 	form: {
 		/**
@@ -53,6 +61,18 @@ type RootTranslation = {
 		 * F​o​r​g​o​t​ ​p​a​s​s​w​o​r​d
 		 */
 		forgotPassword: string
+		/**
+		 * S​e​a​r​c​h
+		 */
+		search: string
+		/**
+		 * D​e​s​c​r​i​p​t​i​o​n
+		 */
+		description: string
+		/**
+		 * N​a​m​e
+		 */
+		name: string
 	}
 	serverError: {
 		/**
@@ -149,6 +169,22 @@ type RootTranslation = {
 		 * Y​o​u​r​ ​a​c​c​o​u​n​t​ ​h​a​s​ ​b​e​e​n​ ​s​u​c​c​e​s​s​f​u​l​l​y​ ​f​i​n​a​l​i​z​e​d​.​ ​S​t​a​r​t​ ​y​o​u​r​ ​C​i​r​c​l​e​s​ ​e​x​p​e​r​i​e​n​c​e​ ​b​y​ ​p​r​e​s​s​i​n​g​ ​t​h​e​ ​b​u​t​t​o​n​ ​b​e​l​o​w​.
 		 */
 		welcomeDoneDesc: string
+		/**
+		 * I​t​ ​s​e​e​m​s​ ​t​h​a​t​ ​y​o​u​ ​d​o​n​'​t​ ​h​a​v​e​ ​a​n​y​ ​C​i​r​c​l​e​s​.
+		 */
+		noCircle: string
+		/**
+		 * Y​o​u​ ​c​a​n​ ​e​i​t​h​e​r​ ​c​r​e​a​t​e​ ​a​ ​n​e​w​ ​C​i​r​c​l​e​ ​o​r​ ​w​a​i​t​ ​t​o​ ​b​e​ ​i​n​v​i​t​e​d​ ​i​n​t​o​ ​o​n​e​.
+		 */
+		noCircleDesc: string
+		/**
+		 * F​a​v​o​r​i​t​e​ ​C​i​r​c​l​e​s
+		 */
+		favCircle: string
+		/**
+		 * Y​o​u​r​ ​C​i​r​c​l​e​s​ ​h​a​s​ ​b​e​e​n​ ​s​u​c​c​e​s​s​f​u​l​l​y​ ​c​r​e​a​t​e​d
+		 */
+		createdCircle: string
 	}
 	global: {
 		/**
@@ -179,6 +215,10 @@ type RootTranslation = {
 		 * P​e​r​f​e​c​t​ ​!
 		 */
 		perfect: string
+		/**
+		 * C​r​e​a​t​e
+		 */
+		create: string
 	}
 }
 
@@ -192,6 +232,14 @@ export type TranslationFunctions = {
 		 * Sign in
 		 */
 		signIn: () => LocalizedString
+		/**
+		 * Upload
+		 */
+		upload: () => LocalizedString
+		/**
+		 * Upload a picture
+		 */
+		uploadPicture: () => LocalizedString
 	}
 	form: {
 		/**
@@ -222,6 +270,18 @@ export type TranslationFunctions = {
 		 * Forgot password
 		 */
 		forgotPassword: () => LocalizedString
+		/**
+		 * Search
+		 */
+		search: () => LocalizedString
+		/**
+		 * Description
+		 */
+		description: () => LocalizedString
+		/**
+		 * Name
+		 */
+		name: () => LocalizedString
 	}
 	serverError: {
 		/**
@@ -318,6 +378,22 @@ export type TranslationFunctions = {
 		 * Your account has been successfully finalized. Start your Circles experience by pressing the button below.
 		 */
 		welcomeDoneDesc: () => LocalizedString
+		/**
+		 * It seems that you don't have any Circles.
+		 */
+		noCircle: () => LocalizedString
+		/**
+		 * You can either create a new Circle or wait to be invited into one.
+		 */
+		noCircleDesc: () => LocalizedString
+		/**
+		 * Favorite Circles
+		 */
+		favCircle: () => LocalizedString
+		/**
+		 * Your Circles has been successfully created
+		 */
+		createdCircle: () => LocalizedString
 	}
 	global: {
 		/**
@@ -348,6 +424,10 @@ export type TranslationFunctions = {
 		 * Perfect !
 		 */
 		perfect: () => LocalizedString
+		/**
+		 * Create
+		 */
+		create: () => LocalizedString
 	}
 }
 

@@ -3,7 +3,9 @@ import type {BaseTranslation} from '../i18n-types';
 const en: BaseTranslation = {
   button: {
     signUp: 'Sign up',
-    signIn: 'Sign in'
+    signIn: 'Sign in',
+    upload: 'Upload',
+    uploadPicture: 'Upload a picture',
   },
   form: {
     firstName: 'Firstname',
@@ -12,7 +14,10 @@ const en: BaseTranslation = {
     password: 'Password',
     confirmPassword: 'Confirm password',
     birthdate: 'Birthdate',
-    forgotPassword: 'Forgot password'
+    forgotPassword: 'Forgot password',
+    search: 'Search',
+    description: 'Description',
+    name: 'Name',
   },
   serverError: {
     userAlreadyExist: 'The user already exist',
@@ -42,6 +47,10 @@ const en: BaseTranslation = {
     accountValidate: 'Your account has been validated !',
     accountAskSignin: 'You can now sign in to your account to enjoy Circles.',
     welcomeDoneDesc: 'Your account has been successfully finalized. Start your Circles experience by pressing the button below.',
+    noCircle: 'It seems that you don\'t have any Circles.',
+    noCircleDesc: 'You can either create a new Circle or wait to be invited into one.',
+    favCircle: 'Favorite Circles',
+    createdCircle: 'Your Circles has been successfully created', 
   },
   global: {
     switchLanguage: 'fr',
@@ -51,6 +60,7 @@ const en: BaseTranslation = {
     skip: 'Skip',
     start: 'Start',
     perfect: 'Perfect !',
+    create: 'Create',
   }
 };
 
