@@ -1,4 +1,3 @@
-<!-- Popup.svelte -->
 <style lang="scss">
     /* Votre CSS ici */
   </style>
@@ -18,7 +17,7 @@
     <div
     use:clickOutside
     on:clickOutside={() => onClickOutside()}
-      class="bg-white p-5 pt-20 pb-5 max-w-[300px] w-[90%] max-h-400 flex flex-col gap-5 justify-center items-center rounded bg-[var(--primary-color)] shadow-md {className}"
+      class="p-5 pt-20 pb-5 max-w-[300px] w-[90%] max-h-400 flex flex-col gap-5 justify-center items-center rounded bg-[var(--primary-color)] shadow-md {className}"
     >
     <slot />
 </div>

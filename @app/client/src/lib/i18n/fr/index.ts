@@ -51,6 +51,7 @@ const fr: Translation = {
     noCircle: 'Il semble que vous n\'ayez aucun cercle.',
     noCircleDesc: 'Vous pouvez soit créer un nouveau cercle, soit attendre d\'être invité dans un cercle existant.',
     favCircle: 'Cercles favoris',
+    createdCircle: 'Votre cercle a bien été créé.',
   },
   global: {
     switchLanguage: 'en',

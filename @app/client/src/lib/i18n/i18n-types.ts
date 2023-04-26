@@ -181,6 +181,10 @@ type RootTranslation = {
 		 * F​a​v​o​r​i​t​e​ ​C​i​r​c​l​e​s
 		 */
 		favCircle: string
+		/**
+		 * Y​o​u​r​ ​C​i​r​c​l​e​s​ ​h​a​s​ ​b​e​e​n​ ​s​u​c​c​e​s​s​f​u​l​l​y​ ​c​r​e​a​t​e​d
+		 */
+		createdCircle: string
 	}
 	global: {
 		/**
@@ -386,6 +390,10 @@ export type TranslationFunctions = {
 		 * Favorite Circles
 		 */
 		favCircle: () => LocalizedString
+		/**
+		 * Your Circles has been successfully created
+		 */
+		createdCircle: () => LocalizedString
 	}
 	global: {
 		/**
