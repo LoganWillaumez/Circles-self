@@ -5,9 +5,11 @@ import API from '../../../api/Api.js';
 import { isAxiosError } from 'axios';
 
 export async function load(event: any) {
+  const customer = await API.get('customer',undefined, event.cookies);
+  event.locals.user = customer.data;
+    console.log('🚀 ~ event.locals.user:', event.locals.user);
     return {
-        // posts: await db.getPostSummaries()
-        user: event.locals.user
+        user: customer.data
     };
 }
 
@@ -26,7 +28,9 @@ export const actions = {
 
       try {
         const response = await API.post('circles', formData, event.cookies);
-        return response;
+        if(response.status === 201){
+          return response;
+        }
       } catch (err) {
         if (isAxiosError(err)) {
           if (err.response) {

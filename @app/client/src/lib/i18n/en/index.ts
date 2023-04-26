@@ -50,6 +50,7 @@ const en: BaseTranslation = {
     noCircle: 'It seems that you don\'t have any Circles.',
     noCircleDesc: 'You can either create a new Circle or wait to be invited into one.',
     favCircle: 'Favorite Circles',
+    createdCircle: 'Your Circles has been successfully created', 
   },
   global: {
     switchLanguage: 'fr',
