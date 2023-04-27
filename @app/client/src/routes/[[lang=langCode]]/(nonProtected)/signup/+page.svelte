@@ -8,8 +8,8 @@
   import {resetLoader, setLoader} from '$lib/stores/loader';
   import type {ActionResult, SubmitFunction} from '@sveltejs/kit';
   import {goto} from '$app/navigation';
-  import type {Options} from '../../../models/input';
   import {LL} from '$lib/i18n/i18n-svelte';
+  import type { Options } from '../../../../models/input';
 
   type ActionExtend = ActionResult & {
     data?: Partial<{

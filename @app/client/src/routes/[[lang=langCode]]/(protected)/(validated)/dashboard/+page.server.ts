@@ -1,15 +1,12 @@
 import { circlesSchema } from '$lib/schema/circles.js';
 import { validateData } from '$lib/schema/validation';
-import { error, fail } from '@sveltejs/kit';
-import API from '../../../api/Api.js';
+import { error, fail, redirect } from '@sveltejs/kit';
+import API from '../../../../../api/Api.js';
 import { isAxiosError } from 'axios';
 
 export async function load(event: any) {
-  const customer = await API.get('customer',undefined, event.cookies);
-  event.locals.user = customer.data;
-    console.log('🚀 ~ event.locals.user:', event.locals.user);
     return {
-        user: customer.data
+        user: event.locals.user
     };
 }
 
@@ -44,5 +41,12 @@ export const actions = {
           return error(500);
         }
       }
-}
+},
+    signOut: async (event) => {
+      console.log('test');
+      event.cookies.delete('accessToken');
+      event.cookies.delete('refreshToken');
+      event.locals.user = null;
+      throw redirect(303, '/');
+    }
 };

@@ -35,14 +35,17 @@
 
     
 
-    const checkFavourites = () =>{
-      const storedFavorites = localStorage.getItem('circlesFavorites');
-      if (storedFavorites) {
-        const circlesFavorites = JSON.parse(storedFavorites);
-        favouritesCircles = user.circles.filter((circle: CirclesDatas) => circlesFavorites.find((favorite: CirclesDatas) => favorite.circle_id === circle.circle_id));
-        notFavouritesCircles = user.circles.filter((circle: CirclesDatas) => !favouritesCircles.includes(circle));
-      }
-    }
+    const checkFavourites = () => {
+  const storedFavorites = localStorage.getItem('circlesFavorites');
+  
+  if (storedFavorites) {
+    const circlesFavorites = JSON.parse(storedFavorites);
+    favouritesCircles = user.circles.filter((circle: CirclesDatas) => circlesFavorites.find((favorite: CirclesDatas) => favorite.circle_id === circle.circle_id));
+    notFavouritesCircles = user.circles.filter((circle: CirclesDatas) => !favouritesCircles.includes(circle));
+  } else {
+    notFavouritesCircles = user.circles;
+  }
+}
     onMount(() => {
       checkFavourites();
     })
@@ -51,6 +54,7 @@
     user = data.user;
     checkFavourites();
   }
+  $: console.log('🚀 ~ user:', user);
 
   const messageError =
   $LL.serverError[

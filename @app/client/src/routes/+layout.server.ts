@@ -20,3 +20,4 @@ export const load = (async event => {
   const locale = detectLocale(() => [event.cookies.get(langParam) ?? '']);
   return {locale};
 }) satisfies LayoutServerLoad;
+

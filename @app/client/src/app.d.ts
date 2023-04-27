@@ -6,7 +6,7 @@ import type { CustomerDatas } from "@circles-self/circles/interfaces";
 declare global {
   namespace App {
     interface Locals {
-      user: CustomerDatas; // Your type here
+      user: CustomerDatas | null; // Your type here
     }
     // interface Error {}
     // interface Locals {}
