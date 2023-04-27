@@ -1,7 +1,6 @@
 import {loadLocaleAsync} from '$lib/i18n/i18n-util.async';
 import {setLocale} from '$lib/i18n/i18n-svelte';
 import type {LayoutLoad} from './$types';
-import { goto } from '$app/navigation';
 
 export const load = (async event => {
   // Locale now comes from the server instead of the route

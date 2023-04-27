@@ -1,5 +1,4 @@
-
-import { authentification } from '../../../api/auth/auth';
+import { authentification } from '../../../../api/auth/auth';
 import type {PageServerLoad} from './$types';
 
 export const load: PageServerLoad = async () => {

@@ -1,6 +1,5 @@
 <script>
   import {invalidateAll} from '$app/navigation';
-  import {page} from '$app/stores';
   import {LL} from '$lib/i18n/i18n-svelte';
 </script>
 
