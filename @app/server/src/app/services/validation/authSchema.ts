@@ -58,7 +58,7 @@ const authSchema = {
         .messages({
           'string.string': 'password.string',
           'string.pattern.base': 'password.pattern',
-          'any.required': 'password.required'
+          'any.required': 'passwordRequired'
         }),
       confirmPassword: Joi.string()
         .required()
@@ -66,7 +66,7 @@ const authSchema = {
         .messages({
           'string.string': 'confirmPassword.string',
           'string.pattern.base': 'confirmPassword.pattern',
-          'any.required': 'confirmPassword.required'
+          'any.required': 'confirmPasswordRequired'
         }),
       birthdate: Joi.date().format('YYYY-MM-DD').required().messages({
         'date.base': 'birthDate.date',

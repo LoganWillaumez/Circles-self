@@ -73,6 +73,14 @@ type RootTranslation = {
 		 * N​a​m​e
 		 */
 		name: string
+		/**
+		 * C​u​r​r​e​n​t​ ​p​a​s​s​w​o​r​d
+		 */
+		currentPassword: string
+		/**
+		 * N​e​w​ ​p​a​s​s​w​o​r​d
+		 */
+		newPassword: string
 	}
 	serverError: {
 		/**
@@ -185,12 +193,64 @@ type RootTranslation = {
 		 * Y​o​u​r​ ​C​i​r​c​l​e​s​ ​h​a​s​ ​b​e​e​n​ ​s​u​c​c​e​s​s​f​u​l​l​y​ ​c​r​e​a​t​e​d
 		 */
 		createdCircle: string
+		/**
+		 * S​e​t​t​i​n​g​s
+		 */
+		settings: string
+		/**
+		 * G​l​o​b​a​l
+		 */
+		global: string
+		/**
+		 * P​r​o​f​i​l​e
+		 */
+		profile: string
+		/**
+		 * N​o​ ​c​h​a​n​g​e​s​ ​m​a​d​e​.
+		 */
+		noChange: string
+		/**
+		 * Y​o​u​r​ ​p​r​o​f​i​l​e​ ​h​a​s​ ​b​e​e​n​ ​s​u​c​c​e​s​s​f​u​l​l​y​ ​u​p​d​a​t​e​d​.
+		 */
+		updateUserSuccess: string
+		/**
+		 * T​h​e​ ​n​e​w​ ​p​a​s​s​w​o​r​d​ ​m​u​s​t​ ​b​e​ ​d​i​f​f​e​r​e​n​t​ ​f​r​o​m​ ​t​h​e​ ​c​u​r​r​e​n​t​ ​o​n​e​.
+		 */
+		passwordSameError: string
+		/**
+		 * T​h​e​ ​c​u​r​r​e​n​t​ ​p​a​s​s​w​o​r​d​ ​i​s​ ​i​n​v​a​l​i​d​.
+		 */
+		invalidCurrentPassword: string
+		/**
+		 * T​h​e​ ​c​u​r​r​e​n​t​ ​p​a​s​s​w​o​r​d​ ​i​s​ ​r​e​q​u​i​r​e​d​.
+		 */
+		currentpasswordRequired: string
+		/**
+		 * T​h​e​ ​c​o​n​f​i​r​m​a​t​i​o​n​ ​o​f​ ​t​h​e​ ​n​e​w​ ​p​a​s​s​w​o​r​d​ ​i​s​ ​r​e​q​u​i​r​e​d​.
+		 */
+		confirmpasswordRequired: string
+		/**
+		 * T​h​e​ ​n​e​w​ ​p​a​s​s​w​o​r​d​ ​i​s​ ​r​e​q​u​i​r​e​d​.
+		 */
+		newpasswordRequired: string
 	}
 	global: {
 		/**
 		 * f​r
 		 */
 		switchLanguage: string
+		/**
+		 * L​a​n​g​u​a​g​e
+		 */
+		language: string
+		/**
+		 * F​r​a​n​ç​a​i​s
+		 */
+		fr: string
+		/**
+		 * E​n​g​l​i​s​h
+		 */
+		en: string
 		/**
 		 * F​e​r​m​e​r
 		 */
@@ -219,6 +279,14 @@ type RootTranslation = {
 		 * C​r​e​a​t​e
 		 */
 		create: string
+		/**
+		 * C​o​n​f​i​r​m
+		 */
+		confirm: string
+		/**
+		 * C​a​n​c​e​l
+		 */
+		cancel: string
 	}
 }
 
@@ -282,6 +350,14 @@ export type TranslationFunctions = {
 		 * Name
 		 */
 		name: () => LocalizedString
+		/**
+		 * Current password
+		 */
+		currentPassword: () => LocalizedString
+		/**
+		 * New password
+		 */
+		newPassword: () => LocalizedString
 	}
 	serverError: {
 		/**
@@ -394,12 +470,64 @@ export type TranslationFunctions = {
 		 * Your Circles has been successfully created
 		 */
 		createdCircle: () => LocalizedString
+		/**
+		 * Settings
+		 */
+		settings: () => LocalizedString
+		/**
+		 * Global
+		 */
+		global: () => LocalizedString
+		/**
+		 * Profile
+		 */
+		profile: () => LocalizedString
+		/**
+		 * No changes made.
+		 */
+		noChange: () => LocalizedString
+		/**
+		 * Your profile has been successfully updated.
+		 */
+		updateUserSuccess: () => LocalizedString
+		/**
+		 * The new password must be different from the current one.
+		 */
+		passwordSameError: () => LocalizedString
+		/**
+		 * The current password is invalid.
+		 */
+		invalidCurrentPassword: () => LocalizedString
+		/**
+		 * The current password is required.
+		 */
+		currentpasswordRequired: () => LocalizedString
+		/**
+		 * The confirmation of the new password is required.
+		 */
+		confirmpasswordRequired: () => LocalizedString
+		/**
+		 * The new password is required.
+		 */
+		newpasswordRequired: () => LocalizedString
 	}
 	global: {
 		/**
 		 * fr
 		 */
 		switchLanguage: () => LocalizedString
+		/**
+		 * Language
+		 */
+		language: () => LocalizedString
+		/**
+		 * Français
+		 */
+		fr: () => LocalizedString
+		/**
+		 * English
+		 */
+		en: () => LocalizedString
 		/**
 		 * Fermer
 		 */
@@ -428,6 +556,14 @@ export type TranslationFunctions = {
 		 * Create
 		 */
 		create: () => LocalizedString
+		/**
+		 * Confirm
+		 */
+		confirm: () => LocalizedString
+		/**
+		 * Cancel
+		 */
+		cancel: () => LocalizedString
 	}
 }
 

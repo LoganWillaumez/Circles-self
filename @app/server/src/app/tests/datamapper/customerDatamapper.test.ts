@@ -178,7 +178,6 @@ describe('Customer Data Mapper - Integration Tests', () => {
           createdUser.customer_id,
           emptyData
         );
-        console.log('🚀 ~ updatedUser:', updatedUser);
 
         if (updatedUser) {
           expect(updatedUser).toMatchObject(createdUser);
@@ -332,11 +331,9 @@ describe('Customer Data Mapper - Integration Tests', () => {
           const updatedEmailValid = await customerDataMapper.reloadEmailValid(
             createdUser.customer_id
           );
-          console.log('🚀 ~ updatedEmailValid:', updatedEmailValid);
           const updatedUser = await customerDataMapper.getCustomerById(
             createdUser.customer_id
           );
-          console.log('🚀 ~ updatedUser:', updatedUser);
 
           if (!updatedEmailValid || !updatedUser) {
             fail('No Update User');

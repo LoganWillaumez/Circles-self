@@ -10,8 +10,8 @@
   import {goto} from '$app/navigation';
   import {LL} from '$lib/i18n/i18n-svelte';
   import type {Translation, TranslationFunctions} from '$lib/i18n/i18n-types';
-  import type { Options } from '../../../models/input';
-  import API from '../../../api/Api';
+  import type { Options } from '../../../../models/input';
+  import API from '../../../../api/Api';
 
   type ActionExtend = ActionResult & {
     data?: Partial<{
@@ -42,7 +42,6 @@
       await applyAction(result);
       const status = result.data?.status || result.status;
       const {data} = result;
-      console.log('🚀 ~ data:', data);
       if (status !== 400) {
         if (status === 403) {
           data?.message &&

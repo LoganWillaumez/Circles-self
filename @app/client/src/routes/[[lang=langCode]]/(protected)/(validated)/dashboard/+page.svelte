@@ -35,14 +35,17 @@
 
     
 
-    const checkFavourites = () =>{
-      const storedFavorites = localStorage.getItem('circlesFavorites');
-      if (storedFavorites) {
-        const circlesFavorites = JSON.parse(storedFavorites);
-        favouritesCircles = user.circles.filter((circle: CirclesDatas) => circlesFavorites.find((favorite: CirclesDatas) => favorite.circle_id === circle.circle_id));
-        notFavouritesCircles = user.circles.filter((circle: CirclesDatas) => !favouritesCircles.includes(circle));
-      }
-    }
+    const checkFavourites = () => {
+  const storedFavorites = localStorage.getItem('circlesFavorites');
+  
+  if (storedFavorites) {
+    const circlesFavorites = JSON.parse(storedFavorites);
+    favouritesCircles = user.circles.filter((circle: CirclesDatas) => circlesFavorites.find((favorite: CirclesDatas) => favorite.circle_id === circle.circle_id));
+    notFavouritesCircles = user.circles.filter((circle: CirclesDatas) => !favouritesCircles.includes(circle));
+  } else {
+    notFavouritesCircles = user.circles;
+  }
+}
     onMount(() => {
       checkFavourites();
     })
@@ -60,15 +63,15 @@
 
     const createCircle: SubmitFunction = ({form, data, action, cancel}) => {
     return async ({result}: {result: ActionExtend}) => {
-        applyAction(result);
+        await applyAction(result);
         const status = result.data?.status || result.status;
         const {data} = result;
         if (status === 400) return;
-
-          form.reset();
-          popUpCreateCircle = false;
-          data?.data?.message && setLoader(true, {message: status === 201 ? $LL.desc.createdCircle() : messageError, type: status === 201 ? 'success' : 'error'});
-          invalidateAll();
+        
+        form.reset();
+        popUpCreateCircle = false;
+        data?.data?.message && setLoader(true, {message: status === 201 ? $LL.desc.createdCircle() : messageError, type: status === 201 ? 'success' : 'error'});
+        invalidateAll();
     }
   
   };
@@ -105,8 +108,7 @@
                 {#if popUpCreateCircle}
                 <Popup onClickOutside={() => popUpCreateCircle = false}>
                     <p class="text-lg font-semibold mb-5">Create Circle<p/>
-                    <form method="POST" use:enhance={createCircle}><form/>
-                    <div>
+                      <form method="POST"  use:enhance={createCircle}>
                         <div class="mb-5">
                         <Input name='img' value = '' placeholder={$LL.button.uploadPicture()}  errors={form?.errors?.img ?? ''}/>
                         </div>
@@ -114,10 +116,10 @@
                             <Input name='name' value = '' placeholder={$LL.form.name()}  errors={form?.errors?.name ?? ''}/>
                         </div>
                         <Input name='description' value = '' placeholder={$LL.form.description()}  errors={form?.errors?.description ?? ''}/>
-                    </div>
                     <div class="flex gap-5 mt-5">
                         <Button visual='outline' text={$LL.global.close()} onClick={() => popUpCreateCircle = false}/>
-                        <Button type='submit' text={$LL.global.create()}/>
+                        <Button type='submit' text={$LL.global.create()} formaction='?/createCircle'/>
+                        <form/>
                     </div>
                 </Popup>
                 {/if}
