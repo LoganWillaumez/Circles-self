@@ -11,7 +11,7 @@ export async function load(event: any) {
 }
 
 export const actions = {
-  default: async (event) => {
+  createCircle: async (event) => {
     const {formData, errors} = await validateData(
         await event.request.formData(),
         circlesSchema.createCircles
@@ -43,7 +43,6 @@ export const actions = {
       }
 },
     signOut: async (event) => {
-      console.log('test');
       event.cookies.delete('accessToken');
       event.cookies.delete('refreshToken');
       event.locals.user = null;

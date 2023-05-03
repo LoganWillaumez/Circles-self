@@ -42,7 +42,6 @@
       await applyAction(result);
       const status = result.data?.status || result.status;
       const {data} = result;
-      console.log('🚀 ~ data:', data);
       if (status !== 400) {
         if (status === 403) {
           data?.message &&

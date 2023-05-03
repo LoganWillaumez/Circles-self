@@ -18,6 +18,8 @@ const en: BaseTranslation = {
     search: 'Search',
     description: 'Description',
     name: 'Name',
+    currentPassword: 'Current password',
+    newPassword: 'New password',
   },
   serverError: {
     userAlreadyExist: 'The user already exist',
@@ -51,9 +53,22 @@ const en: BaseTranslation = {
     noCircleDesc: 'You can either create a new Circle or wait to be invited into one.',
     favCircle: 'Favorite Circles',
     createdCircle: 'Your Circles has been successfully created', 
+    settings: 'Settings',
+    global: 'Global',
+    profile: 'Profile',
+    noChange: 'No changes made.',
+    updateUserSuccess: 'Your profile has been successfully updated.',
+    passwordSameError: 'The new password must be different from the current one.',
+    invalidCurrentPassword: 'The current password is invalid.',
+    currentpasswordRequired: 'The current password is required.',
+    confirmpasswordRequired: 'The confirmation of the new password is required.',
+    newpasswordRequired: 'The new password is required.',
   },
   global: {
     switchLanguage: 'fr',
+    language: 'Language',
+    fr: 'Français',
+    en: 'English',
     close: 'Fermer',
     or: 'Or',
     next: 'Next',
@@ -61,6 +76,8 @@ const en: BaseTranslation = {
     start: 'Start',
     perfect: 'Perfect !',
     create: 'Create',
+    confirm: 'Confirm',
+    cancel: 'Cancel',
   }
 };
 
