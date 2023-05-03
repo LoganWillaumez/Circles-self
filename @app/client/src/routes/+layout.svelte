@@ -19,7 +19,7 @@
   {#if browser}
     <Loader />
     <Switch />
-    <LangSwitch />
+    <!-- <LangSwitch /> -->
     <slot />
   {/if}
 </main>

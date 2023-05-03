@@ -12,7 +12,7 @@ const customerSchema = {
         .messages({
           'string.string': 'email.string',
           'string.email': 'email.email',
-          'any.required': 'email.required'
+          'any.required': 'emailRequired'
         })
     });
   },
@@ -35,19 +35,42 @@ const customerSchema = {
           'string.string': 'email.string',
           'string.email': 'email.email'
         }),
-
       gender: Joi.string().valid('male', 'female', 'other').messages({
         'gender.string': 'gender.string',
         'any.only': 'gender.valid'
       }),
-      password: Joi.string()
-        .pattern(/^[a-zA-Z0-9]{3,30}$/)
-        .messages({
-          'string.string': 'password.string',
-          'string.pattern.base': 'password.pattern'
-        }),
-      repeat_password: Joi.ref('password'),
-      birthdate: Joi.date().format('DD-MM-YYYY').messages({
+      currentpassword: Joi
+      .string()
+      .pattern(/^[a-zA-Z0-9]{3,30}$/)
+      .allow('')
+      .optional()
+      .messages({
+        'string.string': 'password.string',
+        'string.pattern.base': 'password.pattern'
+      }),
+    newpassword: Joi
+      .string()
+      .pattern(/^[a-zA-Z0-9]{3,30}$/)
+      .allow('')
+      .optional()
+      .not(Joi.ref('currentpassword'))
+      .messages({
+        'string.string': 'newPassword.string',
+        'string.pattern.base': 'newPassword.pattern',
+        'any.invalid': 'newPasswordMustBeDifferent'
+      }),
+    confirmpassword: Joi
+      .string()
+      .pattern(/^[a-zA-Z0-9]{3,30}$/)
+      .allow('')
+      .optional()
+      .valid(Joi.ref('newpassword'))
+      .messages({
+        'string.string': 'confirmPassword.string',
+        'string.pattern.base': 'confirmPassword.pattern',
+        'any.only': 'confirmPasswordMatchNewPassword'
+      }),
+      birthdate: Joi.date().format('YYYY-MM-DD').messages({
         'date.base': 'birthDate.date',
         'date.format': 'birthDate.format'
       }),

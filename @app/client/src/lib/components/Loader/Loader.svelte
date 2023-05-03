@@ -36,9 +36,6 @@
     resetLoader();
   };
 
-  loader.subscribe(value => {
-    console.log('value', value);
-  });
 </script>
 
 {#if $loader.showLoader}
