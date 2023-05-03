@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { createEventDispatcher } from 'svelte';
   import type {Options} from '../../models/input';
 
   export let placeholder: string;
@@ -11,6 +12,8 @@
   export let options: Options[] = [];
   export let errors = '';
   export {className as class};
+
+  const dispatch = createEventDispatcher()
 
   const typeAction = (node: any) => {
     node.type = type;
@@ -39,7 +42,7 @@
     class:error={errors}
     style="width: {width};"
   >
-    <select bind:value {name} id={'input-' + name}>
+    <select bind:value {name} id={'input-' + name} on:change={(e) => dispatch('selected', {value: e.target.value})}>
       <option value="" disabled selected hidden>{placeholder}</option>
       {#each options as option}
         {#if typeof option === 'object' && 'value' in option && option.value}
@@ -47,6 +50,7 @@
         {/if}
       {/each}
     </select>
+    <label for={'input-' + name}>{placeholder}</label>
   </div>
 {/if}
 {#if errors}

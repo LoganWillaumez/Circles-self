@@ -5,7 +5,8 @@ import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from '$env/static/private';
 import API from "./api/Api";
 
 // Routes that don't require authentication
-const notGuardedRoutes = ['/', '/signin', '/signup'];
+const notGuardedRoutes = ['/', '/signin', '/signup', '/valid', '/signup/valid'];
+const dynamicNotGuardedRoutes = ['/signup/valid', '/signup/email'];
 /**
  * Check if the access token is valid and not expired
  * @param {string} accessToken - Access token
@@ -70,7 +71,7 @@ export const handle = async ({ event, resolve }) => {
   const isRefreshTokenValid = await isRefreshTokenValidAndNotExpired(refreshToken);
 
   // Check if the requested route is a non-guarded route
-  if (notGuardedRoutes.includes(event.url.pathname)) {
+  if (notGuardedRoutes.includes(event.url.pathname) || dynamicNotGuardedRoutes.some((route) => event.url.pathname.startsWith(route))) {
     if (!refreshToken) {
       accessToken && event.cookies.delete('accessToken');
       return await resolve(event);

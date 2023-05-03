@@ -29,7 +29,6 @@ const errorHandler = (
     });
     return;
   }
-
-  res.status(500).send('errorGlobal');
+  res.status(500).json({errorCode: ErrorCode.GLOBAL, stack: error.stack});
 };
 export default errorHandler;
