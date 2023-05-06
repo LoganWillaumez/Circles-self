@@ -7,7 +7,7 @@ import { error, fail } from '@sveltejs/kit';
 import { authenthificationSchema } from '$lib/schema/authentification';
 
 export const load: PageServerLoad = async () => {
-  // todo
+
 };
 
 export const actions = {
