@@ -27,7 +27,7 @@
     justify-content: space-between;
     background-color: var(--fill-reverse);
     color: var(--text-reverse);
-    position: absolute;
+    position: fixed;
     top: 20px;
     right: 20px;
     .switch-state {

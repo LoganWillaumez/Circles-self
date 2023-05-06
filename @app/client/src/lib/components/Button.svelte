@@ -14,7 +14,6 @@
   <a
     class="btn {visual} {className}"
     class:secondary={variant === 'secondary'}
-    data-sveltekit-reload
     href="/{href}">{text}</a
   >
 {:else}
