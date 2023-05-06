@@ -46,6 +46,6 @@ export const actions = {
       event.cookies.delete('accessToken');
       event.cookies.delete('refreshToken');
       event.locals.user = null;
-      throw redirect(303, '/');
+      throw redirect(303, '/home');
     }
 };

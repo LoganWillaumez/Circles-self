@@ -5,7 +5,7 @@
 
 <a
   class="switch"
-  on:click={invalidateAll}
+  on:click={() => invalidateAll()}
   href="?lang={$LL.global.switchLanguage()}"
 >
   {$LL.global.switchLanguage()}</a

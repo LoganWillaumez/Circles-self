@@ -17,6 +17,7 @@
   import type { CirclesDatas } from "@circles-self/circles/interfaces/circle.interfaces.js";
   import { applyAction, enhance } from "$app/forms";
   import { invalidateAll } from "$app/navigation";
+  import { slide } from "svelte/transition";
 
   type ActionExtend = ActionResult & {
     data?: Partial<{
@@ -100,7 +101,12 @@
                   <div class="flex flex-col gap-5">
                     <p class="font-bold">{$LL.desc.favCircle()}</p>
                     {#each favouritesCircles as circle}
-                      <CirclesCard circle={circle} on:updateFavorites={checkFavourites}/>
+                    <div transition:slide={{
+                      duration: 300,
+                      axis: 'y'
+                    }} >
+                      <CirclesCard circle={circle} on:updateFavorites={checkFavourites} />
+                    </div>
                     {/each}
                   </div> 
                   <Divider/>
