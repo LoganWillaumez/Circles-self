@@ -5,7 +5,7 @@ import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from '$env/static/private';
 import API from "./api/Api";
 
 // Routes that don't require authentication
-const notGuardedRoutes = ['/', '/signin', '/signup', '/valid', '/signup/valid'];
+const notGuardedRoutes = ['/home', '/signin', '/signup', '/valid', '/signup/valid'];
 const dynamicNotGuardedRoutes = ['/signup/valid', '/signup/email'];
 /**
  * Check if the access token is valid and not expired
@@ -42,7 +42,7 @@ const isRefreshTokenValidAndNotExpired = async (refreshToken: any) => {
 const redirectToHome = (event: any) => {
   event.cookies.delete('refreshToken');
   event.cookies.delete('accessToken');
-  throw redirect(303, '/');
+  throw redirect(303, '/home');
 };
 
 /**

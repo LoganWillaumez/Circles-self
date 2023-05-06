@@ -8,5 +8,4 @@ export const load = (async event => {
   // But we load and set it as before
   await loadLocaleAsync(locale);
   setLocale(locale);
-  return event.data;
 }) satisfies LayoutLoad;
