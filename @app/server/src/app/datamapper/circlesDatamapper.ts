@@ -6,34 +6,35 @@ import { CirclesDatas, CirclesInputDatas } from '@circles-self/circles/interface
 const circlesDataMapper = (client: Pool) => {
   return {
     async getCircle(id: number): Promise<CirclesDatas | false> {
-      const query = {
-        text: `SELECT json_build_object(
-        cc.id as circle_id',
-        'name', cc.name,
-        'customer_admin', cc.customer_admin,
-        'description', cc.description,
-        'img', cc.img,
-        'created_at', cc.created_at,
-        'updated_at', cc.updated_at,
-        'messages', COALESCE(jsonb_agg(m) FILTER (WHERE m.id IS NOT NULL), '[]'::jsonb),
-        'events', COALESCE(jsonb_agg(e) FILTER (WHERE e.id IS NOT NULL), '[]'::jsonb)
-       )
-       FROM "circle" cc
-       LEFT JOIN "event" e ON cc.id = e.id_circle
-       LEFT JOIN "message" m ON cc.id = m.id_circle
-       WHERE cc.id=$1
-       GROUP BY cc.id;`,
-        values: [id]
-      };
-      const circle = await client.query(query);
-      if (circle?.rows[0]?.json_build_object) {
-        const result = circle.rows[0].json_build_object;
-        result.created_at = new Date(result.created_at);
-        result.updated_at = new Date(result.updated_at);
-        return result;
-      } else {
-        return false;
-      }
+
+        const query = {
+          text: `SELECT json_build_object(
+                  'circle_id', cc.id,
+                  'name', cc.name,
+                  'customer_admin', cc.customer_admin,
+                  'description', cc.description,
+                  'img', cc.img,
+                  'created_at', cc.created_at,
+                  'updated_at', cc.updated_at,
+                  'messages', COALESCE(jsonb_agg(m) FILTER (WHERE m.id IS NOT NULL), '[]'::jsonb),
+                  'events', COALESCE(jsonb_agg(e) FILTER (WHERE e.id IS NOT NULL), '[]'::jsonb)
+                 )
+                 FROM "circle" cc
+                 LEFT JOIN "event" e ON cc.id = e.id_circle
+                 LEFT JOIN "message" m ON cc.id = m.id_circle
+                 WHERE cc.id=$1
+                 GROUP BY cc.id;`,
+          values: [id]
+        };
+        const circle = await client.query(query);
+        if (circle?.rows[0]?.json_build_object) {
+          const result = circle.rows[0].json_build_object;
+          result.created_at = new Date(result.created_at);
+          result.updated_at = new Date(result.updated_at);
+          return result;
+        } else {
+          return false;
+        }
     },
 
     async createCircle(

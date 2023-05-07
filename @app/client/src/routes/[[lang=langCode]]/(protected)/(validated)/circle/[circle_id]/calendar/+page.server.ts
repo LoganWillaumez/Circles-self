@@ -1,4 +1,5 @@
-import API from "../../../../../../api/Api";
+
+import API from "../../../../../../../api/Api";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ params, cookies, locals, url }) => {
