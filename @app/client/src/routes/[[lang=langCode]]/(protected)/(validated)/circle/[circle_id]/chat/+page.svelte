@@ -21,5 +21,5 @@
             </div>
         </div>
     </div>
-    <!-- <Navbar url={data.url} /> -->
+    <!-- <Navbar url={data.url}  currentRoute='chat'/> -->
 </div>
