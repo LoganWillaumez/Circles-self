@@ -11,13 +11,14 @@ const circleController = {
   async getCircle(req: Request, res: Response) {
     const {user} = req;
     const {circle_id} = req.params;
-
+  
     const circle = await circlesDatamapper.getCircle(+circle_id);
-
-    if (!user.circles.find((circle: any) => +circle.id === +circle_id)) {
+  
+    // Update the condition to use circle_id instead of id
+    if (!user.circles.find((circle: any) => +circle.circle_id === +circle_id)) {
       throw new AppError(ErrorCode.CIRCLE, 'circle.noAccess', 401);
     }
-
+  
     res.status(200).json(circle);
   },
 

@@ -12,8 +12,9 @@
   import { page } from '$app/stores';
   import Fa from 'svelte-fa';
   import {faBars} from '@fortawesome/free-solid-svg-icons';
-
+  import Navbar from '$lib/components/Navbar.svelte';
   export let data;
+  console.log('🚀 ~ data:', data);
   let menuOutside = false;
 console.log('🚀 ~ data:', data);
 </script>
@@ -36,11 +37,14 @@ console.log('🚀 ~ data:', data);
     <Menu onClickOutside={() => menuOutside = false} user={$page.data.user}/>
   {/if}
   {/if}
-    <Loader />
-    <Switch />
-    <PageTransition key={data.url}>
-      <slot />
-    </PageTransition>
+  <Loader />
+  <Switch />
+  {#if data.route.includes('circle')}
+    <Navbar url={data.url}/>
+  {/if}
+  <PageTransition key={data.url}>
+    <slot />
+  </PageTransition>
   {/if}
 </main>
 
