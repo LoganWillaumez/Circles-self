@@ -10,7 +10,7 @@ const circleRoutes = express.Router();
 circleRoutes.use(jwbtoken.getAuthorization);
 
 circleRoutes
-  .get('/:circleId', circlesControllers.getCircle)
+  .get('/:circle_id', circlesControllers.getCircle)
   .post(
     '',
     validationMiddleware(circleSchema.createCircle()),
@@ -18,13 +18,13 @@ circleRoutes
     circlesControllers.createCircle
   )
   .put(
-    '/:circleId',
+    '/:circle_id',
     validationMiddleware(circleSchema.updateCircle()),
     circlesMiddleware(true),
     circlesControllers.updateCircle
   )
   .delete(
-    '/:circleId',
+    '/:circle_id',
     validationMiddleware(circleSchema.deleteCircle()),
     circlesMiddleware(true),
     circlesControllers.deleteCircle
