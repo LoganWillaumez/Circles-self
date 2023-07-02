@@ -15,56 +15,65 @@ const eventController = {
   },
 
   async createEvent(req: Request, res: Response) {
-    const {user} = req;
-
-    const {id} = req.params;
-
-    const {
-      // eslint-disable-next-line camelcase
-      title,
-      description,
-      start,
-      end,
-      allday
-    } = req.body;
-
-    const eventData: EventDatas = {
-      title: sanitizeHtml(title),
-      description: sanitizeHtml(description),
-      end: new Date(sanitizeHtml(end)),
-      allday: !!sanitizeHtml(allday),
-      start: new Date(sanitizeHtml(start)),
-      id_circle: +sanitizeHtml(id),
-      id_customer: +sanitizeHtml(user.id)
-    };
-
-    const event = await eventDatamapper.createEvent(eventData);
-
-    if (!event) {
-      throw new AppError(ErrorCode.EVENT, 'event.cantCreated', 400);
+    try{
+      const {user} = req;
+  
+      const {id} = req.params;
+  
+      const {
+        // eslint-disable-next-line camelcase
+        title,
+        description,
+        start,
+        end,
+        allday
+      } = req.body;
+      
+      const eventData: EventDatas = {
+        title: sanitizeHtml(title),
+        description: sanitizeHtml(description),
+        end: end ? new Date(sanitizeHtml(end)) : null,
+        allday: allday ? !sanitizeHtml(allday) : false,
+        start: new Date(sanitizeHtml(start)),
+        id_circle: +sanitizeHtml(id),
+        id_customer: +sanitizeHtml(user.customer_id)
+      };
+      
+  
+      const event = await eventDatamapper.createEvent(eventData);
+  
+      if (!event) {
+        throw new AppError(ErrorCode.EVENT, 'event.cantCreated', 400);
+      }
+      res.status(201).json({message: 'successfully created !'});
+    } catch (err: any) {
+      throw new AppError(ErrorCode.EVENT, 'event.cantCreated', 400, err.stack);
     }
-    res.status(200).json({message: 'successfully created !'});
   },
 
   async updateEvent(req: Request, res: Response) {
-    const {id_event} = req.params;
-
-    const {title, description, start, end, allday} = req.body;
-
-    const eventData: EventInputDatas = {
-      title: sanitizeHtml(title),
-      description: sanitizeHtml(description),
-      start: new Date(sanitizeHtml(start)),
-      end: new Date(sanitizeHtml(end)),
-      allday: Boolean(sanitizeHtml(allday))
-    };
-
-    const patchEvent = await eventDatamapper.updateEvent(+id_event, eventData);
-
-    if (patchEvent) {
-      res.status(200).json({message: 'Event successfully patch.', patchEvent});
-    } else {
-      throw new AppError(ErrorCode.EVENT, 'event.cantUpdated', 400);
+    try{
+      const {idevent} = req.params;
+  
+      const {title, description, start, end, allday} = req.body;
+  
+      const eventData: EventInputDatas = {
+        title: sanitizeHtml(title),
+        description: sanitizeHtml(description),
+        start: new Date(sanitizeHtml(start)),
+        end: new Date(sanitizeHtml(end)),
+        allday: allday ? !sanitizeHtml(allday) : false
+      };
+  
+      const patchEvent = await eventDatamapper.updateEvent(+idevent, eventData);
+  
+      if (patchEvent) {
+        res.status(200).json({message: 'Event successfully patch.', patchEvent});
+      } else {
+        throw new AppError(ErrorCode.EVENT, 'event.cantUpdated', 400);
+      }
+    } catch(err: any) {
+      throw new AppError(ErrorCode.EVENT, 'event.cantUpdated', 400, err.stack);
     }
   },
 

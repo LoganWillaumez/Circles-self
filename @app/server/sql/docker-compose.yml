@@ -1,49 +1,48 @@
-  version: '4.2'
+version: '4.2'
 
-  services:
-    circles-dev:
-      image: circles-image
-      environment:
-        POSTGRES_USER: postgres
-        POSTGRES_PASSWORD: postgres
-        POSTGRES_DB: circles
-        TARGET: dev
-        POSTGRES_HOST_AUTH_METHOD: trust
-      volumes:
-        - circles-volume:/var/lib/postgresql/data
-      container_name: circles-dev
-      ports:
-        - "4101:5432"
-      networks:
+services:
+  circles-dev:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: circles
+      TARGET: dev
+      POSTGRES_HOST_AUTH_METHOD: trust
+      TZ: "UTC"
+    volumes:
+      - circles-volume:/var/lib/postgresql/data
+    container_name: circles-dev
+    ports:
+      - "4101:5432"
+    networks:
+    - circles
+
+  circles-test:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: circles
+      TARGET: test
+      POSTGRES_HOST_AUTH_METHOD: trust
+      TZ: "UTC"
+    volumes:
+        - type: tmpfs
+          target: /tmp
+          tmpfs:
+            size: 64M
+
+    container_name: circles-test
+    ports:
+      - "4102:5432"
+    networks:
       - circles
 
+volumes:
+  circles-volume:
+    external: true
 
-
-
-    circles-test:
-      image: circles-image
-      environment:
-        POSTGRES_USER: postgres
-        POSTGRES_PASSWORD: postgres
-        POSTGRES_DB: circles
-        TARGET: test
-        POSTGRES_HOST_AUTH_METHOD: trust
-      volumes:
-          - type: tmpfs
-            target: /tmp
-            tmpfs:
-              size: 64M
-
-      container_name: circles-test
-      ports:
-        - "4102:5432"
-      networks:
-        - circles
-
-  volumes:
-    circles-volume:
-      external: true
-
-  networks:
-    circles:
-      name: circles
+networks:
+  circles:
+    name: circles

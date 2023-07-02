@@ -46,6 +46,9 @@ type ActionExtend = ActionResult & {
 
     export let data;
     export let form: ActionData;
+    let currentPassword = '';
+    let newPassword = '';
+    let confirmPassword = '';
 const {user, lang} = data;
 const updateProfile: SubmitFunction = async ({form}) =>{
     return async ({result}: {result: ActionExtend}) => {
@@ -54,10 +57,10 @@ const updateProfile: SubmitFunction = async ({form}) =>{
       if (status !== 400) {
         if(status === 200){
           setLoader(true, {message: $LL.desc.updateUserSuccess(), type: 'success'});
-          form.currentpassword = '';
-          form.newpassword = '';
-          form.confirmpassword = '';
           invalidateAll();
+          currentPassword = '';
+          newPassword = '';
+          confirmPassword = '';
       } else if (status === 422) {
         setLoader(true, {message: $LL.desc.passwordSameError(), type: 'error'});
       }
@@ -112,14 +115,13 @@ const changeTheme = () => {
             <Input  placeholder="Birthdate" name="birthdate" value={user.birthdate}  errors={form?.errors?.birthdate ?? ''}/>
           </div>
           <div class="mt-5">
-            <Input  type="password" placeholder={$LL.form.currentPassword()} name="currentpassword"  errors={form?.errors?.currentpassword ?? ''}/>
+            <Input value={currentPassword} on:input={(event) => currentPassword = event.detail}  type="password" placeholder={$LL.form.currentPassword()} name="currentpassword"  errors={form?.errors?.currentpassword ?? ''}/>
           </div>
           <div class="mt-5">
-            <Input  type="password"placeholder={$LL.form.newPassword()} name="newpassword"  errors={form?.errors?.newpassword?? ''}/>
+            <Input value={newPassword} on:input={(event) => newPassword = event.detail} type="password"placeholder={$LL.form.newPassword()} name="newpassword"  errors={form?.errors?.newpassword?? ''}/>
           </div>
           <div class="mt-5">
-
-            <Input type="password"  placeholder={$LL.form.confirmPassword()} name="confirmpassword"  errors={form?.errors?.confirmpassword ?? ''}/>
+            <Input value={confirmPassword} on:input={(event) => confirmPassword = event.detail} type="password"  placeholder={$LL.form.confirmPassword()} name="confirmpassword"  errors={form?.errors?.confirmpassword ?? ''}/>
           </div>
         </div>
         <div class="flex gap-5 mt-5">

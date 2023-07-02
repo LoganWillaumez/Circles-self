@@ -1,7 +1,7 @@
 import { customerSchema } from '$lib/schema/customer.js';
 import { validateData } from '$lib/schema/validation';
 import { error, fail } from '@sveltejs/kit';
-import API from '../../../../../api/Api';
+import API from '$lib/utils/Api';
 import { isAxiosError } from 'axios';
 import { convertDateToCorrectFormat } from '$lib/utils/date';
 import type { Options } from '../../../../../models/input';

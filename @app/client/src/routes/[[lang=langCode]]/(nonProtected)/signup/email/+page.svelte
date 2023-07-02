@@ -6,7 +6,7 @@
 
 <div class="container">
   <div class="scroll_wrapper">
-    <div class="flex flex-col gap-5">
+    <div class="flex flex-col gap-5 h-full md:h-fit">
       <img
         class="w-[70vw] max-w-[400px] mx-auto"
         src="/mail-{$theme}.svg"

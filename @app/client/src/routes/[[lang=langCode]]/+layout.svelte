@@ -13,10 +13,25 @@
   import Fa from 'svelte-fa';
   import {faBars} from '@fortawesome/free-solid-svg-icons';
   import Navbar from '$lib/components/Navbar.svelte';
+  import { onMount, onDestroy } from 'svelte';
   export let data;
-  console.log('🚀 ~ data:', data);
   let menuOutside = false;
-console.log('🚀 ~ data:', data);
+  let isDesktop;
+  let resizeHandler;
+
+  if (browser) {
+    onMount(() => {
+      resizeHandler = () => {
+        isDesktop = window.innerWidth > 650;
+      };
+      window.addEventListener('resize', resizeHandler);
+      resizeHandler(); // Initial check
+    });
+
+    onDestroy(() => {
+      window.removeEventListener('resize', resizeHandler);
+    });
+  }
 </script>
 
 <svelte:head>
@@ -33,8 +48,8 @@ console.log('🚀 ~ data:', data);
   <button on:click={() => menuOutside = true}>
     <Fa class='fixed top-[20px] left-[20px] cursor-pointer' icon={faBars} size="lg"/>
   </button>
-  {#if menuOutside}
-    <Menu onClickOutside={() => menuOutside = false} user={$page.data.user}/>
+  {#if menuOutside || isDesktop}
+    <Menu onClickOutside={() => menuOutside = false} user={$page.data.user} isDesktop={isDesktop}/>
   {/if}
   {/if}
   <Loader />

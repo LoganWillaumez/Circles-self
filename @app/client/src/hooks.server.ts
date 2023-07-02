@@ -2,11 +2,13 @@ import { redirect } from "@sveltejs/kit";
 import { checkExpireToken, setAuthToken, verifyToken } from "@circles-self/circles/utils";
 import { TokenType } from "@circles-self/circles/enums";
 import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from '$env/static/private';
-import API from "./api/Api";
+import API from "$lib/utils/Api";
 
 // Routes that don't require authentication
 const notGuardedRoutes = ['/home', '/signin', '/signup', '/valid', '/signup/valid'];
 const dynamicNotGuardedRoutes = ['/signup/valid', '/signup/email'];
+
+
 /**
  * Check if the access token is valid and not expired
  * @param {string} accessToken - Access token
@@ -67,6 +69,11 @@ export const handle = async ({ event, resolve }) => {
   const refreshToken = event.cookies.get('refreshToken');
   const accessToken = event.cookies.get('accessToken');
 
+
+  if (event.url.pathname === '/') {
+    throw redirect(303, '/home');
+  }
+  
   const isAccessTokenValid = await isAccessTokenValidAndNotExpired(accessToken);
   const isRefreshTokenValid = await isRefreshTokenValidAndNotExpired(refreshToken);
 

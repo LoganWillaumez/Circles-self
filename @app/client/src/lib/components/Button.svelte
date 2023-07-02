@@ -4,6 +4,8 @@
   export let type: 'submit' | 'button' | 'reset' = 'button';
   export let variant: 'principal' | 'secondary' = 'principal';
   export let href = '';
+  export let error = false;
+  export let small = false;
   export let formaction: string = '';
   export let className: string = '';
   export let onClick: () => void = () => {};
@@ -12,7 +14,7 @@
 
 {#if href}
   <a
-    class="btn {visual} {className}"
+    class="btn {visual} {className} {small ? 'small' : ''} {error ? 'error' : ''}"
     class:secondary={variant === 'secondary'}
     href="/{href}">{text}</a
   >
@@ -20,7 +22,7 @@
   <button
     {formaction}
     {type}
-    class="btn {visual} {className}"
+    class="btn {visual} {className} {small ? 'small' : ''} {error ? 'error' : ''}"
     class:secondary={variant === 'secondary'}
     on:click={onClick}
   >
@@ -35,6 +37,7 @@
     padding: 13px 30px;
     text-align: center;
     width: 100%;
+    max-width: 250px;
     color: white;
     font-weight: 700;
     transition: background 200ms ease-in;
@@ -46,6 +49,9 @@
         background: var(--gradient-hover);
       }
     }
+    &.error {
+    background: var(--gradient-error);
+      }
     &.outline {
       background: transparent;
       outline-style: none;
@@ -58,6 +64,10 @@
       &:hover {
         background: var(--fill-hover);
       }
+    }
+    &.small {
+      padding: 5px 20px;
+      font-size: 12px;
     }
   }
 </style>

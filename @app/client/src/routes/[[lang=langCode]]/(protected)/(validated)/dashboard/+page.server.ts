@@ -1,7 +1,7 @@
 import { circlesSchema } from '$lib/schema/circles.js';
 import { validateData } from '$lib/schema/validation';
 import { error, fail, redirect } from '@sveltejs/kit';
-import API from '../../../../../api/Api.js';
+import API from '$lib/utils/Api.js';
 import { isAxiosError } from 'axios';
 
 export async function load(event: any) {

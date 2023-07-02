@@ -3,7 +3,7 @@
 </style>
 
 <script lang="ts">
-  import {faCalendar, faHouse, faMessage, faStar} from '@fortawesome/free-solid-svg-icons';
+  import {faCalendar, faHouse, faMessage, faStar, faTableColumns} from '@fortawesome/free-solid-svg-icons';
   import Fa from 'svelte-fa';
   import Divider from './Divider.svelte';
   export let url: string;
@@ -25,12 +25,12 @@
   const basicCircleUrl = extractCircleUrl(url);
 </script>
 
-<div class="w-full h-[50px] ]max-h-[50px] bg-[var(--background)] rounded-2xl flex items-center gap-5 px-5 py-2 fixed bottom-5 z-30">   
+<div class="w-full h-[50px] max-w-[500px] max-h-[50px] bg-[var(--background)] rounded-2xl flex items-center gap-5 px-5 py-2 fixed bottom-5 z-30">   
     <a href="/dashboard">
-        <Fa class='bg-[var(--primary-color)]' icon={faHouse} size="lg" />
+        <Fa class='bg-[var(--primary-color)]' icon={faTableColumns} size="lg" />
     </a>
     <Divider vertical={true}/>
-    <div class="flex justify-between w-full px-6">
+    <div class="flex justify-between w-full px-10">
         <a href="{basicCircleUrl}">
             <Fa class='{!url.includes('/calendar')&& !url.includes('/chat') ? 'text-[#EB8423]' : ''}' icon={faHouse} size="lg" />
         </a>

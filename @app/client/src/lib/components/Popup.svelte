@@ -4,6 +4,7 @@
   
   <script lang="ts">
   import { clickOutside } from "$lib/utils/clickOutside";
+  import {fade, fly, scale, slide} from 'svelte/transition'
 
   
     export let className: string;
@@ -13,6 +14,9 @@
   
   <div
     class="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 z-50 flex items-center justify-center"
+    transition:fade={{
+      duration: 300
+    }} 
   >
     <div
     use:clickOutside
