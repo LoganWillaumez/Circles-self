@@ -16,6 +16,8 @@
     "typesafe-i18n": "typesafe-i18n"
   },
   "devDependencies": {
+    "@event-calendar/core": "^0.19.0",
+    "@event-calendar/time-grid": "^0.19.0",
     "@playwright/test": "^1.32.2",
     "@sveltejs/adapter-auto": "^1.0.3",
     "@sveltejs/kit": "^1.15.1",

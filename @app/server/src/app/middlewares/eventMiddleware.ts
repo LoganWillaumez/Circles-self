@@ -9,37 +9,35 @@ const eventMiddleware =
   (admin = false, create = false) =>
   async (err: any, req: Request, res: Response, next: NextFunction) => {
     const {user} = req;
+    const {id, idevent} = req.params;
 
-    const {id_circle, id_event} = req.params;
-
-    const circle = await circlesDatamapper.getCircle(+id_circle);
-
-    const event = await eventDatamapper.getEvent(+id_event);
+    const circle = await circlesDatamapper.getCircle(+id);
 
     if (!circle) {
       throw new AppError(ErrorCode.EVENT, 'circle.notExist', 404);
     }
 
-    if (!create && !event) {
-      throw new AppError(ErrorCode.EVENT, 'event.notExist', 404);
-    }
+    if (!create) {
+      const event = await eventDatamapper.getEvent(+idevent);
+      
+      if (!event) {
+        throw new AppError(ErrorCode.EVENT, 'event.notExist', 404);
+      }
 
-    if (
-      !create &&
-      !circle.events.find((event: any) => +event.id === +id_event)
-    ) {
-      throw new AppError(ErrorCode.EVENT, 'event.noPartOfCircle', 401);
-    }
+      const checkEvent = circle.events.find((event: any) => +event.id === +idevent);
+      
+      if (!checkEvent) {
+        throw new AppError(ErrorCode.EVENT, 'event.noPartOfCircle', 401);
+      }
 
-    if(event){
-      if (admin && event.id_customer !== user.id) {
-      throw new AppError(ErrorCode.EVENT, 'event.noAdmin.noUpdate', 403);
-    }
-    } else {
-      throw new AppError(ErrorCode.EVENT, 'event.error', 404);
+      if (admin && event.id_customer !== user.customer_id) {
+
+        throw new AppError(ErrorCode.EVENT, 'event.noAdmin.noUpdate', 403);
+      }
     }
 
     next();
   };
+
 
 export default eventMiddleware;

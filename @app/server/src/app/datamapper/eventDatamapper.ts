@@ -1,5 +1,6 @@
-import { EventDatas, EventInputDatas } from '@circles-self/circles/interfaces';
+import { ErrorCode, EventDatas, EventInputDatas } from '@circles-self/circles/interfaces';
 import client from '../config/db.config';
+import AppError from '../../utils/AppError';
 
 const eventDatamapper = {
   async getEvent(id: number): Promise<EventDatas | false> {
@@ -12,32 +13,66 @@ const eventDatamapper = {
   },
 
   async createEvent(data: EventDatas): Promise<EventDatas | false> {
-    const {title, description, start, end, allday, id_circle, id_customer} =
-      data;
-    const query = {
-      text: 'INSERT INTO "event"("title", "description", "start", "end", "allday", "id_circle", "id_customer") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
-      values: [title, description, start, end, allday, id_circle, id_customer]
-    };
-    const event = await client.query(query);
-    return event ? event.rows[0] : false;
-  },
+    try {    
+      const {title, description, start, end, allday, id_circle, id_customer} = data;
 
-  async updateEvent(id: number, data: EventInputDatas): Promise<EventDatas | false> {
+      const fields = ['"title"', '"description"', '"start"', '"allday"', '"id_circle"', '"id_customer"'];
+      const values = [title, description, start, allday, id_circle, id_customer];
+      console.log('🚀 ~ start:', start);
+
+      if(end) {
+        // include end in the query and values only if it exists
+        fields.push('"end"');
+        values.push(end);
+      }
+
+      // Dynamically create placeholders for query
+      const placeholders = values.map((_, i) => `$${i + 1}`).join(',');
+      const query = {
+        text: `INSERT INTO "event"(${fields.join(',')}) VALUES (${placeholders}) RETURNING *`,
+        values: values
+      };
+
+      const event = await client.query(query);
+      return event ? event.rows[0] : false;
+    } catch (error: any) {
+      throw new AppError(ErrorCode.EVENT, 'event.cantCreated', 500, error.stack);
+    }
+},
+
+
+
+
+async updateEvent(id: number, data: EventInputDatas): Promise<EventDatas | false> {
+  try {
     const fields = Object.keys(data).map(
       (prop, index) =>
-        `"${prop}" = COALESCE(NULLIF($${index + 1}, ''), "${prop}")`
+        `"${prop}" = $${index + 1}`
     );
-    const values = Object.values(data);
 
-    const updatedCircle = await client.query(
-      `UPDATE "circle"
-         SET ${fields}
+    const values = Object.values(data).map(value => {
+      if (value instanceof Date && isNaN(value.getTime())) {
+        return null;
+      } else {
+        return value;
+      }
+    });
+
+
+    const updatedEvent = await client.query(
+      `UPDATE "event"
+         SET ${fields.join(',')}
          WHERE id = $${fields.length + 1}
          RETURNING *`,
       [...values, id]
     );
-    return updatedCircle ? updatedCircle.rows[0] : false;
-  },
+
+    return updatedEvent ? updatedEvent.rows[0] : false;
+  } catch (error: any) {
+    throw new AppError(ErrorCode.DATABASE, 'error.updateEvent', 400, error.stack);
+  }
+},
+
 
   async deleteEvent(id: number) {
     const query = {

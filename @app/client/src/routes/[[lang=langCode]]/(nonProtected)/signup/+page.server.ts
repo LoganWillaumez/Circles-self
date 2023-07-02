@@ -2,7 +2,7 @@ import { validateData } from '$lib/schema/validation';
 import { isAxiosError } from 'axios';
 import { authentification } from '../../../../api/auth/auth';
 import type {PageServerLoad} from './$types';
-import API from '../../../../api/Api';
+import API from '$lib/utils/Api';
 import { error, fail } from '@sveltejs/kit';
 import { authenthificationSchema } from '$lib/schema/authentification';
 

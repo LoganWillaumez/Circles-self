@@ -9,7 +9,7 @@
 </script>
 
 {#key key}
-<div class="w-full h-full" in:fly={{x: -200, duration: 300, delay: 300, easing: cubicOut}} out:fly={{x:200, duration: 300, easing: cubicOut}}>
+<div class="w-full h-full flex justify-center" in:fly={{x: -200, duration: 300, delay: 300, easing: cubicOut}} out:fly={{x:200, duration: 300, easing: cubicOut}}>
     <slot />
 </div>
 {/key}

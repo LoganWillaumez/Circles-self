@@ -10,7 +10,7 @@ export const convertDateToCorrectFormat = (inputDate: string | Date): string => 
   const month = date.getMonth() + 1;
   const year = date.getFullYear();
 
-  const formattedDate = `${String(day).padStart(2, '0')}-${String(month).padStart(2, '0')}-${year}`;
+  const formattedDate = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
 
   return formattedDate;
 };
