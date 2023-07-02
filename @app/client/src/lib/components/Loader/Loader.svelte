@@ -56,15 +56,17 @@
       </header>
       <div class="popup_content">
         <span class="popup-message">{$loader.popUp.message}</span>
-        {#if $loader.popUp.middleButton}
-          <div class="max-w-[90%]">
-            <Button onClick={handleMiddle} text={$loader.popUp.middleButton} />
+        <div class="flex gap-2 px-3">
+          <div class="button__container">
+            <Button visual="outline" onClick={handleClose} text={$LL.global.close()} />
+            {#if $loader.popUp.button}
+              <Button onClick={handleConfirm} text={$loader.popUp.button} />
+            {/if}
           </div>
-        {/if}
-        <div class="button__container">
-          <Button visual="outline" onClick={handleClose} text={$LL.global.close()} />
-          {#if $loader.popUp.button}
-            <Button onClick={handleConfirm} text={$loader.popUp.button} />
+          {#if $loader.popUp.middleButton}
+            <div class="max-w-[90%]">
+              <Button onClick={handleMiddle} text={$loader.popUp.middleButton} />
+            </div>
           {/if}
         </div>
       </div>
@@ -81,8 +83,10 @@
     position: absolute;
     top: 50%;
     left: 50%;
+    max-height: 350px;
+    max-width: 350px;
     transform: translate(-50%, -50%);
-    z-index: 1;
+    z-index: 99999;
   }
   #overlay {
     position: fixed;
@@ -96,7 +100,6 @@
   .popup {
     background-color: var(--loader);
     width: 70vw;
-    max-width: 400px;
     aspect-ratio: 1/1.3;
     border-radius: 10px;
     overflow: hidden;

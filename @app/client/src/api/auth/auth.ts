@@ -1,6 +1,6 @@
 import {error, fail, type Actions} from '@sveltejs/kit';
 import {authenthificationSchema} from '$lib/schema/authentification';
-import API from '../Api';
+import API from '$lib/utils/Api';
 import {validateData} from '$lib/schema/validation';
 import {isAxiosError} from 'axios';
 import { setAuthToken } from '@circles-self/circles/utils';
@@ -75,6 +75,7 @@ export const authentification: Actions = {
   activate: async (identifier: string) => {
     try {
       const isActivate = await API.post('auth/activate', {identifier});
+      console.log('🚀 ~ isActivate:', isActivate);
       return isActivate;
     } catch (err) {
       if (isAxiosError(err)) {

@@ -11,7 +11,7 @@
   import {LL} from '$lib/i18n/i18n-svelte';
   import type {Translation, TranslationFunctions} from '$lib/i18n/i18n-types';
   import type { Options } from '../../../../models/input';
-  import API from '../../../../api/Api';
+  import API from '$lib/utils/Api';
 
   type ActionExtend = ActionResult & {
     data?: Partial<{

@@ -6,9 +6,11 @@
     "clean": "rimraf pnpm-lock.yaml */pnpm-lock.yaml node_modules/ */node_modules/ @app/*/node_modules/ @app/*/pnpm-lock.yaml",
     "clean-install": "pnpm run clean && pnpm run install",
     "dev": "pnpm --parallel run dev",
-    "client": "pnpm --filter client run start:dev",
-    "server": "pnpm --filter server run start:dev",
-    "test": "pnpm -r run test"
+    "test": "pnpm -r run test",
+    "server:docker": "pnpm --filter @circles-self/server run docker",
+    "server:dev": "pnpm --filter @circles-self/server run dev",
+    "server:test": "pnpm --filter @circles-self/server run test",
+    "server:sqitch": "pnpm --filter @circles-self/server run sqitch"
   },
   "keywords": [
     "monorepo",
@@ -21,12 +23,14 @@
   "license": "MIT",
   "dependencies": {
     "@types/jsonwebtoken": "^8.5.9",
+    "cookie": "^0.5.0",
     "date-fns": "^2.29.3",
     "find-up": "^6.3.0",
     "jsonwebtoken": "^8.5.1",
     "server": "^1.0.38"
   },
   "devDependencies": {
+    "@types/cookie": "^0.5.1",
     "@typescript-eslint/eslint-plugin": "^5.57.1",
     "@typescript-eslint/parser": "^5.0.0",
     "eslint": "^8.37.0",

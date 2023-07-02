@@ -9,7 +9,7 @@ export interface EventInputDatas {
   description: string;
   allday: boolean;
   start: Date;
-  end: Date;
+  end: Date | null;
 }
 
 export interface EventDatas

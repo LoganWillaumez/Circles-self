@@ -1,4 +1,4 @@
-import API from "../../../../../../api/Api";
+import API from "$lib/utils/Api";
 
 export const actions = {
   default: async (event) => {

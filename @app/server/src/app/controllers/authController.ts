@@ -133,13 +133,14 @@ const authController: any = {
 
   async validUser(req: Request, res: Response) {
     const validUser = await customerDataMapper.validUser(req.body.identifier);
+    console.log('🚀 ~ validUser:', validUser);
 
     if (validUser) {
       res
         .status(204)
-        .json({message: `Utilisateur activé avec succès à ${validUser}`});
+        .json({message: `customer.validated.success`});
     } else {
-      throw new AppError(ErrorCode.AUTHENTICATION, 'emailPérimé', 410);
+      throw new AppError(ErrorCode.AUTHENTICATION, 'email.outdated', 410);
     }
   },
   logout(req: Request, res: Response) {
