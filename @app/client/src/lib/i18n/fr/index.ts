@@ -6,6 +6,7 @@ const fr: Translation = {
     signIn: 'Se connecter',
     upload: 'Télécharger',
     uploadPicture: 'Télécharger une photo',
+    newEvent: 'Nouvel événement'
   },
   form: {
     firstName: 'Prénom',
@@ -20,6 +21,10 @@ const fr: Translation = {
     name: 'Nom',
     currentPassword: 'Mot de passe actuel',
     newPassword: 'Nouveau mot de passe',
+    eventTitle: 'Titre de l\'événement',
+    allDay: 'Toute la journée',
+    startEvent: 'Début de l\'événement',
+    endEvent: 'Fin de l\'événement',
   },
   serverError: {
     userAlreadyExist: "L'utilisateur existe déjà",
@@ -54,6 +59,7 @@ const fr: Translation = {
     noCircleDesc: 'Vous pouvez soit créer un nouveau cercle, soit attendre d\'être invité dans un cercle existant.',
     favCircle: 'Cercles favoris',
     createdCircle: 'Votre cercle a bien été créé.',
+    createEvent: 'Votre événement a bien été créé.',
     settings: 'Paramètres',
     global: 'Globaux',
     profile: 'Profil',
@@ -64,6 +70,9 @@ const fr: Translation = {
     currentpasswordRequired: 'Le mot de passe actuel est requis',
     newpasswordRequired: 'Le nouveau mot de passe est requis',
     confirmpasswordRequired: 'La confirmation du nouveau mot de passe est requise',
+    deleteEvent: 'Êtes-vous sûr de vouloir supprimer cet événement ?',
+    deleteEventSuccess: 'Votre évènement a bien été supprimé',
+    modifyEventSuccess: 'Votre événement a bien été modifié'
   },
   global: {
     language: 'Langue',
@@ -79,6 +88,7 @@ const fr: Translation = {
     create: 'Créer',
     confirm: 'Confirmer',
     cancel: 'Annuler',
+    modify: 'Modifier'
   }
 };
 

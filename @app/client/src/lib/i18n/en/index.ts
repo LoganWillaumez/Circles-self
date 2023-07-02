@@ -6,6 +6,7 @@ const en: BaseTranslation = {
     signIn: 'Sign in',
     upload: 'Upload',
     uploadPicture: 'Upload a picture',
+    newEvent: 'New event',
   },
   form: {
     firstName: 'Firstname',
@@ -20,6 +21,10 @@ const en: BaseTranslation = {
     name: 'Name',
     currentPassword: 'Current password',
     newPassword: 'New password',
+    eventTitle: 'Event title',
+    allDay: 'All day',
+    startEvent: 'Start of the event',
+    endEvent: 'End of the event',
   },
   serverError: {
     userAlreadyExist: 'The user already exist',
@@ -53,6 +58,7 @@ const en: BaseTranslation = {
     noCircleDesc: 'You can either create a new Circle or wait to be invited into one.',
     favCircle: 'Favorite Circles',
     createdCircle: 'Your Circles has been successfully created', 
+    createEvent: 'Your event has been successfully created',
     settings: 'Settings',
     global: 'Global',
     profile: 'Profile',
@@ -63,6 +69,9 @@ const en: BaseTranslation = {
     currentpasswordRequired: 'The current password is required.',
     confirmpasswordRequired: 'The confirmation of the new password is required.',
     newpasswordRequired: 'The new password is required.',
+    deleteEvent: 'Are you sure you want to delete this event?',
+    modifyEventSuccess: 'Your event has been successfully modified.',
+    deleteEventSuccess: 'Your event has been successfully deleted.',
   },
   global: {
     switchLanguage: 'fr',
@@ -78,6 +87,7 @@ const en: BaseTranslation = {
     create: 'Create',
     confirm: 'Confirm',
     cancel: 'Cancel',
+    modify: 'Modify',
   }
 };
 

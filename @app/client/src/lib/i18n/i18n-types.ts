@@ -31,6 +31,10 @@ type RootTranslation = {
 		 * U​p​l​o​a​d​ ​a​ ​p​i​c​t​u​r​e
 		 */
 		uploadPicture: string
+		/**
+		 * N​e​w​ ​e​v​e​n​t
+		 */
+		newEvent: string
 	}
 	form: {
 		/**
@@ -81,6 +85,22 @@ type RootTranslation = {
 		 * N​e​w​ ​p​a​s​s​w​o​r​d
 		 */
 		newPassword: string
+		/**
+		 * E​v​e​n​t​ ​t​i​t​l​e
+		 */
+		eventTitle: string
+		/**
+		 * A​l​l​ ​d​a​y
+		 */
+		allDay: string
+		/**
+		 * S​t​a​r​t​ ​o​f​ ​t​h​e​ ​e​v​e​n​t
+		 */
+		startEvent: string
+		/**
+		 * E​n​d​ ​o​f​ ​t​h​e​ ​e​v​e​n​t
+		 */
+		endEvent: string
 	}
 	serverError: {
 		/**
@@ -194,6 +214,10 @@ type RootTranslation = {
 		 */
 		createdCircle: string
 		/**
+		 * Y​o​u​r​ ​e​v​e​n​t​ ​h​a​s​ ​b​e​e​n​ ​s​u​c​c​e​s​s​f​u​l​l​y​ ​c​r​e​a​t​e​d
+		 */
+		createEvent: string
+		/**
 		 * S​e​t​t​i​n​g​s
 		 */
 		settings: string
@@ -233,6 +257,18 @@ type RootTranslation = {
 		 * T​h​e​ ​n​e​w​ ​p​a​s​s​w​o​r​d​ ​i​s​ ​r​e​q​u​i​r​e​d​.
 		 */
 		newpasswordRequired: string
+		/**
+		 * A​r​e​ ​y​o​u​ ​s​u​r​e​ ​y​o​u​ ​w​a​n​t​ ​t​o​ ​d​e​l​e​t​e​ ​t​h​i​s​ ​e​v​e​n​t​?
+		 */
+		deleteEvent: string
+		/**
+		 * Y​o​u​r​ ​e​v​e​n​t​ ​h​a​s​ ​b​e​e​n​ ​s​u​c​c​e​s​s​f​u​l​l​y​ ​m​o​d​i​f​i​e​d​.
+		 */
+		modifyEventSuccess: string
+		/**
+		 * Y​o​u​r​ ​e​v​e​n​t​ ​h​a​s​ ​b​e​e​n​ ​s​u​c​c​e​s​s​f​u​l​l​y​ ​d​e​l​e​t​e​d​.
+		 */
+		deleteEventSuccess: string
 	}
 	global: {
 		/**
@@ -287,6 +323,10 @@ type RootTranslation = {
 		 * C​a​n​c​e​l
 		 */
 		cancel: string
+		/**
+		 * M​o​d​i​f​y
+		 */
+		modify: string
 	}
 }
 
@@ -308,6 +348,10 @@ export type TranslationFunctions = {
 		 * Upload a picture
 		 */
 		uploadPicture: () => LocalizedString
+		/**
+		 * New event
+		 */
+		newEvent: () => LocalizedString
 	}
 	form: {
 		/**
@@ -358,6 +402,22 @@ export type TranslationFunctions = {
 		 * New password
 		 */
 		newPassword: () => LocalizedString
+		/**
+		 * Event title
+		 */
+		eventTitle: () => LocalizedString
+		/**
+		 * All day
+		 */
+		allDay: () => LocalizedString
+		/**
+		 * Start of the event
+		 */
+		startEvent: () => LocalizedString
+		/**
+		 * End of the event
+		 */
+		endEvent: () => LocalizedString
 	}
 	serverError: {
 		/**
@@ -471,6 +531,10 @@ export type TranslationFunctions = {
 		 */
 		createdCircle: () => LocalizedString
 		/**
+		 * Your event has been successfully created
+		 */
+		createEvent: () => LocalizedString
+		/**
 		 * Settings
 		 */
 		settings: () => LocalizedString
@@ -510,6 +574,18 @@ export type TranslationFunctions = {
 		 * The new password is required.
 		 */
 		newpasswordRequired: () => LocalizedString
+		/**
+		 * Are you sure you want to delete this event?
+		 */
+		deleteEvent: () => LocalizedString
+		/**
+		 * Your event has been successfully modified.
+		 */
+		modifyEventSuccess: () => LocalizedString
+		/**
+		 * Your event has been successfully deleted.
+		 */
+		deleteEventSuccess: () => LocalizedString
 	}
 	global: {
 		/**
@@ -564,6 +640,10 @@ export type TranslationFunctions = {
 		 * Cancel
 		 */
 		cancel: () => LocalizedString
+		/**
+		 * Modify
+		 */
+		modify: () => LocalizedString
 	}
 }
 

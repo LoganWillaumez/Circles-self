@@ -64,7 +64,7 @@ const post = (url: string, request: any,  cookies?: any) => apiRequest('post', u
 // function to execute the http put request
 const put = (url: string, request: any,  cookies?: any) => apiRequest('put', url, request, cookies);
 
-// function to execute the http path request
+// function to execute the http path requesta
 const patch = (url: string, request: any,  cookies?: any) => apiRequest('patch', url, request, cookies);
 
 // expose your method to other services or actions
