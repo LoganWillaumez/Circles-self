@@ -6,7 +6,10 @@ const fr: Translation = {
     signIn: 'Se connecter',
     upload: 'Télécharger',
     uploadPicture: 'Télécharger une photo',
-    newEvent: 'Nouvel événement'
+    newEvent: 'Nouvel événement',
+    validate: 'Valider',
+    refuse: 'Refuser',
+    captureImage: 'Capturer'
   },
   form: {
     firstName: 'Prénom',
@@ -72,7 +75,8 @@ const fr: Translation = {
     confirmpasswordRequired: 'La confirmation du nouveau mot de passe est requise',
     deleteEvent: 'Êtes-vous sûr de vouloir supprimer cet événement ?',
     deleteEventSuccess: 'Votre évènement a bien été supprimé',
-    modifyEventSuccess: 'Votre événement a bien été modifié'
+    modifyEventSuccess: 'Votre événement a bien été modifié',
+    askImage: 'Êtes-vous sûr de valider cette image ?'
   },
   global: {
     language: 'Langue',
