@@ -86,7 +86,7 @@
 
 <div class="container">
   <div class="scroll_wrapper">
-    <div>
+    <div class="flex flex-col justify-center h-full">
       <h1 class="mb-5">Signin</h1>
       <form method="POST" use:enhance={signin}>
         <div>
@@ -113,7 +113,7 @@
           text={$LL.button.signIn()}
         />
       </form>
-      <div class="error" />
+      <div class="error  flex-grow" />
       <p class="mb-2">{$LL.form.forgotPassword()}</p>
       <Divider text={$LL.global.or()} class="mb-2" />
       <div class="flex gap-10 justify-center mb-10">
