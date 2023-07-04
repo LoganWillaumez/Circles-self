@@ -5,7 +5,8 @@
   import Divider from '$lib/components/Divider.svelte';
   import { goto, invalidateAll } from '$app/navigation';
   import { onDestroy } from 'svelte';
-  import { setLoader } from '$lib/stores/loader';
+  import { setLoader } from '$lib/stores/loader'; 
+  import {faker} from "@faker-js/faker";
 
   let profilePicture = '';
 
@@ -13,6 +14,26 @@
   let capture: boolean = false;
   let stream: MediaStream | null = null;
 
+
+
+  async function generateRandomImage() {
+  const imageUrl = faker.image.abstract(undefined, undefined, true);
+  
+  const response = await fetch(imageUrl);
+  const blob = await response.blob();
+  const reader = new FileReader();
+  
+  return new Promise<string>((resolve, reject) => {
+    reader.onloadend = () => {
+      if (typeof reader.result === 'string') {
+        resolve(reader.result);
+      } else {
+        reject('Failed to read blob as base64 string');
+      }
+    };
+    reader.readAsDataURL(blob);
+  });
+}
 
 
   const takePicture = async (): Promise<void> => {
@@ -61,7 +82,6 @@ onDestroy(cancelCamera);
                 ctx.drawImage(videoSource, 0, 0);
             }
             profilePicture = canvas.toDataURL('image/png');
-            console.log('🚀 ~ profilePicture:', profilePicture);
             capture = false;
             if (videoSource.srcObject) {
                 let trackList: MediaStreamTrack[] = (videoSource.srcObject as MediaStream).getTracks();
@@ -71,7 +91,6 @@ onDestroy(cancelCamera);
     };
 
     const setImage = async () => {
-
     setLoader(true, {
       message: $LL.desc.askImage(),
       type: 'warning',
@@ -81,32 +100,90 @@ onDestroy(cancelCamera);
           const res = await fetch(`/api/customer`, {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
-              },      
-              body: JSON.stringify({
-                img: profilePicture
-              })
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              img: profilePicture,
+            }),
           });
-          const response = await res;
-          console.log('🚀 ~ response:', response);
+          const response = await res.json();
           
           if (response.status === 200) {
             invalidateAll()
             setLoader(true, { 
-              message: $LL.desc.deleteEventSuccess(), 
+              message: $LL.desc.imgProfileSuccess(), 
               type: 'success',
-            });
+              onClose: () => {
+              profilePicture = '';
+              capture = false;
+              goto('/welcome/done');
+            }
+            },
+            );
             invalidateAll();
           } else {
-            console.error('Failed to delete event:', response.statusText);
+            setLoader(true, { 
+              message: $LL.desc.imgProfileError(), 
+              type: 'error',
+              onClose: () => {
+              profilePicture = '';
+              capture = false;
+            }});
           }
         } catch (error) {
-          console.log('🚀 ~ error:', error);
-          console.error('An error occurred while deleting the event:', error);
+          setLoader(true, { 
+              message: $LL.desc.imgProfileError(), 
+              type: 'error',
+              onClose: () => {
+              profilePicture = '';
+              capture = false;
+            }});
         }
       }
     });
   };
+
+  const handleSkip = async () => {
+  try {
+    const randomImage = await generateRandomImage();
+    profilePicture = randomImage;
+    try {
+          const res = await fetch(`/api/customer`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              img: profilePicture,
+            }),
+          });
+          const response = await res.json();
+          
+          if (response.status === 200) {
+            goto('/welcome/done');
+          } else {
+            setLoader(true, { 
+              message: $LL.desc.imgProfileError(), 
+              type: 'error',
+              onClose: () => {
+              profilePicture = '';
+              capture = false;
+            }});
+          }
+        } catch (error) {
+          setLoader(true, { 
+              message: $LL.desc.imgProfileError(), 
+              type: 'error',
+              onClose: () => {
+              profilePicture = '';
+              capture = false;
+            }},
+            );
+        }
+  } catch (error) {
+    console.log('Error generating random image: ', error);
+  }
+}
   </script>
   
   <div class="container">
@@ -146,7 +223,7 @@ onDestroy(cancelCamera);
           <Button valid class="mx-auto grow" text={$LL.button.validate()} onClick={setImage}/>
         </div>
         {/if}
-            <p class="text-right profile-skip" on:click={() => goto('done')}>{$LL.global.skip()}</p>
+            <p class="text-right profile-skip" on:click={handleSkip}>{$LL.global.skip()}</p>
       </div>
     </div>
   </div>

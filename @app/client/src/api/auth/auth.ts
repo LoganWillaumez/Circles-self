@@ -75,7 +75,6 @@ export const authentification: Actions = {
   activate: async (identifier: string) => {
     try {
       const isActivate = await API.post('auth/activate', {identifier});
-      console.log('🚀 ~ isActivate:', isActivate);
       return isActivate;
     } catch (err) {
       if (isAxiosError(err)) {

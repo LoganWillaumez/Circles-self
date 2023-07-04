@@ -55,7 +55,6 @@
 
   $: actualCircle = data.actualCircle;
   $: calendarEvents = convertEvents(data.actualCircle.data.events);
-  $: console.log('🚀 ~ actualcircle:', calendarEvents);
   
   export let form: ActionData;
 

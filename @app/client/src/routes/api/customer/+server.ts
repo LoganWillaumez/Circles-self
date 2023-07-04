@@ -3,17 +3,13 @@ import API from '$lib/utils/Api';
 import { isAxiosError } from 'axios';
 import type { RequestHandler } from '@sveltejs/kit';
 
-export const PUT: RequestHandler = async ({params, cookies, body}) => {
-console.log('🚀 ~ body:', body);
 
-    console.log('checjk');
-    const formData = body;
-    console.log('🚀 ~ formData:', formData);
-
+export const PUT: RequestHandler = async ({params, cookies, request}) => {
     try {
-        const response = await API.put(`customer`, formData, cookies);
+        const body = await request.json();
 
-        console.log('🚀 ~ response:', response);
+        const response = await API.put(`customer`, body, cookies);
+
         if(response.status === 200){
             return json({
                 status: response.status,

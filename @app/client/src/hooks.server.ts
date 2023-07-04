@@ -66,6 +66,9 @@ const fetchUserData = async (cookies: any, event: any) => {
  * @returns {Promise<object>} - The result of the event resolution or a redirection.
  */
 export const handle = async ({ event, resolve }) => {
+
+  if (event.url.pathname.startsWith("/api")) return await resolve(event);
+  
   const refreshToken = event.cookies.get('refreshToken');
   const accessToken = event.cookies.get('accessToken');
 

@@ -109,6 +109,9 @@ importers:
       '@event-calendar/time-grid':
         specifier: ^0.19.0
         version: 0.19.0
+      '@faker-js/faker':
+        specifier: ^7.6.0
+        version: 7.6.0
       '@playwright/test':
         specifier: ^1.32.2
         version: 1.32.2
