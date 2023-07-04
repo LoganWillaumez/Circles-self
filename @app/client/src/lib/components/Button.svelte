@@ -80,7 +80,7 @@
     text-align: center;
     max-height: 50px;
     width: 100%;
-    max-width: 250px;
+    max-width: 300px;
     color: white;
     font-weight: 700;
     transition: background 200ms ease-in;

@@ -41,9 +41,13 @@
       const {data} = result;
       if (status !== 400) {
         if (status !== 201) {
+          const messageError =
+                  $LL.serverError[
+                    data?.message as keyof TranslationFunctions['serverError']
+                  ]() || $LL.serverError.notKnow();
           form.reset();
           data?.message &&
-            setLoader(true, {message: data.message, type: 'error'});
+            setLoader(true, {message: messageError, type: 'error'});
           return;
         } else {
           resetLoader();

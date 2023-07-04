@@ -38,7 +38,7 @@ const en: BaseTranslation = {
     errorGlobal: 'An error has occurred',
     badCredentials: 'The email or password is incorrect',
     unauthorized: 'You are not authorized to access this page',
-    emailOutdated: 'The email is outdated'
+    emailOutdated: 'The email is outdated',
   },
   desc: {
     welcomeExplainTitle: 'Welcome to Circles !',

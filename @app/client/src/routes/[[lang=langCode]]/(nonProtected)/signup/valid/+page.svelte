@@ -6,7 +6,7 @@
 
 <div class="container">
   <div class="scroll_wrapper">
-    <div class="h-full sm:h-fit flex flex-col justify-center items-center">
+    <div class="h-full flex flex-col justify-center items-center">
       <Lottie lottieAnim="confetis" />
       <h2 class="font-bold text-2xl mb-5">{$LL.desc.accountValidate()}</h2>
       <p class="mb-10">{$LL.desc.accountAskSignin()}</p>
