@@ -75,7 +75,9 @@ const en: BaseTranslation = {
     deleteEvent: 'Are you sure you want to delete this event?',
     modifyEventSuccess: 'Your event has been successfully modified.',
     deleteEventSuccess: 'Your event has been successfully deleted.',
-    askImage: 'Are you sure you validate this image?'
+    askImage: 'Are you sure you validate this image?',
+    imgProfileSuccess: 'Your profile picture has been successfully updated.',
+    imgProfileError: 'An error has occurred while updating your profile picture.',
   },
   global: {
     switchLanguage: 'fr',

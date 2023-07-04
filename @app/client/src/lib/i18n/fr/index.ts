@@ -76,7 +76,9 @@ const fr: Translation = {
     deleteEvent: 'Êtes-vous sûr de vouloir supprimer cet événement ?',
     deleteEventSuccess: 'Votre évènement a bien été supprimé',
     modifyEventSuccess: 'Votre événement a bien été modifié',
-    askImage: 'Êtes-vous sûr de valider cette image ?'
+    askImage: 'Êtes-vous sûr de valider cette image ?',
+    imgProfileSuccess: 'Votre photo de profil a bien été mise à jour',
+    imgProfileError: 'Une erreur est survenue lors de la mise à jour de votre photo de profil',
   },
   global: {
     language: 'Langue',
