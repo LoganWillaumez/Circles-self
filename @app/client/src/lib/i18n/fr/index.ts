@@ -38,7 +38,7 @@ const fr: Translation = {
     errorGlobal: 'Une erreur est survenue',
     badCredentials: "L'email ou le mot de passe est incorrect",
     unauthorized: "Vous n'êtes pas autorisé à accéder à cette page",
-    emailOutdated: "L'email est périmé"
+    emailOutdated: "L'email est périmé",
   },
   desc: {
     welcomeExplainTitle: 'Bienvenue sur Circles !',

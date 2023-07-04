@@ -26,6 +26,7 @@
 
 </script>
 
+<div>
 {#if type === 'checkbox'}
 <div
 class="{className} flex gap-3 items-center pl-[10px]"
@@ -116,11 +117,11 @@ style="width: {width};"
 {#if errors}
 <div class=" flex flex-col gap-0">
 {#each errors as error}
-  <span class="text-red-400">{error}</span>
+  <span class="text-red-400 block">{error}</span>
 {/each}
 </div>
 {/if}
-
+</div>
 
 <style lang="scss">
   .input {
