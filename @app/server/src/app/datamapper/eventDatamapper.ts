@@ -18,7 +18,6 @@ const eventDatamapper = {
 
       const fields = ['"title"', '"description"', '"start"', '"allday"', '"id_circle"', '"id_customer"'];
       const values = [title, description, start, allday, id_circle, id_customer];
-      console.log('🚀 ~ start:', start);
 
       if(end) {
         // include end in the query and values only if it exists

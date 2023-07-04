@@ -32,15 +32,15 @@
       class="h-screen w-[70px] fixed top-0 left-0 bg-[var(--primary-color)] z-10 {className} {isDesktop ? 'shadow-right' : ''}"  use:clickOutside
     on:clickOutside={() => onClickOutside()}>
     <div class="flex flex-col gap-5 items-center h-full py-5">
-        <img class="w-[50px] h-[50px] rounded-full m-auto" src={$page.data.user.img} alt="Profile"/>
+        <img class="w-[50px] h-[50px] rounded-full" src={$page.data.user.img} alt="Profile"/>
         <div class="w-[80%]">
             <Divider />
         </div>
         <a href="/dashboard" on:click={() => onClickOutside()}>
           <Fa class="text-[var(--fill-reverse)]" icon={faTableColumns} size="lg" />
         </a>
-        <div class="w-[80%]">
-          <Divider />
+        <div class="w-[80%] {!$page.data.user.circles.length && 'flex-grow'}">
+          <Divider/>
         </div>
         {#if $page.data.user.circles.length > 0}
         <div class="flex flex-col gap-3 overflow-scroll grow">
