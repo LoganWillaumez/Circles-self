@@ -35,6 +35,18 @@ type RootTranslation = {
 		 * N​e​w​ ​e​v​e​n​t
 		 */
 		newEvent: string
+		/**
+		 * V​a​l​i​d​a​t​e
+		 */
+		validate: string
+		/**
+		 * R​e​f​u​s​e
+		 */
+		refuse: string
+		/**
+		 * C​a​p​t​u​r​e
+		 */
+		captureImage: string
 	}
 	form: {
 		/**
@@ -269,6 +281,18 @@ type RootTranslation = {
 		 * Y​o​u​r​ ​e​v​e​n​t​ ​h​a​s​ ​b​e​e​n​ ​s​u​c​c​e​s​s​f​u​l​l​y​ ​d​e​l​e​t​e​d​.
 		 */
 		deleteEventSuccess: string
+		/**
+		 * A​r​e​ ​y​o​u​ ​s​u​r​e​ ​y​o​u​ ​v​a​l​i​d​a​t​e​ ​t​h​i​s​ ​i​m​a​g​e​?
+		 */
+		askImage: string
+		/**
+		 * Y​o​u​r​ ​p​r​o​f​i​l​e​ ​p​i​c​t​u​r​e​ ​h​a​s​ ​b​e​e​n​ ​s​u​c​c​e​s​s​f​u​l​l​y​ ​u​p​d​a​t​e​d​.
+		 */
+		imgProfileSuccess: string
+		/**
+		 * A​n​ ​e​r​r​o​r​ ​h​a​s​ ​o​c​c​u​r​r​e​d​ ​w​h​i​l​e​ ​u​p​d​a​t​i​n​g​ ​y​o​u​r​ ​p​r​o​f​i​l​e​ ​p​i​c​t​u​r​e​.
+		 */
+		imgProfileError: string
 	}
 	global: {
 		/**
@@ -352,6 +376,18 @@ export type TranslationFunctions = {
 		 * New event
 		 */
 		newEvent: () => LocalizedString
+		/**
+		 * Validate
+		 */
+		validate: () => LocalizedString
+		/**
+		 * Refuse
+		 */
+		refuse: () => LocalizedString
+		/**
+		 * Capture
+		 */
+		captureImage: () => LocalizedString
 	}
 	form: {
 		/**
@@ -586,6 +622,18 @@ export type TranslationFunctions = {
 		 * Your event has been successfully deleted.
 		 */
 		deleteEventSuccess: () => LocalizedString
+		/**
+		 * Are you sure you validate this image?
+		 */
+		askImage: () => LocalizedString
+		/**
+		 * Your profile picture has been successfully updated.
+		 */
+		imgProfileSuccess: () => LocalizedString
+		/**
+		 * An error has occurred while updating your profile picture.
+		 */
+		imgProfileError: () => LocalizedString
 	}
 	global: {
 		/**

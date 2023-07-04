@@ -133,7 +133,6 @@ const authController: any = {
 
   async validUser(req: Request, res: Response) {
     const validUser = await customerDataMapper.validUser(req.body.identifier);
-    console.log('🚀 ~ validUser:', validUser);
 
     if (validUser) {
       res

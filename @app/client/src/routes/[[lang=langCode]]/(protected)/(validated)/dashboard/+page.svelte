@@ -35,7 +35,6 @@
     let user: CustomerDatas;
 
     
-
     const checkFavourites = () => {
   const storedFavorites = localStorage.getItem('circlesFavorites');
   
