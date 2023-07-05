@@ -77,7 +77,7 @@
 };
 
 $: {
-    options.events = calendarEvents;
+    options.events = calendarEvents && calendarEvents;
 }
 
 

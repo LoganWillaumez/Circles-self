@@ -1,7 +1,8 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   import type {Options} from '../../models/input';
-
+  import Fa from 'svelte-fa';
+  import {faPaperPlane} from '@fortawesome/free-solid-svg-icons';
   export let placeholder: string;
   export let name: string;
   export let required = false;
@@ -11,6 +12,7 @@
   export let value = '';
   export let options: Options[] = [];
   export let errors = '';
+  export let send = false; 
   export {className as class};
 
   const dispatch = createEventDispatcher()
@@ -24,9 +26,19 @@
     dispatch('input', target.value);
 };
 
+const handleSendInput = () => {
+    dispatch('sendInput', value);
+  };
 </script>
 
-<div>
+<div class="relative">
+  {#if send}
+  <div class="send-icon-container">
+    <button class="send-icon" on:click={handleSendInput}>
+      <Fa class="text-[var(--fill-reverse)]" icon={faPaperPlane} size="lg" />
+    </button>
+  </div>
+{/if}
 {#if type === 'checkbox'}
 <div
 class="{className} flex gap-3 items-center pl-[10px]"
@@ -192,5 +204,15 @@ style="width: {width};"
   .input-area{
     border-radius: 5px;
     height: 150px;
+  }
+  .send-icon-container{
+    position: absolute;
+    right: 20px;
+    z-index: 999;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 </style>
