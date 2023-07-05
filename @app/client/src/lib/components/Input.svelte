@@ -34,7 +34,7 @@ const handleSendInput = () => {
 <div class="relative">
   {#if send}
   <div class="send-icon-container">
-    <button class="send-icon" on:click={handleSendInput}>
+    <button class="send-icon" on:click={handleSendInput} >
       <Fa class="text-[var(--fill-reverse)]" icon={faPaperPlane} size="lg" />
     </button>
   </div>
