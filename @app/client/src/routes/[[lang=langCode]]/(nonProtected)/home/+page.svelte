@@ -1,7 +1,14 @@
-<script>
+<script lang="ts">
     import Button from '$lib/components/Button.svelte';
     import {LL} from '$lib/i18n/i18n-svelte';
     
+    import { io } from 'socket.io-client'
+
+  const socket = io()
+
+    socket.on('eventFromServer', (message) => {
+      console.log(message)
+    })
   </script>
   
   <div class="container">

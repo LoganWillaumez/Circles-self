@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "clean": "rimraf pnpm-lock.yaml */pnpm-lock.yaml node_modules/ */node_modules/ @app/*/node_modules/ @app/*/pnpm-lock.yaml",
-    "clean-install": "pnpm run clean && pnpm run install",
+    "clean-install": "pnpm run clean && pnpm i",
     "dev": "pnpm --parallel run dev",
     "test": "pnpm -r run test",
     "server:docker": "pnpm --filter @circles-self/server run docker",
