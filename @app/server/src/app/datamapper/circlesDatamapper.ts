@@ -17,16 +17,27 @@ const circlesDataMapper = (client: Pool) => {
                 'img', cc.img,
                 'created_at', cc.created_at,
                 'updated_at', cc.updated_at,
-                'messages', COALESCE(jsonb_agg(m) FILTER (WHERE m.id IS NOT NULL), '[]'::jsonb),
+                'messages', COALESCE(jsonb_agg(
+                                      json_build_object(
+                                        'id', m.id,
+                                        'customer_id', m.id_customer,
+                                        'content', m.content,
+                                        'created_at', m.created_at,
+                                        'name', c.firstname
+                                      )
+                                    ) FILTER (WHERE m.id IS NOT NULL), '[]'::jsonb),
                 'events', COALESCE(jsonb_agg(e) FILTER (WHERE e.id IS NOT NULL), '[]'::jsonb)
                )
                FROM "circle" cc
                LEFT JOIN "event" e ON cc.id = e.id_circle
                LEFT JOIN "message" m ON cc.id = m.id_circle
+               LEFT JOIN "customer" c ON m.id_customer = c.id
                WHERE cc.id=$1
                GROUP BY cc.id;`,
         values: [id]
       };
+      
+      
       const circle = await client.query(query);
       if (circle?.rows[0]?.json_build_object) {
         const result = circle.rows[0].json_build_object;
@@ -42,6 +53,8 @@ const circlesDataMapper = (client: Pool) => {
         return false;
       }
     },
+    
+
     
 
     async createCircle(

@@ -33,8 +33,6 @@
     let favouritesCircles: CirclesDatas[] = [];
     let notFavouritesCircles: CirclesDatas[] = [];
     let user: CustomerDatas;
-
-    
     const checkFavourites = () => {
   const storedFavorites = localStorage.getItem('circlesFavorites');
   
@@ -104,7 +102,7 @@
                       duration: 300,
                       axis: 'y'
                     }} >
-                      <CirclesCard circle={circle} on:updateFavorites={checkFavourites} />
+                      <CirclesCard circle={circle} on:updateFavorites={checkFavourites}/>
                     </div>
                     {/each}
                   </div> 
