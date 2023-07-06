@@ -20,10 +20,10 @@ const circlesDataMapper = (client: Pool) => {
                 'messages', COALESCE(jsonb_agg(
                                       json_build_object(
                                         'id', m.id,
+                                        'customer_id', m.id_customer,
                                         'content', m.content,
                                         'created_at', m.created_at,
-                                        'name', c.firstname,
-                                        'img', c.img
+                                        'name', c.firstname
                                       )
                                     ) FILTER (WHERE m.id IS NOT NULL), '[]'::jsonb),
                 'events', COALESCE(jsonb_agg(e) FILTER (WHERE e.id IS NOT NULL), '[]'::jsonb)
