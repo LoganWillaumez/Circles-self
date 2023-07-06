@@ -62,7 +62,7 @@
   <div class="scroll_wrapper">
     <div>
       <h1 class="mb-5">Register</h1>
-      <form method="POST" use:enhance={signup}>
+      <form method="POST" action="?/signUp" use:enhance={signup} class="flex flex-col gap-[22px]">
         <div>
           <Input
             errors={form?.errors?.email ?? ''}
@@ -132,20 +132,15 @@
       <div class="error" />
       <p class="mb-2">{$LL.form.forgotPassword()}</p>
       <Divider text={$LL.global.or()} class="mb-2" />
-      <div class="flex gap-10 justify-center mb-10">
-        <Card icon="google" />
+      <form class="flex gap-10 justify-center mb-10 flex-row" action="?/OAuth2">
+        <button>
+          <Card icon="google" />
+        </button>
         <Card icon="facebook" />
         <Card icon="twitter" />
-      </div>
+      </form>
       <Button class="mb-5 mx-auto" text={$LL.button.signIn()} href="signin" />
     </div>
   </div>
 </div>
 
-<style lang="scss">
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
-  }
-</style>
