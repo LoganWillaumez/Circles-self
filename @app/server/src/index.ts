@@ -12,6 +12,7 @@ import errorHandler from './app/middlewares/errorMiddleware';
 import circleRoutes from './app/routes/circlesRoutes';
 import eventRoutes from './app/routes/eventRoutes';
 import {connectToDatabase} from './app/config/db.config';
+import messageRoutes from "./app/routes/messageRoutes";
 
 const PORT = process.env.SERVER_PORT || 3000;
 const staticPath = path.join(__dirname, 'public');
@@ -33,6 +34,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/customer', customerRoutes);
 app.use('/api/circles', circleRoutes);
 app.use('/api/circles', eventRoutes);
+app.use('/api/circles', messageRoutes);
 app.use(errorHandler);
 
 const startServer = (port: number) => {

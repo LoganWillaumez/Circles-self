@@ -6,5 +6,6 @@ export enum ErrorCode {
   CUSTOMER = 4,
   VALIDATION = 5,
   DATABASE = 6,
-  JWT = 7
+  JWT = 7,
+  MESSAGE =8
 }
