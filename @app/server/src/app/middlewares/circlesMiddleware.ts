@@ -10,9 +10,9 @@ const circlesMiddleware =
   (admin = false) =>
   async (err: any, req: Request, res: Response, next: NextFunction) => {
     const {user} = req;
-    const {id_circle} = req.params;
+    const {circle_id} = req.params;
 
-    const circle = await circlesDataMapper.getCircle(+id_circle);
+    const circle = await circlesDataMapper.getCircle(+circle_id);
 
     if (!circle) {
       throw new AppError(ErrorCode.CIRCLE, 'circle.notExist', 404);

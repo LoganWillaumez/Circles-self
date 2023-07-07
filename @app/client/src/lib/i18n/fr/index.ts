@@ -16,6 +16,7 @@ const fr: Translation = {
     lastName: 'Nom',
     gender: 'Genre',
     password: 'Mot de passe',
+    email: 'Email',
     confirmPassword: 'Confirmer le mot de passe',
     birthdate: 'Date de naissance',
     forgotPassword: 'Mot de passe oublié',
@@ -28,6 +29,8 @@ const fr: Translation = {
     allDay: 'Toute la journée',
     startEvent: 'Début de l\'événement',
     endEvent: 'Fin de l\'événement',
+    invite: 'Inviter un nouvel utilisateur à rejoindre le cercle',
+    inviteBase: 'Inviter'
   },
   serverError: {
     userAlreadyExist: "L'utilisateur existe déjà",
@@ -79,6 +82,9 @@ const fr: Translation = {
     askImage: 'Êtes-vous sûr de valider cette image ?',
     imgProfileSuccess: 'Votre photo de profil a bien été mise à jour',
     imgProfileError: 'Une erreur est survenue lors de la mise à jour de votre photo de profil',
+    inviteEmail: 'Mettez l\'adresse email de la personne que vous souhaitez inviter',
+    invitePeople: 'Inviter une personne',
+    modifyCircle: 'Modifier le cercle',
   },
   global: {
     language: 'Langue',
