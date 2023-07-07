@@ -82,6 +82,10 @@ type RootTranslation = {
 		 */
 		search: string
 		/**
+		 * E​m​a​i​l
+		 */
+		email: string
+		/**
 		 * D​e​s​c​r​i​p​t​i​o​n
 		 */
 		description: string
@@ -113,6 +117,14 @@ type RootTranslation = {
 		 * E​n​d​ ​o​f​ ​t​h​e​ ​e​v​e​n​t
 		 */
 		endEvent: string
+		/**
+		 * I​n​v​i​t​e​ ​a​ ​n​e​w​ ​u​s​e​r​ ​t​o​ ​j​o​i​n​ ​t​h​e​ ​c​i​r​c​l​e
+		 */
+		invite: string
+		/**
+		 * I​n​v​i​t​e
+		 */
+		inviteBase: string
 	}
 	serverError: {
 		/**
@@ -293,6 +305,18 @@ type RootTranslation = {
 		 * A​n​ ​e​r​r​o​r​ ​h​a​s​ ​o​c​c​u​r​r​e​d​ ​w​h​i​l​e​ ​u​p​d​a​t​i​n​g​ ​y​o​u​r​ ​p​r​o​f​i​l​e​ ​p​i​c​t​u​r​e​.
 		 */
 		imgProfileError: string
+		/**
+		 * E​n​t​e​r​ ​t​h​e​ ​e​m​a​i​l​ ​a​d​d​r​e​s​s​ ​o​f​ ​t​h​e​ ​p​e​r​s​o​n​ ​y​o​u​ ​w​a​n​t​ ​t​o​ ​i​n​v​i​t​e
+		 */
+		inviteEmail: string
+		/**
+		 * I​n​v​i​t​e​ ​a​ ​p​e​r​s​o​n
+		 */
+		invitePeople: string
+		/**
+		 * M​o​d​i​f​y​ ​a​ ​C​i​r​c​l​e
+		 */
+		modifyCircle: string
 	}
 	global: {
 		/**
@@ -423,6 +447,10 @@ export type TranslationFunctions = {
 		 */
 		search: () => LocalizedString
 		/**
+		 * Email
+		 */
+		email: () => LocalizedString
+		/**
 		 * Description
 		 */
 		description: () => LocalizedString
@@ -454,6 +482,14 @@ export type TranslationFunctions = {
 		 * End of the event
 		 */
 		endEvent: () => LocalizedString
+		/**
+		 * Invite a new user to join the circle
+		 */
+		invite: () => LocalizedString
+		/**
+		 * Invite
+		 */
+		inviteBase: () => LocalizedString
 	}
 	serverError: {
 		/**
@@ -634,6 +670,18 @@ export type TranslationFunctions = {
 		 * An error has occurred while updating your profile picture.
 		 */
 		imgProfileError: () => LocalizedString
+		/**
+		 * Enter the email address of the person you want to invite
+		 */
+		inviteEmail: () => LocalizedString
+		/**
+		 * Invite a person
+		 */
+		invitePeople: () => LocalizedString
+		/**
+		 * Modify a Circle
+		 */
+		modifyCircle: () => LocalizedString
 	}
 	global: {
 		/**

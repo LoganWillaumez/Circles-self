@@ -11,6 +11,11 @@ const circleSchema = {
       img: Joi.string()
     });
   },
+  inviteCircle() {
+    return Joi.object({
+      email: Joi.string().email().required()
+    });
+  },
   updateCircle() {
     return Joi.object({
       name: Joi.string().max(50),

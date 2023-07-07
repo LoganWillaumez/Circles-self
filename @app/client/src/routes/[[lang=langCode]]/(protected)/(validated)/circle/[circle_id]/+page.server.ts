@@ -11,3 +11,20 @@ export const load: PageServerLoad = async ({ params, cookies, locals, url }) => 
         url: url.pathname
     }
 };
+
+
+
+
+export const actions = {
+  default: async (event) => {
+    const formDataEntries = await event.request.formData();
+    const invite = formDataEntries.get('invite');
+
+    if(invite) {
+        const response = API.post(`circles/invite/${event.params.circle_id}`, formDataEntries, event.cookies);
+        return response;
+    }
+    
+    },
+  };
+

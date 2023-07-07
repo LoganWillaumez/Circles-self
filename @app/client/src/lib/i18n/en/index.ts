@@ -20,6 +20,7 @@ const en: BaseTranslation = {
     birthdate: 'Birthdate',
     forgotPassword: 'Forgot password',
     search: 'Search',
+    email: 'Email',
     description: 'Description',
     name: 'Name',
     currentPassword: 'Current password',
@@ -28,6 +29,8 @@ const en: BaseTranslation = {
     allDay: 'All day',
     startEvent: 'Start of the event',
     endEvent: 'End of the event',
+    invite: 'Invite a new user to join the circle',
+    inviteBase: 'Invite'
   },
   serverError: {
     userAlreadyExist: 'The user already exist',
@@ -78,6 +81,9 @@ const en: BaseTranslation = {
     askImage: 'Are you sure you validate this image?',
     imgProfileSuccess: 'Your profile picture has been successfully updated.',
     imgProfileError: 'An error has occurred while updating your profile picture.',
+    inviteEmail: 'Enter the email address of the person you want to invite',
+    invitePeople: 'Invite a person',
+    modifyCircle: 'Modify a Circle',
   },
   global: {
     switchLanguage: 'fr',

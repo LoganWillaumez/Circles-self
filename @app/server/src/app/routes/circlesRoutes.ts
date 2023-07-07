@@ -28,6 +28,12 @@ circleRoutes
     validationMiddleware(circleSchema.deleteCircle()),
     circlesMiddleware(true),
     circlesControllers.deleteCircle
+  )
+  .post(
+    '/invite/:circle_id',
+    validationMiddleware(circleSchema.inviteCircle()),
+    circlesMiddleware(),
+    circlesControllers.inviteToCircle
   );
 
 export default circleRoutes;

@@ -5,6 +5,7 @@ import circlesDataMapperInstance from '../datamapper/circlesDatamapper';
 import AppError from '../../utils/AppError';
 import { ErrorCode } from '@circles-self/circles/enums';
 import {CirclesInputDatas} from '@circles-self/circles/interfaces';
+import { sendMail } from '../../services/email';
 
 const circlesDatamapper = circlesDataMapperInstance.main;
 const circleController = {
@@ -79,7 +80,41 @@ const circleController = {
     } else {
       throw new AppError(ErrorCode.CIRCLE, 'circle.cantDeleted', 400);
     }
+  },
+
+  async inviteToCircle(req: Request, res: Response) {
+    const {user} = req;
+    const {invite} = req.body;
+    const {circle_id} = req.params;
+
+    const circle = await circlesDatamapper.getCircle(+circle_id);
+
+    if (!circle) {
+      throw new AppError(ErrorCode.CIRCLE, 'circle.notFound', 404);
+    }
+
+    if (!user.circles.find((circle: any) => +circle.circle_id === +circle_id)) {
+      throw new AppError(ErrorCode.CIRCLE, 'circle.noAccess', 401);
+    }
+
+    const invitationData = {
+      inviteeEmail: sanitizeHtml(invite), // sanitize the input
+      circleName: circle.name
+    };
+
+    sendMail({
+      to: invitationData.inviteeEmail,
+      subject: 'Invitation à rejoindre un nouveau cercle sur Circles',
+      template: 'inviteCircle',
+      context: {
+        linkEmail: `http://127.0.0.1:5173/invite/circle/${circle_id}`,
+        circleName: invitationData.circleName,
+      }
+    });
+
+    res.status(200).json({message: 'Invitation sent.'});
   }
-};
+  }
+  
 
 export default wrapMethodsInTryCatch(circleController);
