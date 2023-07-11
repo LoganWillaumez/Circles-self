@@ -6,3 +6,4 @@ initDB 2023-03-09T11:11:54Z Debian <loganw@FritkotVM> # init database
 002 2023-03-09T12:09:48Z Debian <loganw@FritkotVM> # rename column validated_at
 003 2023-03-09T12:28:01Z Debian <loganw@FritkotVM> # rename columns
 004 2023-06-21T20:12:40Z System Administrator <root@Logans-MacBoock-Pro.local> # Allow NULL for the 'end' column in the 'event' table
+005 2023-07-09T07:42:27Z System Administrator <root@Logans-MacBoock-Pro.local> # Add identifier UUID for circle

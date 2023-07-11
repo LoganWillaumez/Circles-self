@@ -24,7 +24,6 @@ export const actions = {
         
         try {
             const response = await API.post(`circles/${circle_id}/message`, {content: message}, cookies); 
-            console.log('🚀 ~ response:', response);
             return response;
         } catch (err) {
             console.log('🚀 ~ err:', err);

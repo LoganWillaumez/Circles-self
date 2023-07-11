@@ -47,6 +47,10 @@ type RootTranslation = {
 		 * C​a​p​t​u​r​e
 		 */
 		captureImage: string
+		/**
+		 * H​o​m​e
+		 */
+		home: string
 	}
 	form: {
 		/**
@@ -317,6 +321,22 @@ type RootTranslation = {
 		 * M​o​d​i​f​y​ ​a​ ​C​i​r​c​l​e
 		 */
 		modifyCircle: string
+		/**
+		 * Y​o​u​r​ ​i​n​v​i​t​a​t​i​o​n​ ​h​a​s​ ​b​e​e​n​ ​s​u​c​c​e​s​s​f​u​l​l​y​ ​s​e​n​t​.
+		 */
+		successInviteCircle: string
+		/**
+		 * A​n​ ​e​r​r​o​r​ ​h​a​s​ ​o​c​c​u​r​r​e​d​ ​w​h​i​l​e​ ​s​e​n​d​i​n​g​ ​y​o​u​r​ ​i​n​v​i​t​a​t​i​o​n​.
+		 */
+		errorInviteCircle: string
+		/**
+		 * Y​o​u​ ​h​a​v​e​ ​s​u​c​c​e​s​s​f​u​l​l​y​ ​j​o​i​n​e​d​ ​t​h​e​ ​c​i​r​c​l​e​,​ ​y​o​u​ ​c​a​n​ ​n​o​w​ ​p​a​r​t​i​c​i​p​a​t​e​ ​i​n​ ​t​h​e​ ​e​v​e​n​t​s​ ​o​r​ ​t​h​e​ ​c​h​a​t​ ​o​f​ ​i​t​.
+		 */
+		accountInviteSuccess: string
+		/**
+		 * T​h​i​s​ ​u​s​e​r​ ​a​l​r​e​a​d​y​ ​e​x​i​s​t​s​ ​w​i​t​h​i​n​ ​t​h​i​s​ ​c​i​r​c​l​e
+		 */
+		circleAlreadyInvite: string
 	}
 	global: {
 		/**
@@ -412,6 +432,10 @@ export type TranslationFunctions = {
 		 * Capture
 		 */
 		captureImage: () => LocalizedString
+		/**
+		 * Home
+		 */
+		home: () => LocalizedString
 	}
 	form: {
 		/**
@@ -682,6 +706,22 @@ export type TranslationFunctions = {
 		 * Modify a Circle
 		 */
 		modifyCircle: () => LocalizedString
+		/**
+		 * Your invitation has been successfully sent.
+		 */
+		successInviteCircle: () => LocalizedString
+		/**
+		 * An error has occurred while sending your invitation.
+		 */
+		errorInviteCircle: () => LocalizedString
+		/**
+		 * You have successfully joined the circle, you can now participate in the events or the chat of it.
+		 */
+		accountInviteSuccess: () => LocalizedString
+		/**
+		 * This user already exists within this circle
+		 */
+		circleAlreadyInvite: () => LocalizedString
 	}
 	global: {
 		/**

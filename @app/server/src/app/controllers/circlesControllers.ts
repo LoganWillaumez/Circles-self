@@ -6,6 +6,8 @@ import AppError from '../../utils/AppError';
 import { ErrorCode } from '@circles-self/circles/enums';
 import {CirclesInputDatas} from '@circles-self/circles/interfaces';
 import { sendMail } from '../../services/email';
+import customerController from './customerController';
+import customerDataMapperInstance from '../datamapper/customerDatamapper';
 
 const circlesDatamapper = circlesDataMapperInstance.main;
 const circleController = {
@@ -98,22 +100,53 @@ const circleController = {
     }
 
     const invitationData = {
-      inviteeEmail: sanitizeHtml(invite), // sanitize the input
+      inviteeEmail: invite,
       circleName: circle.name
     };
+
+    const userCheck = await customerDataMapperInstance.main.getCustomerByEmail(invitationData.inviteeEmail);
+
+
+    if(!userCheck) {
+      return res.status(200).json({message: 'invite.send'});
+    }
 
     sendMail({
       to: invitationData.inviteeEmail,
       subject: 'Invitation à rejoindre un nouveau cercle sur Circles',
       template: 'inviteCircle',
       context: {
-        linkEmail: `http://127.0.0.1:5173/invite/circle/${circle_id}`,
+        linkEmail: `http://127.0.0.1:5173/invite/circle/${circle.identifier}?invitee=${invitationData.inviteeEmail}`,
         circleName: invitationData.circleName,
       }
     });
 
-    res.status(200).json({message: 'Invitation sent.'});
-  }
+    res.status(200).json({message: 'invite.send'});
+  },
+  async acceptInvitationToCircle(req: Request, res: Response) {
+    const {identifier} = req.params;
+    const {invitee} = req.body;
+  
+    const circle = await circlesDatamapper.getCircleByIdentifier(identifier);
+    
+    if (!circle) {
+      throw new AppError(ErrorCode.CIRCLE, 'circle.notFound', 404);
+    }
+  
+    const customer = await customerDataMapperInstance.main.getCustomerByEmail(invitee as string);
+    if (!customer) {
+      throw new AppError(ErrorCode.CUSTOMER, 'customer.notFound', 404);
+    }
+  
+      const addCircle = await circlesDatamapper.addCustomerToCircle(circle.circle_id, customer.customer_id);
+      
+      if(addCircle) {
+        res.status(204).json({message: 'circle.inviteSuccess', circle_id: circle.circle_id});
+      } else {
+        // throw new AppError(ErrorCode.CIRCLE, 'invite.alreadyMember', 400);
+        res.status(200).json({message: 'circle.alreadyInvite'});
+      }
+  },
   }
   
 

@@ -108,22 +108,15 @@
         </div>
         <Button
           type="submit"
-          class="mb-5 mx-auto"
+          class="mb-2 mx-auto"
           variant="secondary"
           text={$LL.button.signIn()}
         />
       </form>
-      <div class="error  flex-grow" />
-      <p class="mb-2">{$LL.form.forgotPassword()}</p>
-      <Divider text={$LL.global.or()} class="mb-2" />
-      <div class="flex gap-10 justify-center mb-10">
-        <Card icon="google" />
-        <Card icon="facebook" />
-        <Card icon="twitter" />
-      </div>
-      <Button class="mb-5 mx-auto" text={$LL.button.signUp()} href="signup" />
+      <p class="mb-2 text-xs font-bold underline">{$LL.form.forgotPassword()}</p>
     </div>
   </div>
+  <Button class="mb-5 mx-auto" text={$LL.button.signUp()} href="signup" />
 </div>
 
 <style lang="scss">
