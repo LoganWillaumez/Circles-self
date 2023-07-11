@@ -6,7 +6,7 @@ import API from "$lib/utils/Api";
 
 // Routes that don't require authentication
 const notGuardedRoutes = ['/home', '/signin', '/signup', '/valid', '/signup/valid'];
-const dynamicNotGuardedRoutes = ['/signup/valid', '/signup/email'];
+const dynamicNotGuardedRoutes = ['/signup/valid', '/signup/email', '/invite','/invite/circle'];
 
 
 /**

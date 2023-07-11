@@ -7,6 +7,12 @@ import circlesMiddleware from '../middlewares/circlesMiddleware';
 
 const circleRoutes = express.Router();
 
+circleRoutes
+  .post(
+    '/invitation/:identifier',
+    circlesControllers.acceptInvitationToCircle
+  );
+
 circleRoutes.use(jwbtoken.getAuthorization);
 
 circleRoutes

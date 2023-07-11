@@ -9,7 +9,8 @@ const fr: Translation = {
     newEvent: 'Nouvel événement',
     validate: 'Valider',
     refuse: 'Refuser',
-    captureImage: 'Capturer'
+    captureImage: 'Capturer',
+    home: 'Accueil',
   },
   form: {
     firstName: 'Prénom',
@@ -85,6 +86,9 @@ const fr: Translation = {
     inviteEmail: 'Mettez l\'adresse email de la personne que vous souhaitez inviter',
     invitePeople: 'Inviter une personne',
     modifyCircle: 'Modifier le cercle',
+    successInviteCircle: 'Votre invitation a bien été envoyée',
+    errorInviteCircle: 'Une erreur est survenue lors de l\'envoi de votre invitation',
+    accountInviteSuccess: 'Vous avez bien rejoint le cercle, vous pouvez maintenant participer aux événements ou au chat de celui-ci.',circleAlreadyInvite: 'Cet utilisateur existe déjà au sein de ce cercle'
   },
   global: {
     language: 'Langue',

@@ -16,15 +16,11 @@ export const circlesSchema = {
         .min(1, {message: 'Required'})
         .max(50, {message: 'Must be less than 50 characters'})
         .trim(),
-        // img: z.object({
-        //     profileImage: z
-        //       .any()
-        //     //   .refine((files) => files?.length == 1, "Image is required.")
-        //       .refine((files) => files?.[0]?.size <= MAX_FILE_SIZE, `image.tooBig`)
-        //       .refine(
-        //         (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
-        //         "image.badFormat"
-        //       ),
-        //   })
-    })
+    }),
+  inviteCircle: z
+    .object({
+      invite: z
+        .string()
+        .email({message: 'Invalid email address'}),
+    }),
 };

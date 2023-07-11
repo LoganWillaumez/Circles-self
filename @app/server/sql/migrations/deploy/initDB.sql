@@ -37,16 +37,16 @@ CREATE TRIGGER tg_customer_updated_at
     EXECUTE PROCEDURE update_updated_at_column();
 
 
-CREATE TABLE "circle" (
-                           "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY ,
-                           "name" VARCHAR(50) NOT NULL,
-                           customer_admin int NOT NULL,
-                           FOREIGN KEY (customer_admin) REFERENCES Customer(id) ON UPDATE CASCADE ON DELETE CASCADE,
-                           "description" TEXT,
-                           "img" TEXT,
-                           "created_at" TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
-                           "updated_at" TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
-);
+    CREATE TABLE "circle" (
+                            "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY ,
+                            "name" VARCHAR(50) NOT NULL,
+                            customer_admin int NOT NULL,
+                            FOREIGN KEY (customer_admin) REFERENCES Customer(id) ON UPDATE CASCADE ON DELETE CASCADE,
+                            "description" TEXT,
+                            "img" TEXT,
+                            "created_at" TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+                            "updated_at" TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+    );
 
 CREATE TRIGGER tg_customer_updated_at
     BEFORE UPDATE

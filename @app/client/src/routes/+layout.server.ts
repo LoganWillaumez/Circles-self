@@ -9,12 +9,14 @@ export const load = (async event => {
   // Using a GET var "lang" to change locale\
   // const baseUrl = event.url.origin + event.url.pathname;
   const newLocale = event.url.searchParams.get(langParam);
+  console.log('🚀 ~ newLocale:', newLocale);
   if (newLocale) {
     event.cookies.set(langParam, newLocale, {path: '/'});
+    console.log('🚀 ~  event.url:',  event.url);
     event.url.searchParams.delete(langParam);
     // Redirect to remove the GET var
-    
-    throw redirect(303, event.url.toString());
+  
+    throw redirect(303, event.url.href.toString());
   }
 
   // Get the locale from the cookie

@@ -9,10 +9,22 @@
   import Input from '$lib/components/Input.svelte';
   import Button from '$lib/components/Button.svelte';
   import {LL} from '$lib/i18n/i18n-svelte';
-  import { enhance } from '$app/forms';
-  import type { ActionData } from './$types.js';
+  import { applyAction, enhance } from '$app/forms';
+  import type { ActionData, SubmitFunction } from './$types.js';
   import Divider from '$lib/components/Divider.svelte';
+  import { invalidateAll } from '$app/navigation';
+  import { setLoader } from '$lib/stores/loader.js';
+  import type { ActionResult } from '@sveltejs/kit';
+
+  type ActionExtend = ActionResult & {
+    data?: Partial<{
+      status: number;
+      message: string;
+    }>;
+  };
+
     export let data;
+    export let form: ActionData;
     const {actualCircle} = data;
     let popupCircleUpdate = false;
     let popupCircleInvite = false;
@@ -24,7 +36,22 @@
     const handleInvite = () => {
         popupCircleInvite = true;
     }
-    export let form: ActionData;
+
+    const invitePeople: SubmitFunction = ({form, data, action, cancel}) => {
+    return async ({result}: {result: ActionExtend}) => {
+        console.log('🚀 ~ result:', result);
+        await applyAction(result);
+        const status = result.data?.status || result.status;
+        console.log('🚀 ~ status:', status);
+        const {data} = result;
+        if (status === 400) return;
+        
+        form.reset();
+        popupCircleInvite = false;
+        data?.data?.message && setLoader(true, {message: status === 200 ? $LL.desc.successInviteCircle() : $LL.desc.errorInviteCircle(), type: status === 200 ? 'success' : 'error'});
+        invalidateAll();
+    }
+  }
 </script>
 
 <div class="container">
@@ -74,14 +101,14 @@
       {#if popupCircleInvite}
       <Popup onClickOutside={() => {popupCircleInvite = false}}>
         <p class="text-lg font-semibold mb-5">{$LL.desc.invitePeople()}</p>
-        <form method="POST" use:enhance class=" flex flex-col gap-5">
+        <form method="POST" use:enhance={invitePeople} class=" flex flex-col gap-5">
           <div class="mb-5">
           <p class="mb-5">{$LL.desc.inviteEmail()}</p>
             <Input 
               name='invite' 
               value={''}
               placeholder={$LL.form.email()} 
-              errors={form?.errors?.email ?? ''} 
+              errors={form?.errors?.invite ?? ''} 
               type='text'
             />
           </div>

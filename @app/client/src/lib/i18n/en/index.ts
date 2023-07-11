@@ -9,7 +9,8 @@ const en: BaseTranslation = {
     newEvent: 'New event',
     validate: 'Validate',
     refuse: 'Refuse',
-    captureImage: 'Capture'
+    captureImage: 'Capture',
+    home: 'Home',
   },
   form: {
     firstName: 'Firstname',
@@ -84,6 +85,10 @@ const en: BaseTranslation = {
     inviteEmail: 'Enter the email address of the person you want to invite',
     invitePeople: 'Invite a person',
     modifyCircle: 'Modify a Circle',
+    successInviteCircle: 'Your invitation has been successfully sent.',
+    errorInviteCircle: 'An error has occurred while sending your invitation.',
+    accountInviteSuccess: 'You have successfully joined the circle, you can now participate in the events or the chat of it.',
+    circleAlreadyInvite: 'This user already exists within this circle'
   },
   global: {
     switchLanguage: 'fr',
