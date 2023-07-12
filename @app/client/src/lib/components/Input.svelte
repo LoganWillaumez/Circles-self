@@ -10,6 +10,7 @@
   export let width = '100%';
   export let className: string;
   export let value = '';
+  export let selectDefault = '';
   export let options: Options[] = [];
   export let errors = '';
   export let send = false; 
@@ -116,7 +117,7 @@ class:error={errors}
 style="width: {width};"
 >
 <select  bind:value={value} {name} id={'input-' + name} on:change={(e) => dispatch('selected', {value: e.target.value})}>
-  <option value="" disabled selected hidden>{placeholder}</option>
+  <option value="" disabled selected hidden>{selectDefault}</option>
   {#each options as option}
     {#if typeof option === 'object' && 'value' in option && option.value}
       <option value={option.value}>{option.label}</option>
@@ -163,7 +164,7 @@ style="width: {width};"
         &:not(:placeholder-shown) ~ label {
           top: -20%;
           font-size: 0.8rem;
-          text-transform: capitalize;
+          // text-transform: capitalize;
           font-weight: 700;
         }
         &:hover {

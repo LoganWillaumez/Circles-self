@@ -40,7 +40,7 @@ onMount(() => {
 </script>
 
 <div class="mx-auto circlesCard w-[95%] h-[200px] flex flex-col rounded-lg overflow-hidden relative">
-    <a class="h-[100%] bg-[var(--secondary-color)]  overflow-hidden relative" href="/circle/{circle.circle_id}">
+    <a class="h-[100%] bg-[var(--secondary-color)]  overflow-hidden relative cursor-pointer" href="/circle/{circle.circle_id}">
         <div>
             <img class="object-cover w-full h-[100px]" src="https://picsum.photos/200/300" alt="">
         </div>

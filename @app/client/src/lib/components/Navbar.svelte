@@ -31,13 +31,13 @@
     </a>
     <Divider vertical={true}/>
     <div class="flex justify-between w-full px-10">
-        <a href="{basicCircleUrl}">
+        <a class="cursor-pointer" href="{basicCircleUrl}">
             <Fa class='{!url.includes('/calendar')&& !url.includes('/chat') ? 'text-[#EB8423]' : ''}' icon={faHouse} size="lg" />
         </a>
-        <a href="{basicCircleUrl}/calendar">
+        <a class="cursor-pointer" href="{basicCircleUrl}/calendar">
             <Fa class='{url.includes('/calendar') ? 'text-[#EB8423]' : ''}' icon={faCalendar} size="lg" />
         </a>
-        <a href="{basicCircleUrl}/chat">
+        <a class="cursor-pointer" href="{basicCircleUrl}/chat">
             <Fa class='{url.includes('/chat') ? 'text-[#EB8423]' : ''}' icon={faMessage} size="lg" />
         </a>
     </div>

@@ -9,7 +9,8 @@ const en: BaseTranslation = {
     newEvent: 'New event',
     validate: 'Validate',
     refuse: 'Refuse',
-    captureImage: 'Capture'
+    captureImage: 'Capture',
+    home: 'Home',
   },
   form: {
     firstName: 'Firstname',
@@ -20,6 +21,7 @@ const en: BaseTranslation = {
     birthdate: 'Birthdate',
     forgotPassword: 'Forgot password',
     search: 'Search',
+    email: 'Email',
     description: 'Description',
     name: 'Name',
     currentPassword: 'Current password',
@@ -28,6 +30,8 @@ const en: BaseTranslation = {
     allDay: 'All day',
     startEvent: 'Start of the event',
     endEvent: 'End of the event',
+    invite: 'Invite a new user to join the circle',
+    inviteBase: 'Invite'
   },
   serverError: {
     userAlreadyExist: 'The user already exist',
@@ -68,6 +72,7 @@ const en: BaseTranslation = {
     noChange: 'No changes made.',
     updateUserSuccess: 'Your profile has been successfully updated.',
     passwordSameError: 'The new password must be different from the current one.',
+    emailRequired: 'The email is required.',
     invalidCurrentPassword: 'The current password is invalid.',
     currentpasswordRequired: 'The current password is required.',
     confirmpasswordRequired: 'The confirmation of the new password is required.',
@@ -78,6 +83,14 @@ const en: BaseTranslation = {
     askImage: 'Are you sure you validate this image?',
     imgProfileSuccess: 'Your profile picture has been successfully updated.',
     imgProfileError: 'An error has occurred while updating your profile picture.',
+    inviteEmail: 'Enter the email address of the person you want to invite',
+    invitePeople: 'Invite a person',
+    modifyCircle: 'Modify a Circle',
+    successInviteCircle: 'Your invitation has been successfully sent.',
+    errorInviteCircle: 'An error has occurred while sending your invitation.',
+    accountInviteSuccess: 'You have successfully joined the circle, you can now participate in the events or the chat of it.',
+    circleAlreadyInvite: 'This user already exists within this circle',
+    resendEmail: 'Resend an email'
   },
   global: {
     switchLanguage: 'fr',

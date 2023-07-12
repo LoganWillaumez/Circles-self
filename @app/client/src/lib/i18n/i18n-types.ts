@@ -47,6 +47,10 @@ type RootTranslation = {
 		 * C​a​p​t​u​r​e
 		 */
 		captureImage: string
+		/**
+		 * H​o​m​e
+		 */
+		home: string
 	}
 	form: {
 		/**
@@ -82,6 +86,10 @@ type RootTranslation = {
 		 */
 		search: string
 		/**
+		 * E​m​a​i​l
+		 */
+		email: string
+		/**
 		 * D​e​s​c​r​i​p​t​i​o​n
 		 */
 		description: string
@@ -113,6 +121,14 @@ type RootTranslation = {
 		 * E​n​d​ ​o​f​ ​t​h​e​ ​e​v​e​n​t
 		 */
 		endEvent: string
+		/**
+		 * I​n​v​i​t​e​ ​a​ ​n​e​w​ ​u​s​e​r​ ​t​o​ ​j​o​i​n​ ​t​h​e​ ​c​i​r​c​l​e
+		 */
+		invite: string
+		/**
+		 * I​n​v​i​t​e
+		 */
+		inviteBase: string
 	}
 	serverError: {
 		/**
@@ -254,6 +270,10 @@ type RootTranslation = {
 		 */
 		passwordSameError: string
 		/**
+		 * T​h​e​ ​e​m​a​i​l​ ​i​s​ ​r​e​q​u​i​r​e​d​.
+		 */
+		emailRequired: string
+		/**
 		 * T​h​e​ ​c​u​r​r​e​n​t​ ​p​a​s​s​w​o​r​d​ ​i​s​ ​i​n​v​a​l​i​d​.
 		 */
 		invalidCurrentPassword: string
@@ -293,6 +313,38 @@ type RootTranslation = {
 		 * A​n​ ​e​r​r​o​r​ ​h​a​s​ ​o​c​c​u​r​r​e​d​ ​w​h​i​l​e​ ​u​p​d​a​t​i​n​g​ ​y​o​u​r​ ​p​r​o​f​i​l​e​ ​p​i​c​t​u​r​e​.
 		 */
 		imgProfileError: string
+		/**
+		 * E​n​t​e​r​ ​t​h​e​ ​e​m​a​i​l​ ​a​d​d​r​e​s​s​ ​o​f​ ​t​h​e​ ​p​e​r​s​o​n​ ​y​o​u​ ​w​a​n​t​ ​t​o​ ​i​n​v​i​t​e
+		 */
+		inviteEmail: string
+		/**
+		 * I​n​v​i​t​e​ ​a​ ​p​e​r​s​o​n
+		 */
+		invitePeople: string
+		/**
+		 * M​o​d​i​f​y​ ​a​ ​C​i​r​c​l​e
+		 */
+		modifyCircle: string
+		/**
+		 * Y​o​u​r​ ​i​n​v​i​t​a​t​i​o​n​ ​h​a​s​ ​b​e​e​n​ ​s​u​c​c​e​s​s​f​u​l​l​y​ ​s​e​n​t​.
+		 */
+		successInviteCircle: string
+		/**
+		 * A​n​ ​e​r​r​o​r​ ​h​a​s​ ​o​c​c​u​r​r​e​d​ ​w​h​i​l​e​ ​s​e​n​d​i​n​g​ ​y​o​u​r​ ​i​n​v​i​t​a​t​i​o​n​.
+		 */
+		errorInviteCircle: string
+		/**
+		 * Y​o​u​ ​h​a​v​e​ ​s​u​c​c​e​s​s​f​u​l​l​y​ ​j​o​i​n​e​d​ ​t​h​e​ ​c​i​r​c​l​e​,​ ​y​o​u​ ​c​a​n​ ​n​o​w​ ​p​a​r​t​i​c​i​p​a​t​e​ ​i​n​ ​t​h​e​ ​e​v​e​n​t​s​ ​o​r​ ​t​h​e​ ​c​h​a​t​ ​o​f​ ​i​t​.
+		 */
+		accountInviteSuccess: string
+		/**
+		 * T​h​i​s​ ​u​s​e​r​ ​a​l​r​e​a​d​y​ ​e​x​i​s​t​s​ ​w​i​t​h​i​n​ ​t​h​i​s​ ​c​i​r​c​l​e
+		 */
+		circleAlreadyInvite: string
+		/**
+		 * R​e​s​e​n​d​ ​a​n​ ​e​m​a​i​l
+		 */
+		resendEmail: string
 	}
 	global: {
 		/**
@@ -388,6 +440,10 @@ export type TranslationFunctions = {
 		 * Capture
 		 */
 		captureImage: () => LocalizedString
+		/**
+		 * Home
+		 */
+		home: () => LocalizedString
 	}
 	form: {
 		/**
@@ -423,6 +479,10 @@ export type TranslationFunctions = {
 		 */
 		search: () => LocalizedString
 		/**
+		 * Email
+		 */
+		email: () => LocalizedString
+		/**
 		 * Description
 		 */
 		description: () => LocalizedString
@@ -454,6 +514,14 @@ export type TranslationFunctions = {
 		 * End of the event
 		 */
 		endEvent: () => LocalizedString
+		/**
+		 * Invite a new user to join the circle
+		 */
+		invite: () => LocalizedString
+		/**
+		 * Invite
+		 */
+		inviteBase: () => LocalizedString
 	}
 	serverError: {
 		/**
@@ -595,6 +663,10 @@ export type TranslationFunctions = {
 		 */
 		passwordSameError: () => LocalizedString
 		/**
+		 * The email is required.
+		 */
+		emailRequired: () => LocalizedString
+		/**
 		 * The current password is invalid.
 		 */
 		invalidCurrentPassword: () => LocalizedString
@@ -634,6 +706,38 @@ export type TranslationFunctions = {
 		 * An error has occurred while updating your profile picture.
 		 */
 		imgProfileError: () => LocalizedString
+		/**
+		 * Enter the email address of the person you want to invite
+		 */
+		inviteEmail: () => LocalizedString
+		/**
+		 * Invite a person
+		 */
+		invitePeople: () => LocalizedString
+		/**
+		 * Modify a Circle
+		 */
+		modifyCircle: () => LocalizedString
+		/**
+		 * Your invitation has been successfully sent.
+		 */
+		successInviteCircle: () => LocalizedString
+		/**
+		 * An error has occurred while sending your invitation.
+		 */
+		errorInviteCircle: () => LocalizedString
+		/**
+		 * You have successfully joined the circle, you can now participate in the events or the chat of it.
+		 */
+		accountInviteSuccess: () => LocalizedString
+		/**
+		 * This user already exists within this circle
+		 */
+		circleAlreadyInvite: () => LocalizedString
+		/**
+		 * Resend an email
+		 */
+		resendEmail: () => LocalizedString
 	}
 	global: {
 		/**
