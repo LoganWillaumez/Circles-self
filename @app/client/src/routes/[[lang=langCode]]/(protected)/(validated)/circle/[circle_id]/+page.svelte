@@ -15,6 +15,7 @@
   import { invalidateAll } from '$app/navigation';
   import { setLoader } from '$lib/stores/loader.js';
   import type { ActionResult } from '@sveltejs/kit';
+  import type { TranslationFunctions } from 'typesafe-i18n/types/runtime/src/core.mjs';
 
   type ActionExtend = ActionResult & {
     data?: Partial<{
@@ -25,7 +26,8 @@
 
     export let data;
     export let form: ActionData;
-    const {actualCircle} = data;
+
+    $: actualCircle = data.actualCircle;
     let popupCircleUpdate = false;
     let popupCircleInvite = false;
     let updateName = '';
@@ -42,11 +44,44 @@
         await applyAction(result);
         const status = result.data?.status || result.status;
         const {data} = result;
-        if (status === 400) return;
+         if (status === 400) return;
+        if (status !== 200) {
+          data?.message &&
+            setLoader(true, {
+              message:
+                $LL.serverError[
+                  data?.message as keyof TranslationFunctions['serverError']
+                ]() || $LL.serverError.notKnow(),
+              type: 'error',
+            });
+        };
         
         form.reset();
         popupCircleInvite = false;
         data?.data?.message && setLoader(true, {message: status === 200 ? $LL.desc.successInviteCircle() : $LL.desc.errorInviteCircle(), type: status === 200 ? 'success' : 'error'});
+    }
+  }
+
+  const updateCircle: SubmitFunction = ({form, data, action, cancel}) => {
+    return async ({result}: {result: ActionExtend}) => {
+        await applyAction(result);
+        const status = result.data?.status || result.status;
+        const {data} = result;
+        if (status === 400) return;
+        if (status !== 200) {
+          data?.message &&
+            setLoader(true, {
+              message:
+                $LL.serverError[
+                  data?.message as keyof TranslationFunctions['serverError']
+                ]() || $LL.serverError.notKnow(),
+              type: 'error',
+            });
+        };
+        
+        form.reset();
+        popupCircleUpdate = false;
+        data?.data?.message && setLoader(true, {message: $LL.desc.successUpdateCircle(), type:'success'});
         invalidateAll();
     }
   }
@@ -68,15 +103,15 @@
             </div>
 
         {#if popupCircleUpdate}
-        <Popup onClickOutside={() => {popupCircleUpdate = false}}>
+        <Popup onClickOutside={() => {popupCircleUpdate = false; form.errors = null;}}>
           <p class="text-lg font-semibold mb-5">{$LL.desc.modifyCircle()}</p>
-          <form method="POST" use:enhance class=" flex flex-col gap-5">
+          <form method="POST" use:enhance={updateCircle} class=" flex flex-col gap-5">
             <div class="mb-5">
               <Input 
                 name='name' 
                 value={updateName ? updateName : actualCircle.data.name}
                 placeholder={$LL.form.name()} 
-                errors={form?.errors?.title ?? ''} 
+                errors={form?.errors?.name ?? ''} 
               />
             </div>
             <div class="mb-5">
@@ -89,17 +124,17 @@
               />
             </div>
               <div class="flex gap-5 mt-5">
-                <Button visual='outline' text={$LL.global.close()} onClick={() => { popupCircleUpdate = false}} />
-                <Button type='submit' text={$LL.global.modify()}/>
+                <Button visual='outline' text={$LL.global.close()} onClick={() => { popupCircleUpdate = false; form.errors=null}} />
+                <Button formaction="?/updateCircle" type='submit' text={$LL.global.modify()}/>
               </div>
           </form>
         </Popup>
       {/if}
 
       {#if popupCircleInvite}
-      <Popup onClickOutside={() => {popupCircleInvite = false}}>
+      <Popup onClickOutside={() => {popupCircleInvite = false; form.errors=null;}}>
         <p class="text-lg font-semibold mb-5">{$LL.desc.invitePeople()}</p>
-        <form method="POST" use:enhance={invitePeople} class=" flex flex-col gap-5">
+        <form method="POST" use:enhance={invitePeople} class=" flex flex-col gap-5" >
           <div class="mb-5">
           <p class="mb-5">{$LL.desc.inviteEmail()}</p>
             <Input 
@@ -111,8 +146,8 @@
             />
           </div>
             <div class="flex gap-5 mt-5">
-              <Button visual='outline' text={$LL.global.close()} onClick={() => { popupCircleInvite = false}} />
-              <Button type='submit' text={$LL.form.inviteBase()}/>
+              <Button visual='outline' text={$LL.global.close()} onClick={() => { popupCircleInvite = false; form.errors=null;}} />
+              <Button type='submit' text={$LL.form.inviteBase()} formaction="?/invitePeople"/>
             </div>
         </form>
       </Popup>
