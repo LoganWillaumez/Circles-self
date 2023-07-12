@@ -19,8 +19,6 @@ export const load = async ({params, cookies, url}) => {
     
     const {identifier} = params;
     const response: any = await API.post(`circles/invitation/${identifier}`, { invitee: invitee }, cookies);
-
-    console.log('🚀 ~ response:', response);
   
   
     if (response.status === 204) {

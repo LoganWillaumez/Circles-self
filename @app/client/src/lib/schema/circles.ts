@@ -23,4 +23,17 @@ export const circlesSchema = {
         .string()
         .email({message: 'Invalid email address'}),
     }),
+  updateCircle: z
+    .object({
+      name: z
+        .string()
+        .min(1, {message: 'Required'}) 
+        .max(10, {message: 'Must be less than 10 characters'})
+        .trim(),
+      description: z
+        .string()
+        .min(1, {message: 'Required'})
+        .max(50, {message: 'Must be less than 50 characters'})
+        .trim(),
+    }),
 };

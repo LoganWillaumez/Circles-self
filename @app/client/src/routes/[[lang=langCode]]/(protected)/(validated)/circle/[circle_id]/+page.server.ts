@@ -20,7 +20,7 @@ export const load: PageServerLoad = async ({ params, cookies, locals, url }) => 
 
 
 export const actions = {
-  default: async (event) => {
+  invitePeople: async (event) => {
 
     const {formData, errors} = await validateData(
       await event.request.formData(),
@@ -41,6 +41,38 @@ export const actions = {
           return response;
         }
       }} catch (err) {
+        if (isAxiosError(err)) {
+          if (err.response) {
+            return fail(err.response.status, {
+              message: err.response.data.message
+            });
+          } else {
+            return error(500);
+          }
+        } else {
+          return error(500);
+        }
+      }
+    },
+    updateCircle: async (event) => {
+      const {formData, errors} = await validateData(
+        await event.request.formData(),
+        circlesSchema.updateCircle
+      );
+      
+      if (errors) {
+        return fail(400, {
+          data: formData,
+          errors: errors.fieldErrors
+        });
+      }
+  
+      try {
+        const response: any = await API.put(`circles/${event.params.circle_id}`, formData, event.cookies);
+        if(response.status === 200){
+          return response;
+        }
+      } catch (err) {
         if (isAxiosError(err)) {
           if (err.response) {
             return fail(err.response.status, {
