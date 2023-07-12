@@ -89,12 +89,25 @@ const circleController = {
     const {invite} = req.body;
     const {circle_id} = req.params;
 
+
+    if (user.email === invite) {
+      throw new AppError(ErrorCode.CIRCLE, 'circleSelfInvite', 403);
+  }
+
     const circle = await circlesDatamapper.getCircle(+circle_id);
 
     if (!circle) {
       throw new AppError(ErrorCode.CIRCLE, 'circle.notFound', 404);
     }
 
+    const usersInCircle = await circlesDatamapper.getUsersInCircle(+circle_id);
+
+  // vérifier si l'utilisateur est déjà dans le cercle
+  const isUserInCircle = usersInCircle.some(user => user.email === invite);
+  if (isUserInCircle) {
+      throw new AppError(ErrorCode.CIRCLE, 'circleAlreadyInCircle', 400);
+  }
+    
     if (!user.circles.find((circle: any) => +circle.circle_id === +circle_id)) {
       throw new AppError(ErrorCode.CIRCLE, 'circle.noAccess', 401);
     }

@@ -26,20 +26,19 @@
   const convertEvents = (events) => {
   return events.map(event => {
 
-    let endDate = new Date(event?.end);
+    let endDate = !event?.allday ?  new Date(event?.end) : new Date(event?.start);
 
     if (endDate) {
       endDate.setHours(23);
       endDate.setMinutes(59);
       endDate.setSeconds(59);
     }
-    
     return {
       id: event.id,
-      resourceId: event.id_customer,
+      resourceIds: event.id_customer,
       allDay: event.allday,
       start: event.start ? new Date(event.start) : null,
-      end: endDate ? new Date(endDate) : new Date(event.start), // make sure to handle null end dates appropriately
+      end: endDate, // make sure to handle null end dates appropriately
       title: event.title,
       titleHTML: event.title, // this value is not provided by the server
       editable: false, // this value is not provided by the server, set default as needed
@@ -77,6 +76,7 @@
 };
 
 $: {
+  console.log('🚀 ~ calendarEvents:', calendarEvents);
     options.events = calendarEvents && calendarEvents;
 }
 
