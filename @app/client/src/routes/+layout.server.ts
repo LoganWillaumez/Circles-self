@@ -11,17 +11,18 @@ export const load = (async event => {
   const newLocale = event.url.searchParams.get(langParam);
   console.log('🚀 ~ newLocale:', newLocale);
   if (newLocale) {
+    console.count(newLocale);
     event.cookies.set(langParam, newLocale, {path: '/'});
-    console.log('🚀 ~  event.url:',  event.url);
     event.url.searchParams.delete(langParam);
     // Redirect to remove the GET var
   
-    throw redirect(303, event.url.href.toString());
+    console.log('🚀 ~ event.url.toString():', event.url);
+    throw redirect(303, event.url.pathname.toString());
   }
-
-  // Get the locale from the cookie
   const locale = detectLocale(() => [event.cookies.get(langParam) ?? '']);
   event.locals.lang = locale;
+
+  // Get the locale from the cookie
 
   return {locale, url: event.url.pathname, route: event.route.id, user: event.locals.user};
 }) satisfies LayoutServerLoad;

@@ -26,17 +26,6 @@ const langOptions: Options[] = [
   },
 ];
 
-const themeOption: Options[] = [
-  {
-    label: $LL.global.fr(),
-    value: 'fr'
-  },
-  {
-    label: $LL.global.en(),
-    value: 'en'
-  },
-];
-
 type ActionExtend = ActionResult & {
     data?: Partial<{
       status: number;
@@ -49,7 +38,11 @@ type ActionExtend = ActionResult & {
     let currentPassword = '';
     let newPassword = '';
     let confirmPassword = '';
+
+
 const {user, lang} = data;
+
+
 const updateProfile: SubmitFunction = async ({form}) =>{
     return async ({result}: {result: ActionExtend}) => {
       await applyAction(result);
@@ -71,10 +64,10 @@ const updateProfile: SubmitFunction = async ({form}) =>{
     }
   }
 }
-const selectLang= (e: CustomEvent) => {
+const selectLang= async (e: CustomEvent) => {
   const lang = e.detail.value;
-  window.location.href =`?lang=${lang}`;
-  invalidateAll();
+  await goto(`?lang=${lang}`);
+  await invalidateAll();
 }
 
 const changeTheme = () => {
@@ -82,7 +75,7 @@ const changeTheme = () => {
   };
 </script>
 
-<div class="container">
+<div class="container" >
     <div class="scroll_wrapper">
       <form method="POST" use:enhance={updateProfile}>
         <h1 class="mb-5">{$LL.desc.settings()}</h1>
@@ -93,6 +86,7 @@ const changeTheme = () => {
               name="lang"
               placeholder={$LL.global.language()}
               type="select"
+              selectDefault={lang === 'fr' ? $LL.global.fr() : $LL.global.en()}
               options={langOptions}
               value={lang}
             />

@@ -74,6 +74,7 @@ const fr: Translation = {
     updateUserSuccess: 'Votre profil a bien été mis à jour',
     passwordSameError: 'Le nouveau mot de passe doit être différent de l\'ancien',
     invalidCurrentPassword: 'Le mot de passe actuel est incorrect',
+    emailRequired: 'L\'email est requis',
     currentpasswordRequired: 'Le mot de passe actuel est requis',
     newpasswordRequired: 'Le nouveau mot de passe est requis',
     confirmpasswordRequired: 'La confirmation du nouveau mot de passe est requise',
@@ -88,7 +89,8 @@ const fr: Translation = {
     modifyCircle: 'Modifier le cercle',
     successInviteCircle: 'Votre invitation a bien été envoyée',
     errorInviteCircle: 'Une erreur est survenue lors de l\'envoi de votre invitation',
-    accountInviteSuccess: 'Vous avez bien rejoint le cercle, vous pouvez maintenant participer aux événements ou au chat de celui-ci.',circleAlreadyInvite: 'Cet utilisateur existe déjà au sein de ce cercle'
+    accountInviteSuccess: 'Vous avez bien rejoint le cercle, vous pouvez maintenant participer aux événements ou au chat de celui-ci.',circleAlreadyInvite: 'Cet utilisateur existe déjà au sein de ce cercle',
+    resendEmail: 'Renvoyer un email'
   },
   global: {
     language: 'Langue',

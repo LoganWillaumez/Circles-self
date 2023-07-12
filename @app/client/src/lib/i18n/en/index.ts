@@ -72,6 +72,7 @@ const en: BaseTranslation = {
     noChange: 'No changes made.',
     updateUserSuccess: 'Your profile has been successfully updated.',
     passwordSameError: 'The new password must be different from the current one.',
+    emailRequired: 'The email is required.',
     invalidCurrentPassword: 'The current password is invalid.',
     currentpasswordRequired: 'The current password is required.',
     confirmpasswordRequired: 'The confirmation of the new password is required.',
@@ -88,7 +89,8 @@ const en: BaseTranslation = {
     successInviteCircle: 'Your invitation has been successfully sent.',
     errorInviteCircle: 'An error has occurred while sending your invitation.',
     accountInviteSuccess: 'You have successfully joined the circle, you can now participate in the events or the chat of it.',
-    circleAlreadyInvite: 'This user already exists within this circle'
+    circleAlreadyInvite: 'This user already exists within this circle',
+    resendEmail: 'Resend an email'
   },
   global: {
     switchLanguage: 'fr',

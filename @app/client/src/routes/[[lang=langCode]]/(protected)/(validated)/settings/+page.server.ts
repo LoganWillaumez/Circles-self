@@ -3,14 +3,13 @@ import { validateData } from '$lib/schema/validation';
 import { error, fail } from '@sveltejs/kit';
 import API from '$lib/utils/Api';
 import { isAxiosError } from 'axios';
-import { convertDateToCorrectFormat } from '$lib/utils/date';
-import type { Options } from '../../../../../models/input';
+import { detectLocale } from 'typesafe-i18n/detectors';
 
 export async function load(event: any) {
-  const lang = event.locals.lang;
+
     return {
         user: event.locals.user,
-        lang
+        lang: event.locals.lang || event.cookies.get('lang'),
     };
 }
 

@@ -270,6 +270,10 @@ type RootTranslation = {
 		 */
 		passwordSameError: string
 		/**
+		 * T​h​e​ ​e​m​a​i​l​ ​i​s​ ​r​e​q​u​i​r​e​d​.
+		 */
+		emailRequired: string
+		/**
 		 * T​h​e​ ​c​u​r​r​e​n​t​ ​p​a​s​s​w​o​r​d​ ​i​s​ ​i​n​v​a​l​i​d​.
 		 */
 		invalidCurrentPassword: string
@@ -337,6 +341,10 @@ type RootTranslation = {
 		 * T​h​i​s​ ​u​s​e​r​ ​a​l​r​e​a​d​y​ ​e​x​i​s​t​s​ ​w​i​t​h​i​n​ ​t​h​i​s​ ​c​i​r​c​l​e
 		 */
 		circleAlreadyInvite: string
+		/**
+		 * R​e​s​e​n​d​ ​a​n​ ​e​m​a​i​l
+		 */
+		resendEmail: string
 	}
 	global: {
 		/**
@@ -655,6 +663,10 @@ export type TranslationFunctions = {
 		 */
 		passwordSameError: () => LocalizedString
 		/**
+		 * The email is required.
+		 */
+		emailRequired: () => LocalizedString
+		/**
 		 * The current password is invalid.
 		 */
 		invalidCurrentPassword: () => LocalizedString
@@ -722,6 +734,10 @@ export type TranslationFunctions = {
 		 * This user already exists within this circle
 		 */
 		circleAlreadyInvite: () => LocalizedString
+		/**
+		 * Resend an email
+		 */
+		resendEmail: () => LocalizedString
 	}
 	global: {
 		/**
