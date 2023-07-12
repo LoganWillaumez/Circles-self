@@ -10,7 +10,7 @@
   } from '@fortawesome/free-solid-svg-icons';
   import Button from '../Button.svelte';
   import { LoaderType } from '../../../models/loader';
-    import {LL} from '$lib/i18n/i18n-svelte';
+  import {LL} from '$lib/i18n/i18n-svelte';
 
   const handleClose = () => {
     const fn = $loader.popUp.onClose;
@@ -36,6 +36,7 @@
     resetLoader();
   };
 
+  $: verticalMiddle = $loader.popUp.verticalMiddle || false;
 </script>
 
 {#if $loader.showLoader}
@@ -57,17 +58,18 @@
       <div class="popup_content">
         <span class="popup-message">{$loader.popUp.message}</span>
         <div class="flex gap-2 px-3">
-          <div class="button__container">
+          <div class="button__container {verticalMiddle && 'flex flex-col'}" >
+            {#if $loader.popUp.middleButton && verticalMiddle}
+              <Button onClick={handleMiddle} text={$loader.popUp.middleButton} />
+            {/if}
             <Button visual="outline" onClick={handleClose} text={$LL.global.close()} />
             {#if $loader.popUp.button}
               <Button onClick={handleConfirm} text={$loader.popUp.button} />
             {/if}
-          </div>
-          {#if $loader.popUp.middleButton}
-            <div class="max-w-[90%]">
+            {#if $loader.popUp.middleButton && !verticalMiddle}
               <Button onClick={handleMiddle} text={$loader.popUp.middleButton} />
-            </div>
-          {/if}
+            {/if}
+          </div>
         </div>
       </div>
     </div>

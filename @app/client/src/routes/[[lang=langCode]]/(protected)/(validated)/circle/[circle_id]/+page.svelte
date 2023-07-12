@@ -39,10 +39,8 @@
 
     const invitePeople: SubmitFunction = ({form, data, action, cancel}) => {
     return async ({result}: {result: ActionExtend}) => {
-        console.log('🚀 ~ result:', result);
         await applyAction(result);
         const status = result.data?.status || result.status;
-        console.log('🚀 ~ status:', status);
         const {data} = result;
         if (status === 400) return;
         
@@ -61,10 +59,10 @@
             <div class="w-full h-[150px] relative">
                 <img class="cover w-full h-[150px]  rounded-2xl" src="https://picsum.photos/200/300" alt="">
                 <img class="cover absolute bottom-[-40px] left-[20px] rounded-full z-10 w-[80px] h-[80px]" src="https://picsum.photos/200/300?random=1" alt="">
-                <button on:click={handleClick}>
+                <button class="cursor-pointer" on:click={handleClick}>
                     <Fa class='absolute top-[-5px] right-0 bg-[var(--primary-color)] w-[40px] rounded-l-2xl' icon={faEllipsis} size="lg" />
                 </button>
-                <button on:click={handleInvite}>
+                <button class="cursor-pointer" on:click={handleInvite}>
                     <Fa class='absolute bottom-[-5px] right-0 bg-[var(--primary-color)] w-[40px] rounded-l-2xl' icon={faUserPlus} size="lg" />
                 </button>
             </div>

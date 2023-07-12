@@ -51,7 +51,8 @@
                   data?.message as keyof TranslationFunctions['serverError']
                 ]() || $LL.serverError.notKnow(),
               type: 'error',
-              middleButton: 'Resend an email',
+              middleButton: $LL.desc.resendEmail(),
+              verticalMiddle: true,
               onMiddle: async () =>
                 await API.post('auth/sendmail', {email: dataForm.get('email')})
             });
