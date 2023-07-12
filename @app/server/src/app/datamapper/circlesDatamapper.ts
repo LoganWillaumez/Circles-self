@@ -168,9 +168,21 @@ const circlesDataMapper = (client: Pool) => {
       } else {
        return false;
       }
-    }
+    },
     
+    async getUsersInCircle(circle_id: number): Promise<any[]> {
+      const query = {
+        text: `SELECT customer.email 
+               FROM circle_customer 
+               JOIN customer ON circle_customer.id_customer = customer.id
+               WHERE circle_customer.id_circle = $1`,
+        values: [circle_id]
+      };
     
+      const result = await client.query(query);
+    
+      return result.rows;
+    },
     
   };
 };

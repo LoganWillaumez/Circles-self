@@ -43,6 +43,8 @@ const en: BaseTranslation = {
     badCredentials: 'The email or password is incorrect',
     unauthorized: 'You are not authorized to access this page',
     emailOutdated: 'The email is outdated',
+    circleSelfInvite: 'You cannot invite yourself',
+    circleAlreadyInCircle: 'The user is already in the circle',
   },
   desc: {
     welcomeExplainTitle: 'Welcome to Circles !',
@@ -90,7 +92,8 @@ const en: BaseTranslation = {
     errorInviteCircle: 'An error has occurred while sending your invitation.',
     accountInviteSuccess: 'You have successfully joined the circle, you can now participate in the events or the chat of it.',
     circleAlreadyInvite: 'This user already exists within this circle',
-    resendEmail: 'Resend an email'
+    resendEmail: 'Resend an email',
+    successUpdateCircle: 'Your circle has been successfully updated.',
   },
   global: {
     switchLanguage: 'fr',

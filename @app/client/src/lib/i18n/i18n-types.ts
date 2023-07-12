@@ -167,6 +167,14 @@ type RootTranslation = {
 		 * T​h​e​ ​e​m​a​i​l​ ​i​s​ ​o​u​t​d​a​t​e​d
 		 */
 		emailOutdated: string
+		/**
+		 * Y​o​u​ ​c​a​n​n​o​t​ ​i​n​v​i​t​e​ ​y​o​u​r​s​e​l​f
+		 */
+		circleSelfInvite: string
+		/**
+		 * T​h​e​ ​u​s​e​r​ ​i​s​ ​a​l​r​e​a​d​y​ ​i​n​ ​t​h​e​ ​c​i​r​c​l​e
+		 */
+		circleAlreadyInCircle: string
 	}
 	desc: {
 		/**
@@ -345,6 +353,10 @@ type RootTranslation = {
 		 * R​e​s​e​n​d​ ​a​n​ ​e​m​a​i​l
 		 */
 		resendEmail: string
+		/**
+		 * Y​o​u​r​ ​c​i​r​c​l​e​ ​h​a​s​ ​b​e​e​n​ ​s​u​c​c​e​s​s​f​u​l​l​y​ ​u​p​d​a​t​e​d​.
+		 */
+		successUpdateCircle: string
 	}
 	global: {
 		/**
@@ -560,6 +572,14 @@ export type TranslationFunctions = {
 		 * The email is outdated
 		 */
 		emailOutdated: () => LocalizedString
+		/**
+		 * You cannot invite yourself
+		 */
+		circleSelfInvite: () => LocalizedString
+		/**
+		 * The user is already in the circle
+		 */
+		circleAlreadyInCircle: () => LocalizedString
 	}
 	desc: {
 		/**
@@ -738,6 +758,10 @@ export type TranslationFunctions = {
 		 * Resend an email
 		 */
 		resendEmail: () => LocalizedString
+		/**
+		 * Your circle has been successfully updated.
+		 */
+		successUpdateCircle: () => LocalizedString
 	}
 	global: {
 		/**

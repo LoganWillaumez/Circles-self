@@ -18,7 +18,6 @@ export const load: PageServerLoad = async ({ params, cookies, locals, url }) => 
 export const actions = {
     default:  async ({request, cookies, params}) => {
         const circle_id = params.circle_id;
-        console.log('🚀 ~ circle_id:', circle_id);
         const data = await request.formData();
         const message = data.get('chat');
         
@@ -26,7 +25,6 @@ export const actions = {
             const response = await API.post(`circles/${circle_id}/message`, {content: message}, cookies); 
             return response;
         } catch (err) {
-            console.log('🚀 ~ err:', err);
             if (isAxiosError(err)) {
                 if (err.response) {
                     return fail(err.response.status, {
