@@ -9,13 +9,15 @@ const fr: Translation = {
     newEvent: 'Nouvel événement',
     validate: 'Valider',
     refuse: 'Refuser',
-    captureImage: 'Capturer'
+    captureImage: 'Capturer',
+    home: 'Accueil',
   },
   form: {
     firstName: 'Prénom',
     lastName: 'Nom',
     gender: 'Genre',
     password: 'Mot de passe',
+    email: 'Email',
     confirmPassword: 'Confirmer le mot de passe',
     birthdate: 'Date de naissance',
     forgotPassword: 'Mot de passe oublié',
@@ -28,6 +30,8 @@ const fr: Translation = {
     allDay: 'Toute la journée',
     startEvent: 'Début de l\'événement',
     endEvent: 'Fin de l\'événement',
+    invite: 'Inviter un nouvel utilisateur à rejoindre le cercle',
+    inviteBase: 'Inviter'
   },
   serverError: {
     userAlreadyExist: "L'utilisateur existe déjà",
@@ -70,6 +74,7 @@ const fr: Translation = {
     updateUserSuccess: 'Votre profil a bien été mis à jour',
     passwordSameError: 'Le nouveau mot de passe doit être différent de l\'ancien',
     invalidCurrentPassword: 'Le mot de passe actuel est incorrect',
+    emailRequired: 'L\'email est requis',
     currentpasswordRequired: 'Le mot de passe actuel est requis',
     newpasswordRequired: 'Le nouveau mot de passe est requis',
     confirmpasswordRequired: 'La confirmation du nouveau mot de passe est requise',
@@ -79,6 +84,13 @@ const fr: Translation = {
     askImage: 'Êtes-vous sûr de valider cette image ?',
     imgProfileSuccess: 'Votre photo de profil a bien été mise à jour',
     imgProfileError: 'Une erreur est survenue lors de la mise à jour de votre photo de profil',
+    inviteEmail: 'Mettez l\'adresse email de la personne que vous souhaitez inviter',
+    invitePeople: 'Inviter une personne',
+    modifyCircle: 'Modifier le cercle',
+    successInviteCircle: 'Votre invitation a bien été envoyée',
+    errorInviteCircle: 'Une erreur est survenue lors de l\'envoi de votre invitation',
+    accountInviteSuccess: 'Vous avez bien rejoint le cercle, vous pouvez maintenant participer aux événements ou au chat de celui-ci.',circleAlreadyInvite: 'Cet utilisateur existe déjà au sein de ce cercle',
+    resendEmail: 'Renvoyer un email'
   },
   global: {
     language: 'Langue',

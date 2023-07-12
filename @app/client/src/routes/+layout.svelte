@@ -42,7 +42,7 @@
 <main class="main-container relative">
   {#if browser}
   {#if !data.route.includes('(validated)')}
-    <LangSwitch />
+    <LangSwitch lang={data.locale}/>
   {/if}
   {#if data.route.includes('(validated)')}
   <button on:click={() => menuOutside = true}>

@@ -1,15 +1,22 @@
-<script>
-  import {invalidateAll} from '$app/navigation';
+<script lang='ts'>
+  import {goto, invalidateAll} from '$app/navigation';
   import {LL} from '$lib/i18n/i18n-svelte';
+
+
+  const selectLang= async () => {
+    const lang = $LL.global.switchLanguage();
+    await goto(`?lang=${lang}`);
+    invalidateAll();
+}
 </script>
 
-<a
+<button
   class="switch"
-  on:click={() => invalidateAll()}
-  href="?lang={$LL.global.switchLanguage()}"
+  on:click={selectLang}
 >
-  {$LL.global.switchLanguage()}</a
+  {$LL.global.switchLanguage()}</button
 >
+
 
 <style lang="scss">
   .switch {

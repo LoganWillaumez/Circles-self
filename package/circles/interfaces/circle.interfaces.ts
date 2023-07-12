@@ -2,6 +2,7 @@ export interface CirclesAdditionalDatas {
   circle_id: number;
   created_at: Date;
   updated_at: Date;
+  identifier: string;
   messages: Array<any>; // Replace 'any' with the appropriate message type if available
   events: Array<any>; // Replace 'any' with the appropriate event type if available
 }

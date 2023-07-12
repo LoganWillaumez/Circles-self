@@ -32,10 +32,7 @@ const customerDataMapper = (client: Pool) => {
         values: [email]
       };
       const customer = await client.query(query);
-      if (customer) {
-        return customer.rows[0];
-      }
-      return false;
+      return customer?.rows[0] ?? false;
     },
 
     async createUser(

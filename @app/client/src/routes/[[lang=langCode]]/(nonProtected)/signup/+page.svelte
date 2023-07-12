@@ -72,18 +72,22 @@
           />
         </div>
         <div class="flex gap-3">
-          <Input
-            errors={form?.errors?.firstname ?? ''}
-            name="firstname"
-            placeholder={$LL.form.firstName()}
-            value={form?.data?.firstname ?? ''}
-          />
-          <Input
-            errors={form?.errors?.lastname ?? ''}
-            name="lastname"
-            placeholder={$LL.form.lastName()}
-            value={form?.data?.lastname ?? ''}
-          />
+          <div class="w-full">
+            <Input
+              errors={form?.errors?.firstname ?? ''}
+              name="firstname"
+              placeholder={$LL.form.firstName()}
+              value={form?.data?.firstname ?? ''}
+            />
+          </div>
+          <div class="w-full">
+            <Input
+              errors={form?.errors?.lastname ?? ''}
+              name="lastname"
+              placeholder={$LL.form.lastName()}
+              value={form?.data?.lastname ?? ''}
+            />
+          </div>
         </div>
         <div>
           <Input
@@ -124,19 +128,13 @@
         </div>
         <Button
           type="submit"
-          class="mb-5 mx-auto"
+          class="mb-2 mx-auto"
           variant="secondary"
           text={$LL.button.signUp()}
         />
       </form>
       <div class="error" />
-      <p class="mb-2">{$LL.form.forgotPassword()}</p>
-      <Divider text={$LL.global.or()} class="mb-2" />
-      <div class="flex gap-10 justify-center mb-10">
-        <Card icon="google" />
-        <Card icon="facebook" />
-        <Card icon="twitter" />
-      </div>
+      <p class="mb-10 text-xs font-bold underline">{$LL.form.forgotPassword()}</p>
       <Button class="mb-5 mx-auto" text={$LL.button.signIn()} href="signin" />
     </div>
   </div>

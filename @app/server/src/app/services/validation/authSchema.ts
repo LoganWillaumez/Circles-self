@@ -12,7 +12,7 @@ const authSchema = {
         .messages({
           'string.string': 'email.string',
           'string.email': 'email.email',
-          'any.required': 'email.required'
+          'any.required': 'emailRequired'
         }),
       password: Joi.string()
         .pattern(/^[a-zA-Z0-9]{3,30}$/)

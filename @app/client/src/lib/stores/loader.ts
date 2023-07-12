@@ -7,6 +7,7 @@ const initialLoader = {
     button: '',
     middleButton: '',
     type: '',
+    verticalMiddle: false,
     onMiddle: () => undefined,
     onClose: () => undefined,
     onConfirm: () => undefined
@@ -22,6 +23,7 @@ export const setLoader = (
     type: 'success' | 'error' | 'warning' | 'info';
     button?: string;
     middleButton?: string;
+    verticalMiddle?: boolean;
     onClose?: () => undefined;
     onConfirm?: () => undefined;
     onMiddle?: () => undefined;
@@ -34,6 +36,7 @@ export const setLoader = (
       message: popUp?.message ?? '',
       type: popUp?.type ?? '',
       middleButton: popUp?.middleButton ?? '',
+      verticalMiddle: popUp?.verticalMiddle ?? false,
       button: popUp?.button ?? '',
       onMiddle: popUp?.onMiddle ?? (() => undefined),
       onClose: popUp?.onClose ?? (() => undefined),
