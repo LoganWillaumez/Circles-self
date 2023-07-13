@@ -163,14 +163,13 @@ const circlesDataMapper = (client: Pool) => {
       // si l'entrée n'existe pas, procédez à l'insertion
       if(result.rows.length === 0){
         try{
-          console.log('qeruy ok ');
           const insertQuery = {
             text: 'INSERT INTO circle_customer(id_circle, id_customer) VALUES ($1, $2);',
             values: [circle_id, customer_id]
           };
           await client.query(insertQuery);
         } catch (err){
-          console.log('errrrr', err);
+          return false;
         }
     
         return true;
