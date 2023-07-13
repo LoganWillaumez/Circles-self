@@ -76,7 +76,6 @@
 };
 
 $: {
-  console.log('🚀 ~ calendarEvents:', calendarEvents);
     options.events = calendarEvents && calendarEvents;
 }
 
