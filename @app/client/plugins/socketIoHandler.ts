@@ -1,6 +1,6 @@
 import { Server } from 'socket.io';
 
-let connectedUsers = []; 
+let connectedUsers: any = []; 
 export default function injectSocketIO(server: any) {
     const io = new Server(server);
 
@@ -14,11 +14,12 @@ export default function injectSocketIO(server: any) {
                     connectedUsers.push(message.data);
                 }
             } else if (message.type === 'disconnection') {
-                // Supprimer l'utilisateur de la liste des utilisateurs connectés.
                 connectedUsers = connectedUsers.filter(user => user.customer_id !== message.data.customer_id);
-            } else if (message.type === 'getConnectedUsers') {
-                // Renvoyer la liste des utilisateurs connectés.
-                socket.emit('eventFromServer', {type: 'getConnectedUsers', data: {connectedUsers}});
+            }
+            if(message.type === 'connection'){
+                message.connectedUsers = connectedUsers;
+            } else if (message.type === 'disconnection'){
+                message.connectedUsers = connectedUsers;
             }
             io.emit('eventFromServer', message);
         });

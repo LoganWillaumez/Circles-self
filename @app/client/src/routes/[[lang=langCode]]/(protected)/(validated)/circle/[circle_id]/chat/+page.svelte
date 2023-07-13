@@ -39,19 +39,16 @@
   };
 
   onMount(() => {
-    socket.on('eventFromServer', ({type, data}: {type: 'connection' | 'disconnection' | 'writingMessage' | ' message' | 'stopWriting' | 'getConnectedUsers', data: any}) => {
-      if(type === 'getConnectedUsers') {
-        console.log('🚀 ~ data.connectedUsers:', data.connectedUsers);
-            allUserConnected = data.connectedUsers;
-        } else if(type === 'connection') {
-        const isAlreadyHere = allUserConnected.some(user => user.customer_id === data.customer_id);
-        allUserConnected =   !isAlreadyHere && allUserConnected.concat(data);
+    socket.on('eventFromServer', ({type, data, connectedUsers}: {type: 'connection' | 'disconnection' | 'writingMessage' | ' message' | 'stopWriting' | 'getConnectedUsers', data: any, connectedUsers?: any}) => {
+       if(type === 'connection') {
+        allUserConnected =   connectedUsers;
         if(data.customer_id !== user?.customer_id) {
           systemMessages = systemMessages.concat({customer_id: user?.customer_id, content: `${data.name} has join the chat !`, created_at: new Date().toISOString(), join: true});
         }
       } else if (type === 'disconnection') {
         systemMessages = systemMessages.concat({customer_id: user?.customer_id, content: `${data.firstname} has left the chat !`, created_at: new Date().toISOString(), join: true});
         allUserConnected = allUserConnected.filter(user => user.customer_id !== data.customer_id);
+          allUserConnected =   connectedUsers;
       } else if(type === 'writingMessage') {
         if(data.customer_id !== user?.customer_id) {
           if(!allMessages.some(message => message?.customer_id === data?.customer_id && message?.content === 'is writing...') || allMessages.length === 0){
@@ -69,7 +66,6 @@
       combinedMessages.sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime());
     });
     socket.emit('socketClient', {type: 'connection', data: {customer_id: user?.customer_id, name: user?.firstname, join: true}});
-    socket.emit('socketClient', {type: 'getConnectedUsers', data: {customer_id: user?.customer_id}});
     chatContainer.scrollTo(0, chatContainer.scrollHeight);
   });
 
