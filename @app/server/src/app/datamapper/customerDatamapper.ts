@@ -166,7 +166,7 @@ const customerDataMapper = (client: Pool) => {
         [currentDateTime, id]
       );
       return updatedCustomer.rows[0].email_valid;
-    }
+    },
   };
 };
 

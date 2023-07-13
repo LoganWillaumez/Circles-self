@@ -10,30 +10,39 @@ const circlesDataMapper = (client: Pool) => {
     async getCircle(id: number): Promise<CirclesDatas | false> {
       const query = {
         text: `SELECT json_build_object(
-                'circle_id', cc.id,
-                'name', cc.name,
-                'customer_admin', cc.customer_admin,
-                'description', cc.description,
-                'img', cc.img,
-                'identifier', cc.identifier,
-                'created_at', cc.created_at,
-                'updated_at', cc.updated_at,
-                'messages', COALESCE((SELECT jsonb_agg(
-                                        json_build_object(
-                                          'id', m.id,
-                                          'customer_id', m.id_customer,
-                                          'content', m.content,
-                                          'created_at', m.created_at,
-                                          'name', c.firstname
-                                        )
-                                      ) FROM message m
-                                      LEFT JOIN customer c ON m.id_customer = c.id
-                                      WHERE m.id_circle = cc.id), '[]'::jsonb),
-                'events', COALESCE((SELECT jsonb_agg(e) FROM event e WHERE e.id_circle = cc.id), '[]'::jsonb)
-               )
-               FROM "circle" cc
-               WHERE cc.id=$1
-               GROUP BY cc.id;`,
+          'circle_id', cc.id,
+          'name', cc.name,
+          'customer_admin', cc.customer_admin,
+          'description', cc.description,
+          'img', cc.img,
+          'identifier', cc.identifier,
+          'created_at', cc.created_at,
+          'updated_at', cc.updated_at,
+          'messages', COALESCE((SELECT jsonb_agg(
+                                    json_build_object(
+                                      'id', m.id,
+                                      'customer_id', m.id_customer,
+                                      'content', m.content,
+                                      'created_at', m.created_at,
+                                      'name', c.firstname
+                                    )
+                                  ) FROM message m
+                                  LEFT JOIN customer c ON m.id_customer = c.id
+                                  WHERE m.id_circle = cc.id), '[]'::jsonb),
+          'events', COALESCE((SELECT jsonb_agg(e) FROM event e WHERE e.id_circle = cc.id), '[]'::jsonb),
+          'customerDatas', COALESCE((SELECT jsonb_agg(
+                                    json_build_object(
+                                      'customer_id', cu.id,
+                                      'firstname', cu.firstname,
+                                      'img', cu.img
+                                    )
+                                  ) FROM circle_customer ccu
+                                  LEFT JOIN customer cu ON ccu.id_customer = cu.id
+                                  WHERE ccu.id_circle = cc.id), '[]'::jsonb)
+        )
+        FROM "circle" cc
+        WHERE cc.id=$1
+        GROUP BY cc.id;`,
         values: [id]
       };      
       
@@ -154,14 +163,13 @@ const circlesDataMapper = (client: Pool) => {
       // si l'entrée n'existe pas, procédez à l'insertion
       if(result.rows.length === 0){
         try{
-          console.log('qeruy ok ');
           const insertQuery = {
             text: 'INSERT INTO circle_customer(id_circle, id_customer) VALUES ($1, $2);',
             values: [circle_id, customer_id]
           };
           await client.query(insertQuery);
         } catch (err){
-          console.log('errrrr', err);
+          return false;
         }
     
         return true;
