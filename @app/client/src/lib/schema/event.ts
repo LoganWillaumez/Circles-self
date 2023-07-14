@@ -6,8 +6,8 @@ const currentDate = formatISO(new Date());
 export const eventSchema = {
   createEvent: z
   .object({
-    title: z.string().min(1, { message: 'Required' }),
-    description: z.string().min(1, { message: 'Required' }),
+    title: z.string().min(1, { message: 'titleRequired' }),
+    description: z.string().min(1, { message: 'descriptionRequired' }),
     allday: z.boolean().optional(),
     start: z.string().optional(),
     end: z.string().optional(),
@@ -23,7 +23,7 @@ export const eventSchema = {
       return false;
     },
     {
-      message: 'Start is required if allday is false or not provided',
+      message: 'startRequired',
       path: ['start'],
     }
   )
@@ -38,7 +38,7 @@ export const eventSchema = {
       return false;
     },
     {
-      message: 'End is required if allday is false or not provided',
+      message: 'endRequired',
       path: ['end'],
     }
   )
@@ -46,20 +46,20 @@ export const eventSchema = {
     (data) =>
       !data.start ||
       (data.start && new Date(data.start) > new Date(currentDate)),
-    { message: 'Start must be after the current date', path: ['start'] }
+    { message: 'invalidStart', path: ['start'] }
   )
   .refine(
     (data) =>
       !data.start ||
       !data.end ||
       (data.start && data.end && new Date(data.end) > new Date(data.start)),
-    { message: 'End must be after start', path: ['end'] }
+    { message: 'invalidEnd', path: ['end'] }
   ),
 
   updateEvent: z
   .object({
-    title: z.string().min(1, { message: 'Required' }).optional(),
-    description: z.string().min(1, { message: 'Required' }).optional(),
+    title: z.string().min(1, { message: 'titleRequired' }).optional(),
+    description: z.string().min(1, { message: 'descriptionRequired' }).optional(),
     allday: z.boolean().optional(),
     start: z.string().optional(),
     end: z.string().optional(),
@@ -75,7 +75,7 @@ export const eventSchema = {
       return false;
     },
     {
-      message: 'Start is required if allday is false',
+      message: 'startRequired',
       path: ['start'],
     }
   )
@@ -90,7 +90,7 @@ export const eventSchema = {
       return false;
     },
     {
-      message: 'End is required if allday is false',
+      message: 'endRequired',
       path: ['end'],
     }
   )
@@ -98,13 +98,13 @@ export const eventSchema = {
     (data) =>
       data.start === undefined ||
       (data.start && new Date(data.start) > new Date(currentDate)),
-    { message: 'Start must be after the current date', path: ['start'] }
+    { message: 'invalidStart', path: ['start'] }
   )
   .refine(
     (data) =>
       data.start === undefined ||
       data.end === undefined ||
       (data.start && data.end && new Date(data.end) > new Date(data.start)),
-    { message: 'End must be after start', path: ['end'] }
+    { message: 'invalidEnd', path: ['end'] }
   ),
 }

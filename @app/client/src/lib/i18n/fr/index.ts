@@ -121,7 +121,41 @@ const fr: Translation = {
     confirm: 'Confirmer',
     cancel: 'Annuler',
     modify: 'Modifier'
+  },
+  errorInput : {
+      firstnameRequired: 'Requis',
+    firstnameMaxLength: 'Ne peut pas dépasser 20 caractères',
+    lastnameRequired: 'Requis',
+    lastnameMaxLength: 'Ne peut pas dépasser 20 caractères',
+    passwordMinLength: 'Doit comporter au moins 3 caractères',
+    passwordMaxLength: 'Ne peut pas dépasser 30 caractères',
+    genderRequired: 'Requis',
+    confirmPasswordMinLength: 'Doit comporter au moins 3 caractères',
+    confirmPasswordMaxLength: 'Ne peut pas dépasser 30 caractères',
+    emailRequired: 'Requis',
+    emailMaxLength: 'Ne peut pas dépasser 64 caractères',
+    invalidEmail: 'N\'est pas valide',
+    birthdateRequired: 'Requis',
+    passwordsMustMatch: 'Doivent correspondre',
+    nameRequired: 'Requis',
+    nameMaxLength: 'Ne peut pas dépasser 10 caractères',
+    descriptionRequired: 'Requis',
+    descriptionMaxLength: 'Ne peut pas dépasser 50 caractères',
+    passwordLength: 'Doit avoir entre 3 et 30 caractères',
+    passwordNotMatch: 'Ne correspondent pas',
+    titleRequired: 'Requis',
+    startRequired: 'Requis',
+    endRequired: 'Requis',
+    invalidStart: 'N\'est pas valide',
+    invalidEnd: 'N\'est pas valide',
+    newPasswordMinLength: 'Doit comporter au moins 3 caractères',
+    newPasswordMaxLength: 'Ne peut pas dépasser 30 caractères',
+    randomCodeRequired: 'Requis',
+    confirmNewPasswordMinLength: 'Doit comporter au moins 3 caractères',
+    confirmNewPasswordMaxLength: 'Ne peut pas dépasser 30 caractères',
+    notKnow: 'Erreur',
   }
+  
 };
 
 export default fr;

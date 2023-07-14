@@ -460,6 +460,132 @@ type RootTranslation = {
 		 */
 		modify: string
 	}
+	errorInput: {
+		/**
+		 * R​e​q​u​i​r​e​d
+		 */
+		firstnameRequired: string
+		/**
+		 * C​a​n​n​o​t​ ​e​x​c​e​e​d​ ​2​0​ ​c​h​a​r​a​c​t​e​r​s
+		 */
+		firstnameMaxLength: string
+		/**
+		 * R​e​q​u​i​r​e​d
+		 */
+		lastnameRequired: string
+		/**
+		 * C​a​n​n​o​t​ ​e​x​c​e​e​d​ ​2​0​ ​c​h​a​r​a​c​t​e​r​s
+		 */
+		lastnameMaxLength: string
+		/**
+		 * M​u​s​t​ ​h​a​v​e​ ​a​t​ ​l​e​a​s​t​ ​3​ ​c​h​a​r​a​c​t​e​r​s
+		 */
+		passwordMinLength: string
+		/**
+		 * C​a​n​n​o​t​ ​e​x​c​e​e​d​ ​3​0​ ​c​h​a​r​a​c​t​e​r​s
+		 */
+		passwordMaxLength: string
+		/**
+		 * R​e​q​u​i​r​e​d
+		 */
+		genderRequired: string
+		/**
+		 * M​u​s​t​ ​h​a​v​e​ ​a​t​ ​l​e​a​s​t​ ​3​ ​c​h​a​r​a​c​t​e​r​s
+		 */
+		confirmPasswordMinLength: string
+		/**
+		 * C​a​n​n​o​t​ ​e​x​c​e​e​d​ ​3​0​ ​c​h​a​r​a​c​t​e​r​s
+		 */
+		confirmPasswordMaxLength: string
+		/**
+		 * R​e​q​u​i​r​e​d
+		 */
+		emailRequired: string
+		/**
+		 * C​a​n​n​o​t​ ​e​x​c​e​e​d​ ​6​4​ ​c​h​a​r​a​c​t​e​r​s
+		 */
+		emailMaxLength: string
+		/**
+		 * N​o​t​ ​v​a​l​i​d
+		 */
+		invalidEmail: string
+		/**
+		 * R​e​q​u​i​r​e​d
+		 */
+		birthdateRequired: string
+		/**
+		 * M​u​s​t​ ​m​a​t​c​h
+		 */
+		passwordsMustMatch: string
+		/**
+		 * R​e​q​u​i​r​e​d
+		 */
+		nameRequired: string
+		/**
+		 * C​a​n​n​o​t​ ​e​x​c​e​e​d​ ​1​0​ ​c​h​a​r​a​c​t​e​r​s
+		 */
+		nameMaxLength: string
+		/**
+		 * R​e​q​u​i​r​e​d
+		 */
+		descriptionRequired: string
+		/**
+		 * C​a​n​n​o​t​ ​e​x​c​e​e​d​ ​5​0​ ​c​h​a​r​a​c​t​e​r​s
+		 */
+		descriptionMaxLength: string
+		/**
+		 * M​u​s​t​ ​b​e​ ​b​e​t​w​e​e​n​ ​3​ ​a​n​d​ ​3​0​ ​c​h​a​r​a​c​t​e​r​s
+		 */
+		passwordLength: string
+		/**
+		 * D​o​ ​n​o​t​ ​m​a​t​c​h
+		 */
+		passwordNotMatch: string
+		/**
+		 * R​e​q​u​i​r​e​d
+		 */
+		titleRequired: string
+		/**
+		 * R​e​q​u​i​r​e​d
+		 */
+		startRequired: string
+		/**
+		 * R​e​q​u​i​r​e​d
+		 */
+		endRequired: string
+		/**
+		 * N​o​t​ ​v​a​l​i​d
+		 */
+		invalidStart: string
+		/**
+		 * N​o​t​ ​v​a​l​i​d
+		 */
+		invalidEnd: string
+		/**
+		 * M​u​s​t​ ​h​a​v​e​ ​a​t​ ​l​e​a​s​t​ ​3​ ​c​h​a​r​a​c​t​e​r​s
+		 */
+		newPasswordMinLength: string
+		/**
+		 * C​a​n​n​o​t​ ​e​x​c​e​e​d​ ​3​0​ ​c​h​a​r​a​c​t​e​r​s
+		 */
+		newPasswordMaxLength: string
+		/**
+		 * R​e​q​u​i​r​e​d
+		 */
+		randomCodeRequired: string
+		/**
+		 * M​u​s​t​ ​h​a​v​e​ ​a​t​ ​l​e​a​s​t​ ​3​ ​c​h​a​r​a​c​t​e​r​s
+		 */
+		confirmNewPasswordMinLength: string
+		/**
+		 * C​a​n​n​o​t​ ​e​x​c​e​e​d​ ​3​0​ ​c​h​a​r​a​c​t​e​r​s
+		 */
+		confirmNewPasswordMaxLength: string
+		/**
+		 * E​r​r​o​r
+		 */
+		notKnow: string
+	}
 }
 
 export type TranslationFunctions = {
@@ -908,6 +1034,132 @@ export type TranslationFunctions = {
 		 * Modify
 		 */
 		modify: () => LocalizedString
+	}
+	errorInput: {
+		/**
+		 * Required
+		 */
+		firstnameRequired: () => LocalizedString
+		/**
+		 * Cannot exceed 20 characters
+		 */
+		firstnameMaxLength: () => LocalizedString
+		/**
+		 * Required
+		 */
+		lastnameRequired: () => LocalizedString
+		/**
+		 * Cannot exceed 20 characters
+		 */
+		lastnameMaxLength: () => LocalizedString
+		/**
+		 * Must have at least 3 characters
+		 */
+		passwordMinLength: () => LocalizedString
+		/**
+		 * Cannot exceed 30 characters
+		 */
+		passwordMaxLength: () => LocalizedString
+		/**
+		 * Required
+		 */
+		genderRequired: () => LocalizedString
+		/**
+		 * Must have at least 3 characters
+		 */
+		confirmPasswordMinLength: () => LocalizedString
+		/**
+		 * Cannot exceed 30 characters
+		 */
+		confirmPasswordMaxLength: () => LocalizedString
+		/**
+		 * Required
+		 */
+		emailRequired: () => LocalizedString
+		/**
+		 * Cannot exceed 64 characters
+		 */
+		emailMaxLength: () => LocalizedString
+		/**
+		 * Not valid
+		 */
+		invalidEmail: () => LocalizedString
+		/**
+		 * Required
+		 */
+		birthdateRequired: () => LocalizedString
+		/**
+		 * Must match
+		 */
+		passwordsMustMatch: () => LocalizedString
+		/**
+		 * Required
+		 */
+		nameRequired: () => LocalizedString
+		/**
+		 * Cannot exceed 10 characters
+		 */
+		nameMaxLength: () => LocalizedString
+		/**
+		 * Required
+		 */
+		descriptionRequired: () => LocalizedString
+		/**
+		 * Cannot exceed 50 characters
+		 */
+		descriptionMaxLength: () => LocalizedString
+		/**
+		 * Must be between 3 and 30 characters
+		 */
+		passwordLength: () => LocalizedString
+		/**
+		 * Do not match
+		 */
+		passwordNotMatch: () => LocalizedString
+		/**
+		 * Required
+		 */
+		titleRequired: () => LocalizedString
+		/**
+		 * Required
+		 */
+		startRequired: () => LocalizedString
+		/**
+		 * Required
+		 */
+		endRequired: () => LocalizedString
+		/**
+		 * Not valid
+		 */
+		invalidStart: () => LocalizedString
+		/**
+		 * Not valid
+		 */
+		invalidEnd: () => LocalizedString
+		/**
+		 * Must have at least 3 characters
+		 */
+		newPasswordMinLength: () => LocalizedString
+		/**
+		 * Cannot exceed 30 characters
+		 */
+		newPasswordMaxLength: () => LocalizedString
+		/**
+		 * Required
+		 */
+		randomCodeRequired: () => LocalizedString
+		/**
+		 * Must have at least 3 characters
+		 */
+		confirmNewPasswordMinLength: () => LocalizedString
+		/**
+		 * Cannot exceed 30 characters
+		 */
+		confirmNewPasswordMaxLength: () => LocalizedString
+		/**
+		 * Error
+		 */
+		notKnow: () => LocalizedString
 	}
 }
 
