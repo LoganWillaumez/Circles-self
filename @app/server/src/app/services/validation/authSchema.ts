@@ -81,7 +81,55 @@ const authSchema = {
           'string.pattern.base': 'ing.base64'
         })
     });
-  }
+  },
+  forgotPassword() {
+    return Joi.object({
+      email: Joi.string()
+        .email({tlds: {allow: false}})
+        .required()
+        .messages({
+          'string.string': 'email.string',
+          'string.email': 'email.email',
+          'any.required': 'email.required'
+        })
+    });
+  },
+  forgotValid() {
+    return Joi.object({
+      randomCode: Joi.string()
+        .required()
+        .messages({
+          'string.string': 'randomCode.string',
+          'any.required': 'randomCode.required'
+        }),
+    });
+},
+passwordReset() {
+  return Joi.object({
+    newPassword: Joi.string()
+      .pattern(/^[a-zA-Z0-9]{3,30}$/)
+      .required()
+      .messages({
+        'string.string': 'password.string',
+        'string.pattern.base': 'password.pattern',
+        'any.required': 'newPasswordRequired'
+      }),
+      confirmNewPassword: Joi.string()
+      .required()
+      .valid(Joi.ref('newPassword'))
+      .messages({
+        'string.string': 'confirmPassword.string',
+        'string.pattern.base': 'confirmPassword.pattern',
+        'any.required': 'confirmPasswordRequired'
+      }),
+      randomCode: Joi.string()
+      .required()
+      .messages({
+        'string.string': 'randomCode.string',
+        'any.required': 'randomCode.required'
+      }),
+  });
+}
 };
 
 export default authSchema;

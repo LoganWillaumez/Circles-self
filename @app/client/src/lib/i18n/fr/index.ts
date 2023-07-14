@@ -11,6 +11,10 @@ const fr: Translation = {
     refuse: 'Refuser',
     captureImage: 'Capturer',
     home: 'Accueil',
+    send: 'Envoyer',
+    tryAgain: 'Réessayer',
+    resetPassword: 'Réinitialiser le mot de passe',
+    retry: 'Réessayer',
   },
   form: {
     firstName: 'Prénom',
@@ -45,6 +49,8 @@ const fr: Translation = {
     emailOutdated: "L'email est périmé",
     circleSelfInvite: "Vous ne pouvez pas vous inviter vous-même",
     circleAlreadyInCircle: "L'utilisateur est déjà dans le cercle",
+    resetCodeInvalid: "Le code de réinitialisation est invalide",
+    resetCodeExpired: "Le code de réinitialisation a expiré",
   },
   desc: {
     welcomeExplainTitle: 'Bienvenue sur Circles !',
@@ -94,6 +100,11 @@ const fr: Translation = {
     accountInviteSuccess: 'Vous avez bien rejoint le cercle, vous pouvez maintenant participer aux événements ou au chat de celui-ci.',circleAlreadyInvite: 'Cet utilisateur existe déjà au sein de ce cercle',
     resendEmail: 'Renvoyer un email',
     successUpdateCircle: 'Votre cercle a bien été mis à jour',
+    forgotPasswordTitle: 'Mot de passe oublié',
+    forgotPasswordDesc: 'Veuillez entrer votre adresse email afin de recevoir un lien pour réinitialiser votre mot de passe.',
+    successForgotPassword: 'Un email vous a été envoyé afin de réinitialiser votre mot de passe',
+    passwordResetFailed: 'La réinitialisation du mot de passe a échoué',
+    passwordResetSuccess: 'Votre mot de passe a bien été réinitialisé',
   },
   global: {
     language: 'Langue',

@@ -10,7 +10,7 @@
     "server:docker": "pnpm --filter @circles-self/server run docker",
     "server:dev": "pnpm --filter @circles-self/server run dev",
     "server:test": "pnpm --filter @circles-self/server run test",
-    "server:sqitch": "pnpm --filter @circles-self/server run sqitch"
+    "sqitch": "pnpm --filter @circles-self/server run sqitch"
   },
   "keywords": [
     "monorepo",

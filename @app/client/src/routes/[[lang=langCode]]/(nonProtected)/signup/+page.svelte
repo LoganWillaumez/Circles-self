@@ -134,7 +134,7 @@
         />
       </form>
       <div class="error" />
-      <p class="mb-10 text-xs font-bold underline">{$LL.form.forgotPassword()}</p>
+      <a href="/forgot" class="mb-2 text-xs font-bold underline cursor-pointer">{$LL.form.forgotPassword()}</a>
       <Button class="mb-5 mx-auto" text={$LL.button.signIn()} href="signin" />
     </div>
   </div>
