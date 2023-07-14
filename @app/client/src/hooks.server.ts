@@ -5,8 +5,8 @@ import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from '$env/static/private';
 import API from "$lib/utils/Api";
 
 // Routes that don't require authentication
-const notGuardedRoutes = ['/home', '/signin', '/signup', '/valid', '/signup/valid'];
-const dynamicNotGuardedRoutes = ['/signup/valid', '/signup/email', '/invite','/invite/circle'];
+const notGuardedRoutes = ['/home', '/signin', '/signup', '/valid', '/signup/valid', '/forgot'];
+const dynamicNotGuardedRoutes = ['/signup/valid', '/signup/email', '/invite','/invite/circle', '/forgot'];
 
 
 /**
