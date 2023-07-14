@@ -15,7 +15,7 @@ export const passwordSchema = z
     }
     return value.length >= 3 && value.length <= 30;
   }, {
-    message: 'Must be between 3 and 30 characters',
+    message: 'passwordLength',
   });
 
 export const customerSchema = {
@@ -23,23 +23,23 @@ export const customerSchema = {
     .object({
       firstname: z
         .string()
-        .min(1, { message: 'Required' })
-        .max(20, { message: 'Must be less than 20 characters' })
+        .min(1, { message: 'firstnameRequired' })
+        .max(20, { message: 'firstnameMaxLength' })
         .trim(),
       lastname: z
         .string()
-        .min(1, { message: 'Required' })
-        .max(20, { message: 'Must be less than 20 characters' })
+        .min(1, { message: 'lastnameRequired' })
+        .max(20, { message: 'lastnameMaxLength' })
         .trim(),
       email: z
         .string()
-        .min(1, { message: 'Required' })
-        .max(64, { message: 'Must be less than 64 characters' })
-        .email({ message: 'Must be a valid email address' }),
+        .min(1, { message: 'emailRequired' })
+        .max(64, { message: 'emailMaxLength' })
+        .email({ message: 'invalidEmail' }),
       currentpassword: passwordSchema,
       confirmpassword: passwordSchema,
       newpassword: passwordSchema,
-      birthdate: z.string().min(1, { message: 'Required' }),
+      birthdate: z.string().min(1, { message: 'birthdateRequired' }),
     })
     .refine(data => {
       const issues = [];
@@ -54,7 +54,7 @@ export const customerSchema = {
       } else {
         filledPasswordFields.forEach(field => {
           if (data[field].length < 3 || data[field].length > 30) {
-            issues.push({ path: [field], message: 'Must be between 3 and 30 characters' });
+            issues.push({ path: [field], message: 'passwordLength' });
           }
         });
 
