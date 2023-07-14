@@ -18,6 +18,9 @@ authRoutes
     validationMiddleware(authSchema.signup()),
     authController.signUp
   )
+  .post('/forgotpassword',validationMiddleware(authSchema.forgotPassword()), authController.forgotPassword)
+  .post('/forgot/:identifier',validationMiddleware(authSchema.forgotValid()), authController.validForgotPassword)
+  .post('/password-reset',validationMiddleware(authSchema.passwordReset()), authController.passwordReset)
   .post('/activate', authController.validUser)
   .post('/sendmail', authController.sendMail)
   .post('/logout', jwbtoken.getAuthorization, authController.logout);

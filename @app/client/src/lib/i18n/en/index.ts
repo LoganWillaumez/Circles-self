@@ -11,6 +11,10 @@ const en: BaseTranslation = {
     refuse: 'Refuse',
     captureImage: 'Capture',
     home: 'Home',
+    send: 'Send',
+    tryAgain: 'Try again',
+    resetPassword: 'Reset password',
+    retry: 'Retry',
   },
   form: {
     firstName: 'Firstname',
@@ -45,6 +49,8 @@ const en: BaseTranslation = {
     emailOutdated: 'The email is outdated',
     circleSelfInvite: 'You cannot invite yourself',
     circleAlreadyInCircle: 'The user is already in the circle',
+    resetCodeInvalid: 'The reset code is invalid',
+    resetCodeExpired: 'The reset code has expired',
   },
   desc: {
     welcomeExplainTitle: 'Welcome to Circles !',
@@ -94,6 +100,11 @@ const en: BaseTranslation = {
     circleAlreadyInvite: 'This user already exists within this circle',
     resendEmail: 'Resend an email',
     successUpdateCircle: 'Your circle has been successfully updated.',
+    forgotPasswordTitle: 'Forgot password',
+    forgotPasswordDesc: 'Enter your email address to receive a link to reset your password.',
+    successForgotPassword: 'An email has been sent to you to reset your password.',
+    passwordResetFailed: 'An error has occurred while resetting your password.',
+    passwordResetSuccess: 'Your password has been successfully reset.',
   },
   global: {
     switchLanguage: 'fr',

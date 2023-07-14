@@ -51,6 +51,22 @@ type RootTranslation = {
 		 * H​o​m​e
 		 */
 		home: string
+		/**
+		 * S​e​n​d
+		 */
+		send: string
+		/**
+		 * T​r​y​ ​a​g​a​i​n
+		 */
+		tryAgain: string
+		/**
+		 * R​e​s​e​t​ ​p​a​s​s​w​o​r​d
+		 */
+		resetPassword: string
+		/**
+		 * R​e​t​r​y
+		 */
+		retry: string
 	}
 	form: {
 		/**
@@ -175,6 +191,14 @@ type RootTranslation = {
 		 * T​h​e​ ​u​s​e​r​ ​i​s​ ​a​l​r​e​a​d​y​ ​i​n​ ​t​h​e​ ​c​i​r​c​l​e
 		 */
 		circleAlreadyInCircle: string
+		/**
+		 * T​h​e​ ​r​e​s​e​t​ ​c​o​d​e​ ​i​s​ ​i​n​v​a​l​i​d
+		 */
+		resetCodeInvalid: string
+		/**
+		 * T​h​e​ ​r​e​s​e​t​ ​c​o​d​e​ ​h​a​s​ ​e​x​p​i​r​e​d
+		 */
+		resetCodeExpired: string
 	}
 	desc: {
 		/**
@@ -357,6 +381,26 @@ type RootTranslation = {
 		 * Y​o​u​r​ ​c​i​r​c​l​e​ ​h​a​s​ ​b​e​e​n​ ​s​u​c​c​e​s​s​f​u​l​l​y​ ​u​p​d​a​t​e​d​.
 		 */
 		successUpdateCircle: string
+		/**
+		 * F​o​r​g​o​t​ ​p​a​s​s​w​o​r​d
+		 */
+		forgotPasswordTitle: string
+		/**
+		 * E​n​t​e​r​ ​y​o​u​r​ ​e​m​a​i​l​ ​a​d​d​r​e​s​s​ ​t​o​ ​r​e​c​e​i​v​e​ ​a​ ​l​i​n​k​ ​t​o​ ​r​e​s​e​t​ ​y​o​u​r​ ​p​a​s​s​w​o​r​d​.
+		 */
+		forgotPasswordDesc: string
+		/**
+		 * A​n​ ​e​m​a​i​l​ ​h​a​s​ ​b​e​e​n​ ​s​e​n​t​ ​t​o​ ​y​o​u​ ​t​o​ ​r​e​s​e​t​ ​y​o​u​r​ ​p​a​s​s​w​o​r​d​.
+		 */
+		successForgotPassword: string
+		/**
+		 * A​n​ ​e​r​r​o​r​ ​h​a​s​ ​o​c​c​u​r​r​e​d​ ​w​h​i​l​e​ ​r​e​s​e​t​t​i​n​g​ ​y​o​u​r​ ​p​a​s​s​w​o​r​d​.
+		 */
+		passwordResetFailed: string
+		/**
+		 * Y​o​u​r​ ​p​a​s​s​w​o​r​d​ ​h​a​s​ ​b​e​e​n​ ​s​u​c​c​e​s​s​f​u​l​l​y​ ​r​e​s​e​t​.
+		 */
+		passwordResetSuccess: string
 	}
 	global: {
 		/**
@@ -456,6 +500,22 @@ export type TranslationFunctions = {
 		 * Home
 		 */
 		home: () => LocalizedString
+		/**
+		 * Send
+		 */
+		send: () => LocalizedString
+		/**
+		 * Try again
+		 */
+		tryAgain: () => LocalizedString
+		/**
+		 * Reset password
+		 */
+		resetPassword: () => LocalizedString
+		/**
+		 * Retry
+		 */
+		retry: () => LocalizedString
 	}
 	form: {
 		/**
@@ -580,6 +640,14 @@ export type TranslationFunctions = {
 		 * The user is already in the circle
 		 */
 		circleAlreadyInCircle: () => LocalizedString
+		/**
+		 * The reset code is invalid
+		 */
+		resetCodeInvalid: () => LocalizedString
+		/**
+		 * The reset code has expired
+		 */
+		resetCodeExpired: () => LocalizedString
 	}
 	desc: {
 		/**
@@ -762,6 +830,26 @@ export type TranslationFunctions = {
 		 * Your circle has been successfully updated.
 		 */
 		successUpdateCircle: () => LocalizedString
+		/**
+		 * Forgot password
+		 */
+		forgotPasswordTitle: () => LocalizedString
+		/**
+		 * Enter your email address to receive a link to reset your password.
+		 */
+		forgotPasswordDesc: () => LocalizedString
+		/**
+		 * An email has been sent to you to reset your password.
+		 */
+		successForgotPassword: () => LocalizedString
+		/**
+		 * An error has occurred while resetting your password.
+		 */
+		passwordResetFailed: () => LocalizedString
+		/**
+		 * Your password has been successfully reset.
+		 */
+		passwordResetSuccess: () => LocalizedString
 	}
 	global: {
 		/**

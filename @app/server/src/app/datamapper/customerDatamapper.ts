@@ -3,6 +3,7 @@ import dbConnection from '../config/db.config';
 import {Pool} from 'pg';
 import {testDbConnection} from '../tests/utils/testDatabase';
 import { CustomerDatas, CustomerInputDatas } from '@circles-self/circles/interfaces';
+import { randomBytes } from 'crypto';
 
 const customerDataMapper = (client: Pool) => {
   return {
@@ -26,7 +27,7 @@ const customerDataMapper = (client: Pool) => {
 
     async getCustomerByEmail(email: string): Promise<CustomerDatas | false> {
       const query = {
-        text: `SELECT id as customer_id, firstname, lastname, password, gender, email, TO_CHAR(birthdate, 'YYYY-MM-DD') as birthdate, activated_at, initiallogin, initialcircle, img, created_at, identifier, updated_at
+        text: `SELECT id as customer_id, firstname, lastname, password, gender, email, TO_CHAR(birthdate, 'YYYY-MM-DD') as birthdate, activated_at, initiallogin, initialcircle,random, reset_validity img, created_at, identifier, updated_at
          FROM "customer"
          WHERE "customer".email = $1`,
         values: [email]
@@ -35,6 +36,17 @@ const customerDataMapper = (client: Pool) => {
       return customer?.rows[0] ?? false;
     },
 
+    async getCustomerByIdentifier(identifier: string): Promise<CustomerDatas | false> {
+      const query = {
+        text: `SELECT id as customer_id, firstname, lastname, password, gender, email, TO_CHAR(birthdate, 'YYYY-MM-DD') as birthdate, activated_at, initiallogin, initialcircle,random, reset_validity, img, created_at, identifier, updated_at
+         FROM "customer"
+         WHERE "customer".identifier = $1`,
+        values: [identifier]
+      };
+      const customer = await client.query(query);
+      return customer?.rows[0] ?? false;
+    },
+    
     async createUser(
       userData: CustomerInputDatas
     ): Promise<CustomerDatas | false> {
@@ -167,6 +179,52 @@ const customerDataMapper = (client: Pool) => {
       );
       return updatedCustomer.rows[0].email_valid;
     },
+
+    
+    async forgotPassword(email: string): Promise<{id: string, random: string, reset_validity: Date} | false> {
+      const randomCode = randomBytes(4).toString('hex');
+    
+      const resetValidity = new Date();
+      resetValidity.setMinutes(resetValidity.getMinutes() + 30);
+    
+      const query = {
+          text: 'UPDATE customer SET random = $2, reset_validity = $3 WHERE email = $1 RETURNING id, random, reset_validity',
+          values: [email, randomCode, resetValidity]
+      };
+      
+      const result = await client.query(query);
+      if (result.rows[0]) {
+          return {
+            id: result.rows[0].id,
+            random: result.rows[0].random,
+            reset_validity: result.rows[0].reset_validity,
+          };
+      }
+      return false;
+    },
+    async getCustomerByRandomCode(randomCode: string): Promise<CustomerDatas | false> {
+      const query = {
+        text: `SELECT id as customer_id, firstname, lastname, password, gender, email, TO_CHAR(birthdate, 'YYYY-MM-DD') as birthdate, activated_at, initiallogin, initialcircle,random, reset_validity, img, created_at, identifier, updated_at
+         FROM "customer"
+         WHERE "customer".random = $1`,
+        values: [randomCode]
+      };
+      const customer = await client.query(query);
+      return customer?.rows[0] ?? false;
+    },
+
+    async updatePassword(hashedPassword: string, customerId: number): Promise<boolean> {
+      const query = {
+        text: 'UPDATE "customer" SET "password" = $1 WHERE id = $2',
+        values: [hashedPassword, customerId]
+      };
+    
+      const result = await client.query(query);
+    
+      return result.rowCount > 0;
+    }
+    
+    
   };
 };
 
