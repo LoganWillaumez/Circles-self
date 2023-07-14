@@ -10,7 +10,7 @@ const authSchema = {
         .email({tlds: {allow: false}})
         .required()
         .messages({
-          'string.string': 'email.string',
+          'string.string': 'emailtring',
           'string.email': 'email.email',
           'any.required': 'emailRequired'
         }),

@@ -2,6 +2,7 @@
   import { createEventDispatcher } from 'svelte';
   import type {Options} from '../../models/input';
   import Fa from 'svelte-fa';
+  import {LL} from '$lib/i18n/i18n-svelte';
   import {faPaperPlane} from '@fortawesome/free-solid-svg-icons';
   export let placeholder: string;
   export let name: string;
@@ -30,6 +31,24 @@
 const handleSendInput = () => {
     dispatch('sendInput', value);
   };
+
+  let translatedErrors: string[] = [];
+  $: {
+   $LL.global.switchLanguage();
+  if (errors && typeof errors === 'object' && errors.length > 0) {
+    translatedErrors = errors.map(error => getMessageError(error));
+  } else {
+    translatedErrors = [];
+  }
+}
+  
+  const getMessageError = (string: string): any => {
+  if (typeof string === 'string' && string in $LL.errorInput) {
+    return $LL.errorInput[string as keyof TranslationFunctions['errorInput']]() || $LL.errorInput.notKnow();
+  }
+  return $LL.errorInput.notKnow();
+}
+
 </script>
 
 <div class="relative">
@@ -129,7 +148,7 @@ style="width: {width};"
 {/if}
 {#if errors}
 <div class=" flex flex-col gap-0">
-{#each errors as error}
+{#each translatedErrors as error}
   <span class="text-red-400 block">{error}</span>
 {/each}
 </div>
