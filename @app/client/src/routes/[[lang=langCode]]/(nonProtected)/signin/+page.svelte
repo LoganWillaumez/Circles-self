@@ -114,7 +114,7 @@
           text={$LL.button.signIn()}
         />
       </form>
-      <p class="mb-2 text-xs font-bold underline">{$LL.form.forgotPassword()}</p>
+      <a href="/forgot" class="mb-2 text-xs font-bold underline cursor-pointer">{$LL.form.forgotPassword()}</a>
     </div>
   </div>
   <Button class="mb-5 mx-auto" text={$LL.button.signUp()} href="signup" />

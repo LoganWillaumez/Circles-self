@@ -5,6 +5,8 @@ export interface CustomerAdditionnalDatas {
   created_at: Date;
   updated_at: Date;
   initiallogin: boolean;
+  random: string;
+  reset_validity: Date;
   initialcircle: boolean;
   identifier: string;
   circles: CirclesDatas[];
