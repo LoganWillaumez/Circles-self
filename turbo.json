@@ -9,8 +9,8 @@
             "cache": false
           },
           "build": {
-            "cache": false,
-            "outputs": [".svelte-kit/**", ".vercel/**"],
+            "dependsOn": ["^build"],
+            "outputs": [".svelte-kit/**", ".vercel/**"]
           }
     }
   }
