@@ -35,7 +35,9 @@ const en: BaseTranslation = {
     startEvent: 'Start of the event',
     endEvent: 'End of the event',
     invite: 'Invite a new user to join the circle',
-    inviteBase: 'Invite'
+    inviteBase: 'Invite',
+    male: 'Man',
+    female: 'Woman',    
   },
   serverError: {
     userAlreadyExist: 'The user already exist',

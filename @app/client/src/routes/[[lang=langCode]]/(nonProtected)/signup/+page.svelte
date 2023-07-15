@@ -91,6 +91,7 @@
         </div>
         <div>
           <Input
+            selectDefault={$LL.form.male()}
             errors={form?.errors?.gender ?? ''}
             name="gender"
             placeholder={$LL.form.gender()}
