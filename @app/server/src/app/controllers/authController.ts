@@ -140,7 +140,7 @@ const authController: any = {
         .status(204)
         .json({message: `customer.validated.success`});
     } else {
-      throw new AppError(ErrorCode.AUTHENTICATION, 'email.outdated', 410);
+      throw new AppError(ErrorCode.AUTHENTICATION, 'emailOutdated', 410);
     }
   },
   logout(req: Request, res: Response) {

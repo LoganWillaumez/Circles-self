@@ -35,7 +35,9 @@ const fr: Translation = {
     startEvent: 'Début de l\'événement',
     endEvent: 'Fin de l\'événement',
     invite: 'Inviter un nouvel utilisateur à rejoindre le cercle',
-    inviteBase: 'Inviter'
+    inviteBase: 'Inviter',
+    male: 'Homme',
+    female: 'Femme',
   },
   serverError: {
     userAlreadyExist: "L'utilisateur existe déjà",

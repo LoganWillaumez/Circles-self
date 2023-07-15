@@ -7,9 +7,9 @@
   import type {TranslationFunctions} from '$lib/i18n/i18n-types';
   export let data: PageData;
   const messageError =
-    $LL.serverError[
-      data.message as keyof TranslationFunctions['serverError']
-    ]() || $LL.serverError.notKnow();
+  $LL.serverError[
+    data.message as keyof TranslationFunctions['serverError']
+  ]() || $LL.serverError.notKnow();
 </script>
 
 <div class="container">

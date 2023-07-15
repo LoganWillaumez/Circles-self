@@ -145,6 +145,14 @@ type RootTranslation = {
 		 * I​n​v​i​t​e
 		 */
 		inviteBase: string
+		/**
+		 * M​a​n
+		 */
+		male: string
+		/**
+		 * W​o​m​a​n
+		 */
+		female: string
 	}
 	serverError: {
 		/**
@@ -720,6 +728,14 @@ export type TranslationFunctions = {
 		 * Invite
 		 */
 		inviteBase: () => LocalizedString
+		/**
+		 * Man
+		 */
+		male: () => LocalizedString
+		/**
+		 * Woman
+		 */
+		female: () => LocalizedString
 	}
 	serverError: {
 		/**
