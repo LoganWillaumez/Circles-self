@@ -6,6 +6,7 @@
     "clean": "rimraf pnpm-lock.yaml */pnpm-lock.yaml node_modules/ */node_modules/ @app/*/node_modules/ @app/*/pnpm-lock.yaml",
     "clean-install": "pnpm run clean && pnpm i",
     "dev": "pnpm --parallel run dev",
+    "build": "pnpm --parallel run build",
     "test": "pnpm -r run test",
     "server:docker": "pnpm --filter @circles-self/server run docker",
     "server:dev": "pnpm --filter @circles-self/server run dev",
