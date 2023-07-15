@@ -7,10 +7,6 @@
           },
           "sqitch": {
             "cache": false
-          },
-          "build": {
-            "dependsOn": ["^build"],
-            "outputs": [".svelte-kit/**", ".vercel/**"]
           }
     }
   }
