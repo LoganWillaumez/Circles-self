@@ -28,6 +28,7 @@
     "date-fns": "^2.29.3",
     "find-up": "^6.3.0",
     "jsonwebtoken": "^8.5.1",
+    "node-sass": "^9.0.0",
     "server": "^1.0.38"
   },
   "devDependencies": {
