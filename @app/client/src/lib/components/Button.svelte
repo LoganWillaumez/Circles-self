@@ -72,48 +72,8 @@
           </div>
   {/if}
 
-<style lang="scss">
+<style>
   .btn {
-    display: block;
-    border-radius: 50px;
-    padding: 13px 30px;
-    text-align: center;
-    max-height: 50px;
-    width: 100%;
-    max-width: 300px;
-    color: white;
-    font-weight: 700;
-    transition: background 200ms ease-in;
-    position: relative;
-    cursor: pointer;
-    &.fill {
-      background: var(--gradient);
-      &:hover {
-        background: var(--gradient-hover);
-      }
-    }
-    &.error {
-    background: var(--gradient-error);
-      }
-    &.valid {
-    background: var(--gradient-validate);
-    }
-    &.outline {
-      background: transparent;
-      outline-style: none;
-      border: 1px solid #4b5ee4;
-      color: var(--text);
-    }
-    &.secondary {
-      background: var(--fill);
-      color: var(--text);
-      &:hover {
-        background: var(--fill-hover);
-      }
-    }
-    &.small {
-      padding: 5px 20px;
-      font-size: 12px;
-    }
+    background-color: red;
   }
 </style>
