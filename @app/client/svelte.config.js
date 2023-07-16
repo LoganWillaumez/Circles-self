@@ -1,5 +1,4 @@
 import adapter from '@sveltejs/adapter-auto';
-import {vitePreprocess} from '@sveltejs/kit/vite';
 import { Server } from 'socket.io'
 import sveltePreprocess from 'svelte-preprocess';
 
@@ -24,7 +23,7 @@ const config = {
   // for more information about preprocessors
   preprocess: sveltePreprocess(),
   kit: {
-    adapter: adapter(),
+    adapter: adapter()
   },
   vitePlugins: [webSocketServer],
   // vitePlugins: [webSocketServer],

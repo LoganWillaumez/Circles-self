@@ -64,6 +64,7 @@
 </main>
 
 <style global lang="scss">
+   @import '../lib/styles/app.scss';
   .main-container {
     width: 100%;
     height: 100%;
