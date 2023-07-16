@@ -12,7 +12,7 @@
             "dependsOn": [
               "^build"
             ],
-            "outputs": [".svelte-kit/**"]
+            "outputs": [".svelte-kit/**", ".vercel/**"]
           }
     }
   }
