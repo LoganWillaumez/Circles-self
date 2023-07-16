@@ -1,6 +1,6 @@
 import adapter from '@sveltejs/adapter-auto';
 import { Server } from 'socket.io'
-import sveltePreprocess from 'svelte-preprocess';
+import preprocess from 'svelte-preprocess';
 
 
 const webSocketServer = {
@@ -21,7 +21,7 @@ const webSocketServer = {
 const config = {
   // Consult https://kit.svelte.dev/docs/integrations#preprocessors
   // for more information about preprocessors
-  preprocess: sveltePreprocess(),
+  preprocess: preprocess(),
   kit: {
     adapter: adapter()
   },
