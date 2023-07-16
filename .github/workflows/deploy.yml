@@ -55,7 +55,7 @@ jobs:
             set -e
             echo "${{ secrets.DEPLOY_KEY }}" > ./id_rsa_deploy
             chmod 600 ./id_rsa_deploy
-            ssh -o StrictHostKeyChecking=no -i ./id_rsa_deploy loganw@192.168.1.72 << EOF
+            ssh -i ./id_rsa_deploy loganw@192.168.1.72 << EOF
               cd ~/home/loganw/Document/Projects
               echo "SERVER_PORT=${{ secrets.SERVER_PORT }}" > .env
               echo "JWTSECRET=${{ secrets.JWTSECRET }}" >> .env
