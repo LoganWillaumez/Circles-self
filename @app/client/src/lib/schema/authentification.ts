@@ -1,11 +1,5 @@
 import { z } from 'zod';
 
-class CustomZodError extends z.ZodError {
-  constructor(issues) {
-    super(issues);
-  }
-}
-
 export const authenthificationSchema = {
   registerSchema: z
     .object({

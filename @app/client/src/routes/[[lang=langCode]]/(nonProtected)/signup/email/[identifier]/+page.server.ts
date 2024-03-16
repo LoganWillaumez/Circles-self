@@ -1,15 +1,16 @@
-import {redirect} from '@sveltejs/kit';
+import {redirect, type RequestEvent} from '@sveltejs/kit';
 import { authentification } from '../../../../../../api/auth/auth';
+import type { PageServerLoad } from './$types';
 
 
-export const load = async ({params}) => {
+export const load: PageServerLoad = async ({params}: any) => {
     const {identifier} = params;
-    const data = await authentification.activate(identifier);
+    const data = await authentification.activate(params);
   
   
-    if (data.status === 204) {
+    if (data && data.status === 204) {
       throw redirect(303, '/signup/valid');
     }
-    const message = data.data.message;
+    const message = data ? data.data.message : '';
     return {message};
 };

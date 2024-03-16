@@ -1,7 +1,8 @@
+import type { CustomerInputDatas } from '@circles-self/circles/interfaces';
 import { z } from 'zod';
 
 class CustomZodError extends z.ZodError {
-  constructor(issues) {
+  constructor(issues: z.ZodIssue[]) {
     super(issues);
   }
 }
@@ -36,31 +37,32 @@ export const customerSchema = {
         .min(1, { message: 'emailRequired' })
         .max(64, { message: 'emailMaxLength' })
         .email({ message: 'invalidEmail' }),
-      currentpassword: passwordSchema,
-      confirmpassword: passwordSchema,
-      newpassword: passwordSchema,
+      currentPassword: passwordSchema,
+      confirmPassword: passwordSchema,
+      newPassword: passwordSchema,
       birthdate: z.string().min(1, { message: 'birthdateRequired' }),
     })
-    .refine(data => {
-      const issues = [];
+    .refine((data: CustomerInputDatas) => {
+      const issues: z.ZodIssue[]  = [];
 
-      const passwordFields = ['currentpassword', 'newpassword', 'confirmpassword'];
-      const filledPasswordFields = passwordFields.filter(field => data[field]);
+      const passwordFields = ['currentPassword', 'newPassword', 'confirmPassword'];
+      const filledPasswordFields = passwordFields.filter(field => data[field as keyof CustomerInputDatas]);
 
       if (filledPasswordFields.length === 0 || filledPasswordFields.length === 3) {
-        if (data.confirmpassword !== data.newpassword) {
-          issues.push({ path: ['confirmpassword'], message: 'passwordNotMatch' });
+        if (data.confirmPassword !== data.newPassword) {
+          issues.push({ code: 'custom', path: ['confirmPassword'], message: 'passwordNotMatch' });
         }
       } else {
         filledPasswordFields.forEach(field => {
-          if (data[field].length < 3 || data[field].length > 30) {
-            issues.push({ path: [field], message: 'passwordLength' });
+          const fieldValue = data[field as keyof CustomerInputDatas];
+          if (fieldValue && (fieldValue.length < 3 || fieldValue.length > 30)) {
+            issues.push({ code: 'custom', path: [field], message: 'passwordLength' });
           }
         });
 
         passwordFields.forEach(field => {
-          if (!data[field]) {
-            issues.push({ path: [field], message: `${field}Required` });
+          if (!data[field as keyof CustomerInputDatas]) {
+            issues.push({ code: 'custom', path: [field], message: `${field}Required` });
           }
         });
       }

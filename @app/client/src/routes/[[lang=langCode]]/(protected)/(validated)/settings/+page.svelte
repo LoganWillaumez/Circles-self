@@ -6,12 +6,12 @@
   import { applyAction, enhance } from '$app/forms';
   import { goto, invalidateAll } from '$app/navigation';
   import Button from '$lib/components/Button.svelte';
-    import Divider from '$lib/components/Divider.svelte';
+  import Divider from '$lib/components/Divider.svelte';
   import Input from '$lib/components/Input.svelte';
-  import { resetLoader, setLoader } from '$lib/stores/loader';
+  import { setLoader } from '$lib/stores/loader';
   import type { ActionResult } from '@sveltejs/kit';
-import type {ActionData, SubmitFunction} from './$types';
-import {LL} from '$lib/i18n/i18n-svelte';
+  import type { ActionData, SubmitFunction } from './$types';
+  import { LL } from '$lib/i18n/i18n-svelte';
   import type { Options } from '../../../../../models/input';
   import { setTheme, theme } from '$lib/stores/theme';
 
@@ -57,9 +57,9 @@ const updateProfile: SubmitFunction = async ({form}) =>{
       } else if (status === 422) {
         setLoader(true, {message: $LL.desc.passwordSameError(), type: 'error'});
       }
-      } else if (result.data.message === 'noChange'){
+      } else if (result?.data?.message === 'noChange'){
         setLoader(true, {message: $LL.desc.noChange(), type: 'error'});
-    } else if (result.data.message === 'user.invalidCurrent') {
+    } else if (result?.data?.message === 'user.invalidCurrent') {
       setLoader(true, {message: $LL.desc.invalidCurrentPassword(), type: 'error'});
     }
   }

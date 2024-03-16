@@ -3,7 +3,7 @@ import API from '$lib/utils/Api';
 import { isAxiosError } from 'axios';
 
 export const actions = {
-  default: async ({ request, cookies }) => {
+  default: async ({ request, cookies }: any) => {
     const formData = new FormData();
     formData.append('profileImage', request.body.get('profileImage'));
 

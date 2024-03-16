@@ -14,7 +14,7 @@ export const load = async ({params, cookies, url}) => {
   
   // Rechercher la paire qui commence par "invitee="
   const inviteePair = pairs.find(pair => pair.startsWith('invitee='));
-  const invitee = inviteePair.replace('invitee=', '');
+  const invitee = inviteePair ? inviteePair.replace('invitee=', '') : null;
   
     
     const {identifier} = params;

@@ -4,7 +4,7 @@ import { isAxiosError } from 'axios';
 import type { RequestHandler } from '@sveltejs/kit';
 
 
-export const PUT: RequestHandler = async ({params, cookies, request}) => {
+export const PUT: RequestHandler = async ({cookies, request}): Promise<any> => {
     try {
         const body = await request.json();
 
@@ -22,7 +22,7 @@ export const PUT: RequestHandler = async ({params, cookies, request}) => {
                 status: response.status,
                 body: json({
                     message: 'Failed to delete event',
-                    error: response.message
+                    error: response.data.message
                 }),
             }
         }
@@ -37,10 +37,10 @@ export const PUT: RequestHandler = async ({params, cookies, request}) => {
                     }),
                 }
             } else {
-                return error('Internal Server Error');
+                return error(500);
             }
         } else {
-            return error('Internal Server Error');
+            return error(500);
         }
     }
 };

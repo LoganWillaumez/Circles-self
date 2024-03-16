@@ -11,10 +11,10 @@
   export let type = 'text';
   export let width = '100%';
   export let className: string;
-  export let value: boolean;
+  export let value: any = '';
   export let selectDefault = '';
   export let options: Options[] = [];
-  export let errors: Translation[];
+  export let errors: Translation[] = [];
   export let send = false; 
   export {className as class};
 

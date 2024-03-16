@@ -1,7 +1,3 @@
-<style lang="scss">
-
-</style>
-
 <script lang="ts">
   import Fa from 'svelte-fa';
   import {faEllipsis, faUserPlus} from '@fortawesome/free-solid-svg-icons';

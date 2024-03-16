@@ -18,6 +18,9 @@ export interface CustomerInputDatas {
   firstname?: string;
   lastname?: string;
   email?: string;
+  currentPassword?: string;
+  newPassword?: string;
+  confirmPassword?: string;
   password?: string;
   birthdate?: string;
   img?: string;

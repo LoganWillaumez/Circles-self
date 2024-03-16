@@ -30,10 +30,10 @@ export const actions = {
         formData.newpassword !== '' && formData.confirmpassword !== '' && formData.currentpassword !== '';
     
       const otherFieldsChanged =
-      formData.firstname !== locals.user.firstname ||
-      formData.lastname !== locals.user.lastname ||
-      formData.email !== locals.user.email ||
-      formData.birthdate !== locals.user.birthdate;
+      formData.firstname !== locals?.user?.firstname ||
+      formData.lastname !== locals?.user?.lastname ||
+      formData.email !== locals?.user?.email ||
+      formData.birthdate !== locals?.user?.birthdate;
       
     if (!otherFieldsChanged && !passwordFieldsFilled) {
         return fail(400, {

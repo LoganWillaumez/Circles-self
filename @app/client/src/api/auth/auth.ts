@@ -1,4 +1,4 @@
-import {error, fail, type Actions} from '@sveltejs/kit';
+import {error, fail, type Actions, type RequestEvent} from '@sveltejs/kit';
 import {authenthificationSchema} from '$lib/schema/authentification';
 import API from '$lib/utils/Api';
 import {validateData} from '$lib/schema/validation';
@@ -72,7 +72,7 @@ export const authentification: Actions = {
     }
   },
   
-  activate: async (identifier: string) => {
+  activate: async (identifier: RequestEvent<Partial<Record<string, string>>, string | null>) => {
     try {
       const isActivate = await API.post('auth/activate', {identifier});
       return isActivate;
