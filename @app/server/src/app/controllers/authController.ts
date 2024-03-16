@@ -1,6 +1,5 @@
 import {Request, Response} from 'express';
 import bcrypt from 'bcrypt';
-import jsonwebtoken, {JwtPayload} from 'jsonwebtoken';
 import jwbtoken from '../middlewares/jwtMiddleware';
 import customerDataMapperInstance from '../datamapper/customerDatamapper';
 import {sendMail} from '../../services/email';
@@ -8,7 +7,7 @@ import {wrapMethodsInTryCatch} from '../../utils/tryCatch';
 import AppError from '../../utils/AppError';
 import {sanitizeInputs} from '../../utils/text';
 import { ErrorCode, TokenType } from '@circles-self/circles/enums';
-import { CustomerInputDatas } from '@circles-self/circles/interfaces';
+import { CustomerInputDatas, JwtPayload } from '@circles-self/circles/interfaces';
 import {verifyToken} from '@circles-self/circles/utils/jwt';
 import { randomBytes } from 'crypto';
 

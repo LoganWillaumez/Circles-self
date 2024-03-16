@@ -6,7 +6,6 @@ import AppError from '../../utils/AppError';
 import { ErrorCode } from '@circles-self/circles/enums';
 import {CirclesInputDatas} from '@circles-self/circles/interfaces';
 import { sendMail } from '../../services/email';
-import customerController from './customerController';
 import customerDataMapperInstance from '../datamapper/customerDatamapper';
 
 const circlesDatamapper = circlesDataMapperInstance.main;
