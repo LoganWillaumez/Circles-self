@@ -1,7 +1,7 @@
 <script lang="ts">
   import { toBase64 } from "$lib/utils/images";
   import { createEventDispatcher } from "svelte";
-
+  
   export let text = 'Button';
   export let visual: 'fill' | 'outline' = 'fill';
   export let type: 'submit' | 'button' | 'reset'  = 'button';
@@ -14,11 +14,9 @@
   export let className: string = '';
   export let isInputFile = false;
   export let onClick: () => void = () => {};
-
-  let inputElement: HTMLInputElement;
   export {className as class};
 
-
+  let inputElement: HTMLInputElement;
   const dispatch = createEventDispatcher()
   
   const handleFileInput = async (event: Event) => {
@@ -35,8 +33,7 @@
   <a
     class="btn {visual} {className} {small ? 'small' : ''} {error ? 'error' : ''} {valid ? 'valid': ''}"
     class:secondary={variant === 'secondary'}
-    href="/{href}">{text}</a
-  >
+    href="/{href}">{text}</a>
 {/if}
 {#if !isInputFile && !href}
   <button
@@ -51,7 +48,7 @@
 {/if}
 
 {#if isInputFile && !href}
-<div class="btn {visual} {className} {small ? 'small' : ''} {error ? 'error' : ''}"
+<button class="btn {visual} {className} {small ? 'small' : ''} {error ? 'error' : ''}"
      class:secondary={variant === 'secondary'}
      on:click|stopPropagation={() => isInputFile && inputElement.click()}
      on:keydown|stopPropagation={(event) => {
@@ -69,8 +66,8 @@
            type="file"
            accept=".jpeg,.jpg,.png"
            on:change={handleFileInput} />
-          </div>
-  {/if}
+</button>
+{/if}
 
 <style lang="scss">
   .btn {

@@ -4,16 +4,17 @@
   import Fa from 'svelte-fa';
   import {LL} from '$lib/i18n/i18n-svelte';
   import {faPaperPlane} from '@fortawesome/free-solid-svg-icons';
+  import type { Translation} from '$lib/i18n/i18n-types';
   export let placeholder: string;
   export let name: string;
   export let required = false;
   export let type = 'text';
   export let width = '100%';
   export let className: string;
-  export let value = '';
+  export let value: boolean;
   export let selectDefault = '';
   export let options: Options[] = [];
-  export let errors = '';
+  export let errors: Translation[];
   export let send = false; 
   export {className as class};
 
@@ -26,134 +27,93 @@
   const handleInput = (event: Event) => {
     let target = event.target as HTMLInputElement;
     dispatch('input', target.value);
-};
+  };
 
-const handleSendInput = () => {
+  const handleSendInput = () => {
     dispatch('sendInput', value);
   };
 
   let translatedErrors: string[] = [];
+
   $: {
-   $LL.global.switchLanguage();
-  if (errors && typeof errors === 'object' && errors.length > 0) {
-    translatedErrors = errors.map(error => getMessageError(error));
-  } else {
-    translatedErrors = [];
+    $LL.global.switchLanguage();
+    if (errors && typeof errors === 'object' && errors.length > 0) {
+      translatedErrors = errors.map(error => getMessageError(error));
+    } else {
+      translatedErrors = [];
+    }
+    console.log('🚀 ~ translatedErrors:', translatedErrors);
   }
-}
   
-  const getMessageError = (string: string): any => {
+  const getMessageError = (string: Translation) => {
   if (typeof string === 'string' && string in $LL.errorInput) {
-    return $LL.errorInput[string as keyof TranslationFunctions['errorInput']]() || $LL.errorInput.notKnow();
+    return $LL.errorInput[string as keyof Translation['errorInput']]() || $LL.errorInput.notKnow();
   }
   return $LL.errorInput.notKnow();
 }
+
+const handleCheckboxClick = (event: MouseEvent): void => {
+  const isChecked = (event.target as HTMLInputElement).checked;
+  dispatch('check', isChecked);
+};
+
+const handleSelectChange = (event: Event): void => {
+  const selectedValue = (event.target as HTMLSelectElement).value;
+  dispatch('selected', selectedValue);
+};
 
 </script>
 
 <div class="relative">
   {#if send}
-  <div class="send-icon-container">
-    <button class="send-icon" on:click={handleSendInput} >
-      <Fa class="text-[var(--fill-reverse)]" icon={faPaperPlane} size="lg" />
-    </button>
-  </div>
-{/if}
-{#if type === 'checkbox'}
-<div
-class="{className} flex gap-3 items-center pl-[10px]"
-class:error={errors}
->
-<input
-class="w-4 h-4"
-  bind:checked={value} 
-  id={'input-' + name}
-  {name}
-  use:typeAction
-  type="checkbox"
-  on:click={(e) => dispatch('check', {value: e.target.checked})}
-  {required}
-  on:input={handleInput}
-/>
-<p  class="text-lg">{placeholder}</p>
-</div>
+    <div class="send-icon-container">
+      <button class="send-icon" on:click={handleSendInput}>
+        <Fa class="text-[var(--fill-reverse)]" icon={faPaperPlane} size="lg" />
+      </button>
+    </div>
+  {/if}
+  {#if type === 'checkbox'}
+    <div class="{className} flex gap-3 items-center pl-[10px]" class:error={errors}>
+      <input class="w-4 h-4" bind:checked={value} id={'input-' + name} {name} use:typeAction type="checkbox" on:click={handleCheckboxClick} {required} on:input={handleInput} />
+      <p class="text-lg">{placeholder}</p>
+    </div>
   {:else if type === 'date'}
-  <div
-    class="input-container {className}"
-    class:error={errors}
-    style="width: {width};"
-  >
-    <input
-    bind:value={value}
-    id={'input-' + name}
-    {name}
-    use:typeAction
-    {required}
-    placeholder={placeholder}
-    on:input={handleInput}
-    />
-    <label for={'input-' + name}>{placeholder}</label>
-  </div>
-  
+    <div class="input-container {className}" class:error={errors} style="width: {width};">
+      <input bind:value={value} id={'input-' + name} {name} use:typeAction {required} placeholder={placeholder} on:input={handleInput} />
+      <label for={'input-' + name}>{placeholder}</label>
+    </div>
   {:else if type === 'textarea'}
-  <div
-    class="{className} input-container input-area rounded-[5px]"
-    class:error={errors}
-    style="width: {width};"
-  >
-    <textarea
-    class="!h-[150px]"
-      bind:value={value}
-      id={'input-' + name}
-      {name}
-      rows="10"
-      {required}
-      placeholder=" "
-    />
-    <label class="label-textarea" for={'input-' + name}>{placeholder}</label>
-  </div>
-{:else if type !== 'select'}
-<div
-class="input-container {className}"
-class:error={errors}
-style="width: {width};"
->
-<input
-  bind:value={value}
-  id={'input-' + name}
-  {name}
-  use:typeAction
-  {required}
-  placeholder=" "
-  on:input={handleInput}
-/>
-<label for={'input-' + name}>{placeholder}</label>
+    <div class="{className} input-container input-area rounded-[5px]" class:error={errors} style="width: {width};">
+      <textarea class="!h-[150px]" bind:value={value} id={'input-' + name} {name} rows="10" {required} placeholder=" "></textarea>
+      <label class="label-textarea" for={'input-' + name}>{placeholder}</label>
+    </div>
+  {:else if type !== 'select'}
+    <div class="input-container {className}" class:error={errors} style="width: {width};">
+      <input bind:value={value} id={'input-' + name} {name} use:typeAction {required} placeholder=" " on:input={handleInput} />
+      <label for={'input-' + name}>{placeholder}</label>
+    </div>
+  {:else}
+    <div class="input-container {className}" class:error={errors} style="width: {width};">
+      <select bind:value={value} {name} id={'input-' + name} on:change={handleSelectChange}>
+        <option value="" disabled selected hidden>{selectDefault}</option>
+        {#each options as option}
+          {#if typeof option === 'object' && 'value' in option && option.value}
+            <option value={option.value}>{option.label}</option>
+          {/if}
+        {/each}
+      </select>
+      <label for={'input-' + name}>{placeholder}</label>
+    </div>
+  {/if}
+  {#if errors}
+    <div class="flex flex-col gap-0">
+      {#each translatedErrors as error}
+        <span class="text-red-400 block">{error}</span>
+      {/each}
+    </div>
+  {/if}
 </div>
-{:else}
-<div
-class="input-container {className}"
-class:error={errors}
-style="width: {width};"
->
-<select  bind:value={value} {name} id={'input-' + name} on:change={(e) => dispatch('selected', {value: e.target.value})}>
-  <option value="" disabled selected hidden>{selectDefault}</option>
-  {#each options as option}
-    {#if typeof option === 'object' && 'value' in option && option.value}
-      <option value={option.value}>{option.label}</option>
-    {/if}
-  {/each}
-</select>
-<label for={'input-' + name}>{placeholder}</label>
-</div>
-{/if}
-{#if errors}
-<div class=" flex flex-col gap-0">
-{#each translatedErrors as error}
-  <span class="text-red-400 block">{error}</span>
-{/each}
-</div>
-{/if}
-</div>
+
 
 <style lang="scss">
   .input {

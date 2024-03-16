@@ -5,13 +5,10 @@
   "scripts": {
     "clean": "rimraf pnpm-lock.yaml */pnpm-lock.yaml node_modules/ */node_modules/ @app/*/node_modules/ @app/*/pnpm-lock.yaml",
     "clean-install": "pnpm run clean && pnpm i",
-    "dev": "pnpm --parallel run dev",
-    "build": "pnpm --parallel run build",
-    "test": "pnpm -r run test",
-    "server:docker": "pnpm --filter @circles-self/server run docker",
-    "server:dev": "pnpm --filter @circles-self/server run dev",
-    "server:test": "pnpm --filter @circles-self/server run test",
-    "sqitch": "pnpm --filter @circles-self/server run sqitch"
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "docker": "turbo run --filter=server docker",
+    "server:dev": "turbo run --filter=server dev"
   },
   "keywords": [
     "monorepo",
@@ -25,27 +22,27 @@
   "dependencies": {
     "@types/jsonwebtoken": "^8.5.9",
     "cookie": "^0.5.0",
-    "date-fns": "^2.29.3",
+    "date-fns": "^2.30.0",
     "find-up": "^6.3.0",
     "jsonwebtoken": "^8.5.1",
     "server": "^1.0.38"
   },
   "devDependencies": {
-    "@types/cookie": "^0.5.1",
-    "@typescript-eslint/eslint-plugin": "^5.57.1",
-    "@typescript-eslint/parser": "^5.0.0",
-    "eslint": "^8.37.0",
-    "eslint-config-airbnb-typescript": "^17.0.0",
-    "eslint-config-prettier": "^8.8.0",
+    "@types/cookie": "^0.5.4",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb-typescript": "^17.1.0",
+    "eslint-config-prettier": "^8.10.0",
     "eslint-config-standard-with-typescript": "^34.0.1",
-    "eslint-plugin-import": "^2.25.2",
-    "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-n": "^15.7.0",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^6.0.0",
-    "prettier": "^2.8.7",
-    "prettier-plugin-svelte": "^2.10.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "prettier": "^2.8.8",
+    "prettier-plugin-svelte": "^2.10.1",
     "rimraf": "^4.4.1",
-    "typescript": "^5.0.3"
+    "typescript": "^5.4.2"
   },
   "workspaces": [
     "@app/*",

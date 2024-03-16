@@ -5,6 +5,9 @@
             "cache": false,
             "persistent": true
           },
+          "docker": {
+            "cache": false
+          },
           "sqitch": {
             "cache": false
           },
