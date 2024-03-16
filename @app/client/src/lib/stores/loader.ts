@@ -8,9 +8,9 @@ const initialLoader = {
     middleButton: '',
     type: '',
     verticalMiddle: false,
-    onMiddle: () => undefined,
-    onClose: () => undefined,
-    onConfirm: () => undefined
+    onMiddle: () => {},
+    onClose: () => {},
+    onConfirm: () => {}
   }
 };
 
@@ -24,9 +24,9 @@ export const setLoader = (
     button?: string;
     middleButton?: string;
     verticalMiddle?: boolean;
-    onClose?: () => undefined;
-    onConfirm?: () => undefined;
-    onMiddle?: () => undefined;
+    onClose?: () => void | Promise<void> | undefined;
+    onConfirm?: () => void | Promise<void> | undefined;
+    onMiddle?: () => void | Promise<void> | undefined;
   }
 ): void => {
   resetLoader();

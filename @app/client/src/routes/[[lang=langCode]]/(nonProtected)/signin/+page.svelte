@@ -53,8 +53,9 @@
               type: 'error',
               middleButton: $LL.desc.resendEmail(),
               verticalMiddle: true,
-              onMiddle: async () =>
+              onMiddle: async () => {
                 await API.post('auth/sendmail', {email: dataForm.get('email')})
+              }
             });
           form.reset();
           return;
