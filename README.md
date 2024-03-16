@@ -16,11 +16,14 @@ This Github repository presents this refactored version of the application, whic
 - Infrastructure: Docker and a virtual machine
 
 ## How to start the application locally
+
 ```
-- Install the database with the initDB and change .env based on .env.example of the project
+- Update Docker: Make sure Docker is up-to-date on your system
 - Install the dependencies using pnpm: pnpm install
-- Start server and client, both using ppm : pnpm run dev
+- Execute the following command to initialize the database in a dedicated Docker container: pnpm -w run server:docker
+- Add .env based on .env.example
+- Start server and client, both using pnpm : pnpm run dev
 - Enjoy !
 ```
 
-Note that you need to have pnpm installed on your computer in order to use the above commands.
+Note: If you choose to use a different package manager, such as npm or yarn, you'll need to adjust the scripts accordingly.
